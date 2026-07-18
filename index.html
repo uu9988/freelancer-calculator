@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Freelancer Calculator Hub | Hourly Rate Calculator</title>
+    <meta
+      name="description"
+      content="Use the Freelance Hourly Rate Calculator to estimate a sustainable freelance hourly rate, required pre-tax revenue, and monthly income target for your business."
+    />
+    <meta
+      name="keywords"
+      content="freelance hourly rate calculator, freelance rate calculator, hourly rate calculator, freelance pricing tool"
+    />
+    <meta name="robots" content="index,follow" />
+    <link rel="canonical" href="https://example.com/" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="container nav">
+        <a class="brand" href="index.html">Freelancer Calculator Hub</a>
+        <nav class="site-nav" aria-label="Main navigation">
+          <a href="#calculator">Calculator</a>
+          <a href="#faq">FAQ</a>
+          <a href="about.html">About</a>
+          <a href="terms.html">Terms</a>
+          <a href="privacy.html">Privacy</a>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div class="container hero-grid">
+          <div>
+            <p class="eyebrow">English SEO static tool</p>
+            <h1>Freelance Hourly Rate Calculator</h1>
+            <p class="hero-copy">
+              Estimate a fair freelance hourly rate, required pre-tax revenue, and
+              monthly income targets based on your real business assumptions.
+            </p>
+            <div class="hero-actions">
+              <a class="button primary" href="#calculator">Try the calculator</a>
+              <a class="button secondary" href="#faq">Read FAQ</a>
+            </div>
+            <p class="hero-note">
+              This free calculator helps freelancers price services with confidence,
+              plan for taxes, and compare different income scenarios.
+            </p>
+          </div>
+
+          <div class="hero-card">
+            <h2>What this tool helps with</h2>
+            <ul>
+              <li>Set a sustainable freelance hourly rate</li>
+              <li>Estimate pre-tax revenue and tax obligations</li>
+              <li>Plan monthly and annual income targets</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section id="calculator" class="calculator-section">
+        <div class="container calc-grid">
+          <div class="card form-card">
+            <h2>Calculator inputs</h2>
+            <p class="card-intro">
+              Enter your income and business assumptions to estimate a sustainable
+              freelance rate for your services.
+            </p>
+
+            <form id="rate-form" class="input-grid">
+              <label>
+                Target annual take-home income
+                <input id="targetAnnualTakeHomeIncome" type="number" value="60000" />
+              </label>
+              <label>
+                Working days per week
+                <input id="workingDaysPerWeek" type="number" value="5" />
+              </label>
+              <label>
+                Working hours per day
+                <input id="workingHoursPerDay" type="number" value="8" />
+              </label>
+              <label>
+                Vacation days per year
+                <input id="vacationDaysPerYear" type="number" value="20" />
+              </label>
+              <label>
+                Public holidays per year
+                <input id="publicHolidaysPerYear" type="number" value="10" />
+              </label>
+              <label>
+                Annual business expenses
+                <input id="annualBusinessExpenses" type="number" value="5000" />
+              </label>
+              <label>
+                Estimated tax rate (%)
+                <input id="estimatedTaxRate" type="number" value="20" />
+              </label>
+              <label>
+                Billable time percentage (%)
+                <input id="billableTimePercentage" type="number" value="80" />
+              </label>
+            </form>
+          </div>
+
+          <div class="card result-card">
+            <h2>Results preview</h2>
+            <p id="statusMessage" class="status-message success">
+              Calculation completed successfully.
+            </p>
+            <div id="resultsGrid" class="metric-grid"></div>
+
+            <div class="chart-box">
+              <canvas id="incomeChart" aria-label="Income composition chart"></canvas>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="info-section">
+        <div class="container info-grid">
+          <article class="card">
+            <h3>Why this calculator matters</h3>
+            <p>
+              Many freelancers set rates too low and struggle to cover costs. A
+              simple calculator helps turn income goals into a dependable hourly
+              pricing strategy.
+            </p>
+          </article>
+          <article class="card">
+            <h3>Built for simple growth</h3>
+            <p>
+              This page is designed as a practical foundation for future tools such
+              as project estimate calculators, invoice calculators, and tax planning
+              helpers.
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <section id="faq" class="faq-section">
+        <div class="container">
+          <h2>Frequently asked questions about freelance pricing</h2>
+          <div class="faq-list">
+            <details open>
+              <summary>Is this calculator free to use?</summary>
+              <p>
+                Yes. The first version is designed to be simple and useful without
+                requiring sign-up.
+              </p>
+            </details>
+            <details>
+              <summary>Does this tool replace a financial advisor?</summary>
+              <p>
+                No. It is a practical planning tool for freelancers and should be
+                used alongside your own judgement and business decisions.
+              </p>
+            </details>
+            <details>
+              <summary>Will more calculators be added later?</summary>
+              <p>
+                Yes. This page is designed as a foundation for more freelance and
+                business planning tools in the future.
+              </p>
+            </details>
+          </div>
+        </div>
+      </section>
+
+      <section class="cta-section">
+        <div class="container cta-card">
+          <h2>Ready to calculate a better freelance rate?</h2>
+          <p>
+            Use the calculator to estimate a sustainable rate that supports your
+            desired income and business expenses.
+          </p>
+          <a class="button primary" href="#calculator">Open the calculator</a>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container footer-row">
+        <p>© 2026 Freelancer Calculator Hub</p>
+        <a href="privacy.html">Privacy Policy</a>
+      </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="js/calculator.js"></script>
+  </body>
+</html>
