@@ -4,24 +4,92 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Freelance Hourly Rate Calculator - Calculate Your Ideal Rate</title>
-    <meta
-      name="description"
-      content="Free freelance hourly rate calculator to estimate your ideal hourly rate, monthly income goals, and freelance pricing strategy."
-    />
+    <meta name="description" content="Free freelance hourly rate calculator to estimate your ideal hourly rate, monthly income goals, and freelance pricing strategy." />
+    <!-- Google Analytics placeholder -->
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'GA_MEASUREMENT_ID');
+    </script>
+    <!-- Adsense placeholder -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <script>
+      (adsbygoogle = window.adsbygoogle || []).push({
+        google_ad_client: 'ca-pub-0000000000000000',
+        enable_page_level_ads: true
+      });
+    </script>
+    <link rel="canonical" href="https://uu9988.github.io/freelancer-calculator/" />
+    <meta name="robots" content="index,follow" />
+    <link rel="icon" href="favicon.svg" type="image/svg+xml" />
     <meta property="og:title" content="Freelance Hourly Rate Calculator - Calculate Your Ideal Rate" />
     <meta property="og:description" content="Free freelance hourly rate calculator to estimate your ideal hourly rate, monthly income goals, and freelance pricing strategy." />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://uu9988.github.io/freelancer-calculator/" />
     <meta property="og:site_name" content="Freelancer Calculator Hub" />
-    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="Freelance Hourly Rate Calculator - Calculate Your Ideal Rate" />
     <meta name="twitter:description" content="Free freelance hourly rate calculator to estimate your ideal hourly rate, monthly income goals, and freelance pricing strategy." />
-    <meta name="robots" content="index,follow" />
+    <meta name="twitter:site" content="@FreelancerCalcHub" />
+    <link rel="stylesheet" href="styles.css" />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://uu9988.github.io/freelancer-calculator/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Freelance Hourly Rate Calculator - Calculate Your Ideal Rate",
+            "item": "https://uu9988.github.io/freelancer-calculator/"
+          }
+        ]
+      }
+    </script>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "How does this calculator help freelancers?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "It helps freelancers estimate pricing, revenue targets, and costs so they can make smarter business decisions."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Is this tool free to use?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes. All tools on Freelancer Calculator Hub are free and provided for informational purposes."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What should I include in my billable hours estimate?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Use realistic client work hours and factor in meetings, proposals, and admin time so your hourly rate covers actual billable time."
+            }
+          }
+        ]
+      }
+    </script>
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
         "@type": "WebApplication",
-        "name": "Freelance Hourly Rate Calculator",
+        "name": "Freelance Hourly Rate Calculator - Calculate Your Ideal Rate",
         "url": "https://uu9988.github.io/freelancer-calculator/",
         "description": "Free freelance hourly rate calculator to estimate your ideal hourly rate, monthly income goals, and freelance pricing strategy.",
         "applicationCategory": "BusinessApplication",
@@ -33,17 +101,17 @@
         }
       }
     </script>
-    <link rel="canonical" href="https://uu9988.github.io/freelancer-calculator/" />
-    <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
-    <header class="site-header">
+            <header class="site-header">
       <div class="container nav">
         <a class="brand" href="index.html">Freelancer Calculator Hub</a>
         <nav class="site-nav" aria-label="Main navigation">
-          <a href="#calculator">Calculator</a>
-          <a href="#faq">FAQ</a>
+          <a href="index.html">Home</a>
+          <a href="index.html#calculator">Calculator</a>
+          <a href="index.html#faq">FAQ</a>
           <a href="about.html">About</a>
+          <a href="contact.html">Contact</a>
           <a href="terms.html">Terms</a>
           <a href="privacy.html">Privacy</a>
         </nav>
@@ -198,7 +266,7 @@
               Calculation completed successfully.
             </p>
             <div id="resultsGrid" class="metric-grid"></div>
-
+            <button type="button" class="button secondary" onclick="shareResults()">Share results</button>
             <div class="chart-box">
               <canvas id="incomeChart" aria-label="Income composition chart"></canvas>
             </div>
@@ -206,7 +274,32 @@
         </div>
       </section>
 
-      <section class="info-section">
+            <section class="page-section">
+        <div class="container content-card">
+          <h2>How to use this hourly rate calculator</h2>
+          <p>Enter your target annual take-home income, work schedule, business expenses, tax rate, and estimated billable time to compute a practical freelance hourly rate.</p>
+          <h3>Calculation formula</h3>
+          <p>Required pre-tax revenue = (take-home income + business expenses) / (1 - tax rate).</p>
+          <p>Minimum hourly rate = required pre-tax revenue / billable hours.</p>
+          <p>Recommended hourly rate = minimum hourly rate × 1.15.</p>
+          <h3>Example</h3>
+          <p>For a $60,000 target income, 5 workdays, 8 hours/day, 80% billable time, 20% tax rate, the calculator estimates your effective hourly rate and revenue targets.</p>
+          <h3>Frequently Asked Questions</h3>
+          <details>
+            <summary>How do I choose my freelance hourly rate?</summary>
+            <p>Start with your target income, add business expenses and taxes, then divide by realistic billable hours to find your baseline rate.</p>
+          </details>
+          <details>
+            <summary>What should I include in business expenses?</summary>
+            <p>Include software, subscriptions, equipment, marketing costs, insurance, and any other expenses required to run your freelance business.</p>
+          </details>
+          <details>
+            <summary>Does this calculator include taxes?</summary>
+            <p>Yes, you can include an estimated tax rate to factor tax obligations into your required pre-tax revenue.</p>
+          </details>
+        </div>
+      </section>
+<section class="info-section">
         <div class="container info-grid">
           <article class="card">
             <h3>Why this calculator matters</h3>
@@ -266,16 +359,93 @@
           <a class="button primary" href="#calculator">Open the calculator</a>
         </div>
       </section>
+          <section class="related-tools">
+        <div class="container content-card">
+          <h2>Related tools</h2>
+          <p>Browse other freelance calculator pages that help with pricing, income planning, and business costs.</p>
+          <ul class="related-list">
+            <li><a href="freelance-budget-calculator.html">Budget Calculator</a></li>
+            <li><a href="freelance-business-calculator.html">Business Calculator</a></li>
+            <li><a href="freelance-cost-calculator.html">Cost Calculator</a></li>
+            <li><a href="freelance-expense-calculator.html">Expense Calculator</a></li>
+            <li><a href="freelance-hourly-income-calculator.html">Hourly Income Calculator</a></li>
+          </ul>
+        </div>
+      </section>
     </main>
 
-    <footer class="site-footer">
+            <footer class="site-footer">
       <div class="container footer-row">
+        <div class="footer-nav">
+          <a href="index.html">Home</a>
+          <a href="about.html">About</a>
+          <a href="contact.html">Contact</a>
+          <a href="privacy.html">Privacy</a>
+          <a href="terms.html">Terms</a>
+        </div>
         <p>© 2026 Freelancer Calculator Hub</p>
-        <a href="privacy.html">Privacy Policy</a>
       </div>
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+      const storageKey = 'freelancerRateCalculatorInputs';
+      function saveCalculatorState(values) {
+        localStorage.setItem(storageKey, JSON.stringify(values));
+      }
+      function loadCalculatorState() {
+        try {
+          const raw = localStorage.getItem(storageKey);
+          return raw ? JSON.parse(raw) : null;
+        } catch {
+          return null;
+        }
+      }
+      function fillForm(values) {
+        if (!values) return;
+        Object.keys(values).forEach((key) => {
+          const input = document.getElementById(key);
+          if (input && typeof values[key] !== 'undefined') {
+            input.value = values[key];
+          }
+        });
+      }
+      function shareResults() {
+        const results = Array.from(document.querySelectorAll('#resultsGrid .metric strong')).map((node) => node.textContent).join(', ');
+        const shareText = `Freelance rate results: ${results}`;
+        if (navigator.share) {
+          navigator.share({ title: 'Freelance Rate Results', text: shareText, url: window.location.href });
+        } else {
+          window.prompt('Copy your results:', shareText);
+        }
+      }
+      function initHistory() {
+        const values = loadCalculatorState();
+        if (values) {
+          fillForm(values);
+        }
+      }
+      document.addEventListener('DOMContentLoaded', () => {
+        initHistory();
+        const form = document.getElementById('rate-form');
+        if (form) {
+          form.addEventListener('input', () => {
+            const values = {
+              targetAnnualTakeHomeIncome: document.getElementById('targetAnnualTakeHomeIncome').value,
+              workingDaysPerWeek: document.getElementById('workingDaysPerWeek').value,
+              workingHoursPerDay: document.getElementById('workingHoursPerDay').value,
+              vacationDaysPerYear: document.getElementById('vacationDaysPerYear').value,
+              publicHolidaysPerYear: document.getElementById('publicHolidaysPerYear').value,
+              annualBusinessExpenses: document.getElementById('annualBusinessExpenses').value,
+              estimatedTaxRate: document.getElementById('estimatedTaxRate').value,
+              billableTimePercentage: document.getElementById('billableTimePercentage').value
+            };
+            saveCalculatorState(values);
+          });
+        }
+      });
+    </script>
+
     <script src="js/calculator.js"></script>
   </body>
 </html>

@@ -2,3 +2,7 @@ User-agent: *
 Allow: /
 
 Sitemap: https://uu9988.github.io/freelancer-calculator/sitemap.xml
+Sitemap: https://uu9988.github.io/freelancer-calculator/pages-sitemap.xml
+Sitemap: https://uu9988.github.io/freelancer-calculator/tools-sitemap.xml
+Sitemap: https://uu9988.github.io/freelancer-calculator/blog/sitemap.xml
+Sitemap: https://uu9988.github.io/freelancer-calculator/rss.xml

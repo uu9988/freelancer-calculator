@@ -141,13 +141,7 @@ h1 {
   color: #fff;
 }
 
-.button.secondary {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  color: var(--text);
-}
-
-.hero-card,
+ .hero-card,
 .card,
 .cta-card,
 .content-card {
