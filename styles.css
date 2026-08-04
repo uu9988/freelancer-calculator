@@ -23,7 +23,6 @@ body {
   color: var(--text);
   background: var(--bg);
   line-height: 1.6;
-  overflow-x: hidden;
 }
 
 a {
@@ -175,6 +174,11 @@ h1 {
   gap: 1.5rem;
 }
 
+.calc-grid > *,
+.result-card {
+  min-width: 0;
+}
+
 .card {
   padding: 1.5rem;
 }
@@ -248,13 +252,24 @@ input {
 }
 
 .chart-box {
-  min-height: 220px;
+  width: 100%;
+  max-width: 700px;
+  height: 400px;
+  margin: 1.25rem auto 0;
+  padding: 1rem;
   border: 1px dashed var(--border);
   border-radius: 0.9rem;
   display: flex;
   align-items: center;
   justify-content: center;
   background: linear-gradient(135deg, #f8fbff 0%, #f4f7ff 100%);
+}
+
+.chart-box canvas {
+  display: block;
+  width: 100% !important;
+  height: 100% !important;
+  max-width: 100%;
 }
 
 .info-grid {
@@ -340,5 +355,10 @@ details p {
 
   .hero {
     padding-top: 2rem;
+  }
+
+  .chart-box {
+    height: 300px;
+    padding: 0.75rem;
   }
 }
