@@ -17,6 +17,118 @@
     <meta name="twitter:title" content="Freelance Quote Calculator | Estimate Project Prices" />
     <meta name="twitter:description" content="Build a freelance quote from estimated work, a sustainable rate, project costs, revisions, and contingency before presenting a price to a client." />
     <link rel="stylesheet" href="/freelancer-calculator/styles.css" />
+    <style>
+      .quote-calculator-page {
+        padding: 3rem 0;
+      }
+
+      .quote-calculator-page [hidden] {
+        display: none !important;
+      }
+
+      .quote-note {
+        margin: 1rem 0 1.5rem;
+        padding: 0.8rem 1rem;
+        border-left: 4px solid var(--primary);
+        border-radius: 0.6rem;
+        background: var(--accent);
+      }
+
+      .quote-calculator-page .field-help,
+      .quote-calculator-page .form-note {
+        color: var(--muted);
+        font-weight: 400;
+        line-height: 1.4;
+      }
+
+      .quote-calculator-page .field-help,
+      .quote-calculator-page .field-error {
+        font-size: 0.82rem;
+      }
+
+      .quote-calculator-page .field-error {
+        min-height: 1.2em;
+        color: #b91c1c;
+        font-weight: 600;
+      }
+
+      .quote-calculator-page .form-note,
+      .quote-calculator-page .form-actions {
+        grid-column: 1 / -1;
+      }
+
+      .quote-calculator-page .form-note {
+        margin: 0;
+        font-size: 0.9rem;
+      }
+
+      .quote-calculator-page .form-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.75rem;
+        margin-top: 0.25rem;
+      }
+
+      .quote-calculator-page button {
+        min-height: 44px;
+        border: 0;
+        font: inherit;
+        cursor: pointer;
+      }
+
+      .quote-calculator-page .button.secondary {
+        border: 1px solid var(--border);
+        background: var(--surface);
+        color: var(--primary-dark);
+      }
+
+      .quote-calculator-page input[aria-invalid="true"] {
+        border-color: #b91c1c;
+        box-shadow: 0 0 0 2px rgba(185, 28, 28, 0.12);
+      }
+
+      .quote-calculator-page .final-quote-metric {
+        grid-column: 1 / -1;
+        border: 2px solid var(--primary);
+        background: #eff6ff;
+      }
+
+      .quote-calculator-page .final-quote-metric strong {
+        color: var(--primary-dark);
+        font-size: 1.45rem;
+      }
+
+      .quote-calculator-page .definition-list {
+        display: grid;
+        gap: 0.75rem;
+        margin: 1.25rem 0;
+      }
+
+      .quote-calculator-page .definition-list dt {
+        font-weight: 700;
+      }
+
+      .quote-calculator-page .definition-list dd {
+        margin: 0;
+        color: var(--muted);
+      }
+
+      .quote-calculator-page .zero-quote-message {
+        background: #fff7ed;
+        color: #9a3412;
+      }
+
+      @media (max-width: 640px) {
+        .quote-calculator-page {
+          padding: 2rem 0;
+        }
+
+        .quote-calculator-page .form-actions .button {
+          flex: 1 1 100%;
+          text-align: center;
+        }
+      }
+    </style>
     <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -24,7 +136,20 @@
   "name": "Freelance Quote Calculator | Estimate Project Prices",
   "description": "Build a freelance quote from estimated work, a sustainable rate, project costs, revisions, and contingency before presenting a price to a client.",
   "url": "https://uu9988.github.io/freelancer-calculator/freelance-quote-calculator.html",
-  "inLanguage": "en"
+  "inLanguage": "en",
+  "mainEntity": {
+    "@type": "WebApplication",
+    "name": "Freelance Quote Calculator",
+    "description": "Estimate a client-facing project quote from labor, direct expenses, contingency, and an optional discount.",
+    "url": "https://uu9988.github.io/freelancer-calculator/freelance-quote-calculator.html",
+    "applicationCategory": "BusinessApplication",
+    "operatingSystem": "Any",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    }
+  }
 }
     </script>
     <script type="application/ld+json">
@@ -34,18 +159,66 @@
   "mainEntity": [
     {
       "@type": "Question",
-      "name": "What should a quote include?",
+      "name": "What should I include in estimated project hours?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "It should include scope, deliverables, pricing assumptions, timeline, and payment terms."
+        "text": "Include research, meetings, production, revisions, testing, delivery, and reasonable project administration. Use a realistic estimate based on the agreed scope rather than only the visible production time."
       }
     },
     {
       "@type": "Question",
-      "name": "Can this help with proposals?",
+      "name": "What counts as a direct project expense?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Yes. A clear quote supports professional client conversations and improves trust."
+        "text": "Include costs that exist because of this project, such as stock assets, travel, subcontractors, printing, special software licenses, or materials. Keep general personal spending separate."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How much contingency should I add?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Choose a percentage that reflects reasonable uncertainty, coordination, and minor changes in this specific scope. Contingency is a planning buffer, not a hidden charge or automatic profit margin."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Should I give every client a discount?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. Use a discount only when there is a clear business reason, such as reduced scope, a longer commitment, or another documented trade-off. A discount should not silently reduce an already unsustainable rate."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is the final quote the same as an invoice?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. The final quote is a planning amount to present before work begins. An invoice requests payment according to the accepted scope, contract, milestones, and payment terms."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Does this calculator include taxes?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. It does not calculate VAT, sales tax, income tax, deductions, or location-specific legal requirements. Confirm any required tax treatment with a qualified local professional; this tool is not tax or legal advice."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What if the client changes the project scope?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Document the change, estimate its effect on hours and expenses, and use a change order or revised quote before completing the additional work. Do not rely on a small contingency to absorb a materially different scope."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Should I quote hourly or use a fixed project price?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Hourly pricing can suit uncertain or evolving work, while a fixed project price can suit a clearly defined scope. This calculator uses hours and a rate to build a client-facing project amount, but the commercial format remains your decision."
       }
     }
   ]
@@ -53,7 +226,7 @@
     </script>
   </head>
   <body>
-            <header class="site-header">
+    <header class="site-header">
       <div class="container nav">
         <a class="brand" href="/freelancer-calculator/">Freelancer Calculator Hub</a>
         <nav class="site-nav" aria-label="Main navigation">
@@ -68,62 +241,222 @@
         </nav>
       </div>
     </header>
+
     <main>
+      <section id="calculator" class="calculator-section quote-calculator-page">
+        <div class="container">
+          <h1>Freelance Quote Calculator</h1>
+          <p class="hero-copy">Estimate how much to quote a client by combining project labor, direct expenses, a reasonable contingency buffer, and an optional client discount.</p>
+          <p class="quote-note"><strong>Use one currency for every monetary input.</strong> The calculator does not convert currencies or add VAT, sales tax, or location-specific taxes. Example figures are not recommended defaults.</p>
+
+          <div class="calc-grid">
+            <div class="card form-card">
+              <h2>Project quote assumptions</h2>
+              <p class="card-intro">Enter the effort and costs for this client project. A discount is optional and may be entered as 0.</p>
+
+              <form id="quoteCalculatorForm" class="input-grid" novalidate>
+                <label for="estimatedProjectHours">
+                  Estimated project hours
+                  <input id="estimatedProjectHours" name="estimatedProjectHours" type="number" min="0.25" max="10000" step="0.25" inputmode="decimal" required aria-describedby="estimatedProjectHoursHelp estimatedProjectHoursError" />
+                  <span id="estimatedProjectHoursHelp" class="field-help">Include research, meetings, production, revisions, testing, delivery, and reasonable project administration.</span>
+                  <span id="estimatedProjectHoursError" class="field-error" aria-live="polite"></span>
+                </label>
+
+                <label for="quoteHourlyRate">
+                  Hourly rate ($)
+                  <input id="quoteHourlyRate" name="quoteHourlyRate" type="number" min="0.01" step="0.01" inputmode="decimal" required aria-describedby="quoteHourlyRateHelp quoteHourlyRateError" />
+                  <span id="quoteHourlyRateHelp" class="field-help">Use your normal billable rate or the result from the Freelance Hourly Rate Calculator.</span>
+                  <span id="quoteHourlyRateError" class="field-error" aria-live="polite"></span>
+                </label>
+
+                <label for="directProjectExpenses">
+                  Direct project expenses ($)
+                  <input id="directProjectExpenses" name="directProjectExpenses" type="number" min="0" step="0.01" inputmode="decimal" required aria-describedby="directProjectExpensesHelp directProjectExpensesError" />
+                  <span id="directProjectExpensesHelp" class="field-help">Include project-specific stock assets, travel, subcontractors, printing, licenses, or materials. Enter 0 if none.</span>
+                  <span id="directProjectExpensesError" class="field-error" aria-live="polite"></span>
+                </label>
+
+                <label for="contingencyBufferPercentage">
+                  Contingency buffer (%)
+                  <input id="contingencyBufferPercentage" name="contingencyBufferPercentage" type="number" min="0" max="100" step="0.1" inputmode="decimal" required aria-describedby="contingencyBufferPercentageHelp contingencyBufferPercentageError" />
+                  <span id="contingencyBufferPercentageHelp" class="field-help">Allow for reasonable uncertainty, scope risk, additional coordination, and minor changes. Enter 0 if unnecessary.</span>
+                  <span id="contingencyBufferPercentageError" class="field-error" aria-live="polite"></span>
+                </label>
+
+                <label for="clientDiscountPercentage">
+                  Client discount (%)
+                  <input id="clientDiscountPercentage" name="clientDiscountPercentage" type="number" min="0" max="100" step="0.1" inputmode="decimal" required aria-describedby="clientDiscountPercentageHelp clientDiscountPercentageError" />
+                  <span id="clientDiscountPercentageHelp" class="field-help">An optional reduction applied after labor, expenses, and contingency are included. Enter 0 for no discount.</span>
+                  <span id="clientDiscountPercentageError" class="field-error" aria-live="polite"></span>
+                </label>
+
+                <p class="form-note">Use the same currency for the hourly rate and expenses. The tool does not perform currency conversion, and the quote excludes taxes that may apply locally.</p>
+
+                <div class="form-actions">
+                  <button type="submit" class="button primary">Calculate Quote</button>
+                  <button type="reset" class="button secondary">Reset</button>
+                </div>
+              </form>
+
+              <div id="quoteErrorSummary" class="status-message error" role="alert" aria-live="assertive" hidden></div>
+            </div>
+
+            <div class="card result-card quote-result-card">
+              <h2>Your client quote</h2>
+              <p id="quoteStatusMessage" class="status-message" role="status" aria-live="polite">Enter your project assumptions and select Calculate Quote.</p>
+              <div id="quoteResults" class="metric-grid" aria-live="polite" hidden></div>
+              <p id="zeroQuoteMessage" class="status-message zero-quote-message" role="status" aria-live="polite" hidden></p>
+
+              <dl class="definition-list">
+                <div>
+                  <dt>Labor subtotal</dt>
+                  <dd>Estimated project hours multiplied by your hourly rate.</dd>
+                </div>
+                <div>
+                  <dt>Direct project expenses</dt>
+                  <dd>Project-specific costs included in the quote; they should not be treated as personal income.</dd>
+                </div>
+                <div>
+                  <dt>Contingency</dt>
+                  <dd>A reasonable risk buffer for uncertainty, coordination, and minor changes—not a hidden markup.</dd>
+                </div>
+                <div>
+                  <dt>Discount</dt>
+                  <dd>An optional reduction that lowers the final client quote.</dd>
+                </div>
+                <div>
+                  <dt>Final client quote</dt>
+                  <dd>A planning amount to present to the client, not a legal contract or formal invoice.</dd>
+                </div>
+                <div>
+                  <dt>Effective quoted hourly value</dt>
+                  <dd>The final quote divided by estimated hours. It includes expenses, contingency, and discount effects, so it is not a pure hourly rate.</dd>
+                </div>
+              </dl>
+
+              <button type="button" id="copyLinkButton" class="button secondary">Copy Link</button>
+              <p id="shareStatusMessage" class="status-message share-status-message" role="status" aria-live="polite"></p>
+              <textarea id="shareLinkText" class="share-link-text" readonly hidden></textarea>
+            </div>
+          </div>
+        </div>
+      </section>
+
       <section class="page-section">
         <div class="container content-card">
-          <h1>Freelance Quote Calculator</h1>
-          <p>A freelance quote calculator helps you estimate the amount to quote for a project based on effort, scope, and business needs.</p>
-          <h2>Introduction</h2>
-          <p>Professional quotes help clients understand the value of your work and allow you to price confidently.</p>
-          <h2>How It Works</h2>
-          <p>You estimate the time, costs, and profit needed to deliver a project and turn that into a clear quote.</p>
-          <h2>Calculation Explanation</h2>
-          <p>Quotes are usually built from labor, material or tool costs, and a margin that reflects business sustainability.</p>
-          <h2>Examples</h2>
-          <ul>
-            <li>Estimate a quote for a small client project</li>
-            <li>Compare quotes for different scopes of work</li>
-            <li>Include overhead and contingency in the total</li>
-          </ul>
-          <h2>FAQ</h2>
-          <details>
-            <summary>What should a quote include?</summary>
-            <p>It should include scope, deliverables, pricing assumptions, timeline, and payment terms.</p>
-          </details>
-          <details>
-            <summary>Can this help with proposals?</summary>
-            <p>Yes. A clear quote supports professional client conversations and improves trust.</p>
-          </details>
-          <h2>Related Tools</h2>
-          <p>See the <a href="/freelancer-calculator/freelance-pricing-calculator.html">freelance pricing calculator</a> and the <a href="/freelancer-calculator/#calculator">main calculator</a> for further guidance.</p>
+          <h2>How the quote calculation works</h2>
+          <p>This calculator builds a client-facing project quote. It does not estimate internal profit, generate an invoice, schedule payments, or calculate taxes.</p>
+
+          <h3>Calculation formulas</h3>
+          <p><strong>Labor subtotal</strong><br />estimated project hours × hourly rate</p>
+          <p><strong>Base project amount</strong><br />labor subtotal + direct project expenses</p>
+          <p><strong>Contingency amount</strong><br />base project amount × contingency buffer percentage</p>
+          <p><strong>Quote before discount</strong><br />base project amount + contingency amount</p>
+          <p><strong>Discount amount</strong><br />quote before discount × client discount percentage</p>
+          <p><strong>Final client quote</strong><br />quote before discount - discount amount</p>
+          <p><strong>Effective quoted hourly value</strong><br />final client quote ÷ estimated project hours</p>
+          <p>No automatic profit margin or hidden formula is added. Contingency is an explicit project-risk buffer, and direct expenses remain project costs rather than personal income.</p>
         </div>
       </section>
-      <section class="page-section planning-notes">
+
+      <section class="page-section">
         <div class="container content-card">
-          <h2>How to estimate a freelance quote</h2>
-          <p>Confirm scope and deliverables, estimate the work required, add direct costs, and state assumptions about revisions, deadlines, and items that fall outside the quote.</p>
-          <h2>Quote estimate formula</h2>
-          <p>Quote baseline = estimated hours x sustainable rate + direct project costs + contingency. Taxes should be shown separately when local rules require them.</p>
-          <h2>Quote example</h2>
-          <p>A 24-hour assignment at $90 per hour with $150 in direct costs and a $250 contingency produces a quote baseline of $2,560.</p>
+          <h2>Complete freelance quote example</h2>
+          <p><strong>These are example assumptions, not recommended defaults.</strong></p>
+
+          <h3>Assumptions</h3>
+          <ul>
+            <li>Estimated project hours: 40</li>
+            <li>Hourly rate: $75</li>
+            <li>Direct project expenses: $300</li>
+            <li>Contingency buffer: 10%</li>
+            <li>Client discount: 5%</li>
+          </ul>
+
+          <h3>Calculated results</h3>
+          <ul>
+            <li>Labor subtotal: $3,000.00</li>
+            <li>Base project amount: $3,300.00</li>
+            <li>Contingency amount: $330.00</li>
+            <li>Quote before discount: $3,630.00</li>
+            <li>Discount amount: $181.50</li>
+            <li>Final client quote: $3,448.50</li>
+            <li>Effective quoted hourly value: approximately $86.21</li>
+          </ul>
         </div>
       </section>
-    <section class="related-tools">
-      <div class="container content-card">
-        <h2>Related tools</h2>
-        <p>Compare this estimate with other planning tools that cover the same freelance decision from a different angle.</p>
-        <ul class="related-list">
+
+      <section class="page-section">
+        <div class="container content-card">
+          <h2>How to use your quote</h2>
+          <ol>
+            <li>Confirm the scope and deliverables before sending the quote.</li>
+            <li>State how many revision rounds are included.</li>
+            <li>Keep a reasonable contingency when the scope contains genuine uncertainty.</li>
+            <li>Offer a discount only for a clear business reason, not automatically.</li>
+            <li>List project-specific expenses separately so the client understands what they cover.</li>
+            <li>Include a payment schedule and an expiry date in the written quote.</li>
+            <li>Use a change order or revised quote when the project scope changes.</li>
+            <li>Do not ignore your minimum acceptable rate merely to match the client's budget.</li>
+          </ol>
+        </div>
+      </section>
+
+      <section id="faq" class="faq-section page-section">
+        <div class="container content-card">
+          <h2>Freelance quote calculator FAQ</h2>
+          <div class="faq-list">
+            <details>
+              <summary>What should I include in estimated project hours?</summary>
+              <p>Include research, meetings, production, revisions, testing, delivery, and reasonable project administration. Use a realistic estimate based on the agreed scope rather than only the visible production time.</p>
+            </details>
+            <details>
+              <summary>What counts as a direct project expense?</summary>
+              <p>Include costs that exist because of this project, such as stock assets, travel, subcontractors, printing, special software licenses, or materials. Keep general personal spending separate.</p>
+            </details>
+            <details>
+              <summary>How much contingency should I add?</summary>
+              <p>Choose a percentage that reflects reasonable uncertainty, coordination, and minor changes in this specific scope. Contingency is a planning buffer, not a hidden charge or automatic profit margin.</p>
+            </details>
+            <details>
+              <summary>Should I give every client a discount?</summary>
+              <p>No. Use a discount only when there is a clear business reason, such as reduced scope, a longer commitment, or another documented trade-off. A discount should not silently reduce an already unsustainable rate.</p>
+            </details>
+            <details>
+              <summary>Is the final quote the same as an invoice?</summary>
+              <p>No. The final quote is a planning amount to present before work begins. An invoice requests payment according to the accepted scope, contract, milestones, and payment terms.</p>
+            </details>
+            <details>
+              <summary>Does this calculator include taxes?</summary>
+              <p>No. It does not calculate VAT, sales tax, income tax, deductions, or location-specific legal requirements. Confirm any required tax treatment with a qualified local professional; this tool is not tax or legal advice.</p>
+            </details>
+            <details>
+              <summary>What if the client changes the project scope?</summary>
+              <p>Document the change, estimate its effect on hours and expenses, and use a change order or revised quote before completing the additional work. Do not rely on a small contingency to absorb a materially different scope.</p>
+            </details>
+            <details>
+              <summary>Should I quote hourly or use a fixed project price?</summary>
+              <p>Hourly pricing can suit uncertain or evolving work, while a fixed project price can suit a clearly defined scope. This calculator uses hours and a rate to build a client-facing project amount, but the commercial format remains your decision.</p>
+            </details>
+          </div>
+        </div>
+      </section>
+
+      <section class="related-tools">
+        <div class="container content-card">
+          <h2>Related tools</h2>
+          <p>Use your sustainable rate as the labor basis, compare the quote with internal delivery costs, and turn an accepted amount into a client invoice.</p>
+          <ul class="related-list">
             <li><a href="/freelancer-calculator/freelance-hourly-rate-calculator.html">Freelance Hourly Rate Calculator</a></li>
-            <li><a href="/freelancer-calculator/freelance-rate-calculator.html">Freelance Rate Calculator</a></li>
-            <li><a href="/freelancer-calculator/freelance-pricing-calculator.html">Freelance Pricing Calculator</a></li>
             <li><a href="/freelancer-calculator/freelance-project-cost-calculator.html">Freelance Project Cost Calculator</a></li>
-            <li><a href="/freelancer-calculator/freelance-hourly-rate-guide.html">Freelance Hourly Rate Guide</a></li>
-        </ul>
-        <p>Related reading: <a href="/freelancer-calculator/blog/hourly-rate-calculation-methods.html">Hourly Rate Calculation Methods</a>.</p>
-      </div>
-    </section>
+            <li><a href="/freelancer-calculator/freelance-invoice-calculator.html">Freelance Invoice Calculator</a></li>
+          </ul>
+          <p>Related reading: <a href="/freelancer-calculator/blog/hourly-rate-calculation-methods.html">Hourly Rate Calculation Methods</a>.</p>
+        </div>
+      </section>
     </main>
-            <footer class="site-footer">
+
+    <footer class="site-footer">
       <div class="container footer-row">
         <div class="footer-nav">
           <a href="/freelancer-calculator/">Home</a>
@@ -137,5 +470,8 @@
         <p>© 2026 Freelancer Calculator Hub</p>
       </div>
     </footer>
+
+    <script src="/freelancer-calculator/js/quote-calculator.js"></script>
+    <script src="/freelancer-calculator/js/share-page.js"></script>
   </body>
 </html>
