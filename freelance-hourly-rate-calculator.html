@@ -219,19 +219,35 @@
               <h2>Your calculated rates</h2>
               <p id="statusMessage" class="status-message" aria-live="polite">Adjust the example inputs to calculate your rates.</p>
               <div id="resultsGrid" class="metric-grid" aria-live="polite"></div>
-              <button
-                type="button"
-                id="shareResultsButton"
-                class="button secondary"
-              >
-                Share Results
-              </button>
+              <div class="share-actions">
+                <button
+                  type="button"
+                  id="copyLinkButton"
+                  class="button secondary"
+                >
+                  Copy Link
+                </button>
+                <button
+                  type="button"
+                  id="sharePageButton"
+                  class="button secondary"
+                  hidden
+                >
+                  Share Page
+                </button>
+              </div>
               <p
                 id="shareStatusMessage"
                 class="status-message share-status-message"
                 role="status"
                 aria-live="polite"
               ></p>
+              <textarea
+                id="shareLinkText"
+                class="share-link-text"
+                readonly
+                hidden
+              ></textarea>
               <div class="chart-box">
                 <canvas id="incomeChart" aria-label="Income composition chart"></canvas>
               </div>
@@ -381,6 +397,6 @@
     </footer>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="/freelancer-calculator/js/calculator.js"></script>
-    <script src="/freelancer-calculator/js/share-results.js"></script>
+    <script src="/freelancer-calculator/js/share-page.js"></script>
   </body>
 </html>
