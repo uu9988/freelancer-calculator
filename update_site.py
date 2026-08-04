@@ -1,30 +1,33 @@
 import glob
 import os
 import re
+import subprocess
+import sys
 
 base_url = "https://uu9988.github.io/freelancer-calculator/"
+project_path = "/freelancer-calculator/"
 
-nav_html = '''    <header class="site-header">
+nav_html = f'''    <header class="site-header">
       <div class="container nav">
-        <a class="brand" href="index.html">Freelancer Calculator Hub</a>
+        <a class="brand" href="{project_path}">Freelancer Calculator Hub</a>
         <nav class="site-nav" aria-label="Main navigation">
-          <a href="index.html">Home</a>
-          <a href="index.html#calculator">Calculator</a>
-          <a href="index.html#tools">Tools</a>
-          <a href="index.html#faq">FAQ</a>
-          <a href="about.html">About</a>
+          <a href="{project_path}">Home</a>
+          <a href="{project_path}#calculator">Calculator</a>
+          <a href="{project_path}#tools">Tools</a>
+          <a href="{project_path}#faq">FAQ</a>
+          <a href="{project_path}about.html">About</a>
         </nav>
       </div>
     </header>'''
 
-footer_html = '''    <footer class="site-footer">
+footer_html = f'''    <footer class="site-footer">
       <div class="container footer-row">
         <p>© 2026 Freelancer Calculator Hub</p>
-        <a href="index.html">Home</a>
-        <a href="index.html">Tools</a>
-        <a href="about.html">About</a>
-        <a href="privacy.html">Privacy</a>
-        <a href="terms.html">Terms</a>
+        <a href="{project_path}">Home</a>
+        <a href="{project_path}#tools">Tools</a>
+        <a href="{project_path}about.html">About</a>
+        <a href="{project_path}privacy.html">Privacy</a>
+        <a href="{project_path}terms.html">Terms</a>
       </div>
     </footer>'''
 
@@ -172,7 +175,7 @@ def generate_related_section(fn):
     links = related_links.get(fn)
     if not links:
         return ''
-    items = '\n'.join([f'              <li><a href="{href}">{text}</a></li>' for text, href in links])
+    items = '\n'.join([f'              <li><a href="{project_path}{href}">{text}</a></li>' for text, href in links])
     return f'''      <section class="page-section related-section">
         <div class="container content-card">
           <h2>Related Tools</h2>
@@ -196,14 +199,13 @@ def make_meta_tags(title, description, canonical_url):
     <meta name="twitter:description" content="{description}" />
     <meta name="robots" content="index,follow" />
     <link rel="canonical" href="{canonical_url}" />
-    <link rel="icon" href="favicon.ico" />'''
+    <link rel="icon" href="{project_path}favicon.svg" type="image/svg+xml" />'''
 
 
 def normalize_head(head_body, title, description, canonical_url):
     body = re.sub(r'<link[^>]+rel=["\']canonical["\'][^>]*>\s*', '', head_body, flags=re.I)
     body = re.sub(r'<link[^>]+rel=["\']icon["\'][^>]*>\s*', '', body, flags=re.I)
-    body = re.sub(r'<meta[^>]+(?:property=["\']og:[^"\']*["\']|name=["\']twitter:[^"\']*["\'])[^
->]*>\s*', '', body, flags=re.I)
+    body = re.sub(r'<meta[^>]+(?:property=["\']og:[^"\']*["\']|name=["\']twitter:[^"\']*["\'])[^>]*>\s*', '', body, flags=re.I)
     body = re.sub(r'<meta[^>]+name=["\']robots["\'][^>]*>\s*', '', body, flags=re.I)
     body = re.sub(r'<meta[^>]+name=["\']description["\'][^>]*>\s*', '', body, flags=re.I)
     body = re.sub(r'<title>.*?</title>\s*', '', body, flags=re.I|re.S)
@@ -283,3 +285,4 @@ with open('sitemap.xml', 'w', encoding='utf-8') as fh:
 
 print('updated', len(changed_files), 'HTML files')
 print('\n'.join(changed_files))
+subprocess.run([sys.executable, 'scripts/seo_repair.py', '--apply'], check=True)

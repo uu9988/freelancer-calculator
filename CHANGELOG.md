@@ -20,3 +20,26 @@
 - Added responsive mobile improvements for buttons, inputs, tables, and navigation
 - Updated keyword map to include the payment calculator page
 - Ran site audit to verify SEO consistency across updated pages
+
+## Phase 5 - 2026-08-03
+- Completed a full SEO audit across all public HTML pages, internal links, local assets, Schema, sitemaps, and robots directives
+- Optimized the homepage title, description, social metadata, introductory copy, WebSite schema, WebApplication schema, and visible FAQ mapping
+- Reclassified non-interactive tool landing pages from WebApplication to WebPage and preserved WebApplication only on the interactive homepage
+- Replaced generic tool-page planning sections with topic-specific methods, formulas, examples, related tools, and related article links
+- Reworked ten template-heavy blog articles with distinct topic-specific introductions, problems, solutions, examples, and next steps
+- Removed unverified Person and Organization data from Article schema and aligned every FAQPage block with visible page content
+- Consolidated the duplicate blog entry by keeping `/blog/` indexable and retaining `blog.html` as a noindex compatibility page
+- Fixed broken blog article links, footer links, favicon paths, and inconsistent Blog/Changelog navigation
+- Set `404.html` and the blog template to noindex and removed inappropriate structured data
+- Removed invalid Google Analytics and AdSense placeholder scripts without changing calculator logic
+- Removed RSS from robots Sitemap directives and verified the sitemap index plus 6 page, 22 tool, and 11 blog URLs
+- Rebuilt `audit_site.py` and added the idempotent `scripts/seo_repair.py` maintenance workflow
+- Final local audit result: 39 indexable URLs, 0 errors, 0 warnings
+
+## Phase 6 - 2026-08-03
+- Converted internal HTML links and local asset references to the GitHub Pages project-root path `/freelancer-calculator/`
+- Fixed blog navigation and article links that could duplicate the blog directory segment
+- Made every 404 page link, stylesheet, and favicon path safe when GitHub Pages renders the page for a nested missing URL
+- Updated blog generation and maintenance scripts so regenerated pages retain project-root paths
+- Expanded `audit_site.py` to simulate browser URL resolution and reject project-path escapes, duplicated blog paths, relative 404 references, and missing local assets
+- Verified the project with the parent-directory local server, browser navigation tests, and a final 0-error/0-warning audit

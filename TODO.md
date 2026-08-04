@@ -1,25 +1,46 @@
 # TODO
 
-## High Priority
+Last reviewed: 2026-08-03
 
-- 已统一所有 HTML 页面 header 和 footer，确保导航一致
-- 已创建 `404.html` 页面
-- 已添加 favicon 引用到所有页面
-- 已补充所有页面 SEO 元标签：title、description、canonical、robots、Open Graph、Twitter Card
-- 已修复 `sitemap.xml`，确保包含所有公开页面
+## Completed in the current SEO pass
 
-## Medium Priority
+- [x] Optimize the homepage title, description, canonical, Open Graph, Twitter Card, H1 and introductory copy
+- [x] Add valid homepage WebSite and WebApplication Schema
+- [x] Match all FAQPage Schema questions and answers to visible FAQ content
+- [x] Give all 39 indexable pages unique titles, descriptions and canonical URLs
+- [x] Correct Schema types for tools, articles, policy pages, About, Contact and Changelog
+- [x] Remove unverified Person, Organization, review and rating data
+- [x] Fix broken internal links, favicon paths and Blog navigation
+- [x] Use `/freelancer-calculator/` project-root paths for all internal HTML and local asset references
+- [x] Simulate nested GitHub Pages 404 URL resolution in the site audit
+- [x] Add topic-relevant links between calculator pages and blog articles
+- [x] Remove duplicate blog indexing signals while preserving the existing `blog.html` URL
+- [x] Exclude 404, verification files, the blog alias and the post template from sitemaps
+- [x] Remove the RSS Feed from robots Sitemap directives
+- [x] Validate sitemap XML, RSS XML and all JSON-LD blocks
+- [x] Repair and expand `audit_site.py`
+- [x] Add an idempotent SEO repair workflow in `scripts/seo_repair.py`
+- [x] Confirm `js/calculator.js` and Google/Bing verification files remain unchanged
 
-- 检查并完善 `keyword-map.md` 中的所有工具页面映射，包括 `freelance-payment-calculator.html`
-- 增加 Google Analytics 预留位置
-- 添加 Search Console 验证说明文档
-- 优化首页工具分类展示与热门工具入口
-- 优化移动端按钮、输入、表格和导航体验
+## Deployment and search console
 
-## Low Priority
+- [ ] Deploy the current workspace changes to GitHub Pages
+- [ ] Verify live HTTP status codes for the homepage, representative pages, `/blog/`, `blog.html` and `404.html`
+- [ ] Submit `https://uu9988.github.io/freelancer-calculator/sitemap.xml` to Google Search Console
+- [ ] Submit the same sitemap to Bing Webmaster Tools
+- [ ] Monitor coverage, duplicate canonical and structured-data reports after recrawling
 
-- 扩展工具页面类型，例如更多税务、预算、报价、收入规划工具
-- 增加页面性能检查说明与移动端体验评估
-- 创建网站运行维护手册和 AI 维护流程文档
-- 设置自定义 404 页面内容和链接建议
-- 检查并补全图片 `alt` 属性（目前项目内无图片）
+## Manual quality checks
+
+- [ ] Test the calculator with representative inputs in desktop and mobile browsers
+- [ ] Run Lighthouse or PageSpeed Insights after deployment and review Core Web Vitals
+- [ ] Visually inspect the five representative pages listed in `SEO_REPORT.md`
+- [ ] Confirm the contact email remains active and monitored
+- [ ] Recheck privacy disclosures before enabling any future analytics or advertising service
+
+## Optional future improvements
+
+- [ ] Create a real social sharing image before adding `og:image` or `twitter:image`
+- [ ] Group the long homepage tool list into clearer categories without changing existing URLs
+- [ ] Add additional calculators only when they provide real interactive behavior or clearly labeled planning guidance
+- [ ] Review keyword performance and refresh article content based on Search Console query data

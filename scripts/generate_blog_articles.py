@@ -1,7 +1,10 @@
 from pathlib import Path
 import json
+import subprocess
+import sys
 
 BASE_URL = 'https://uu9988.github.io/freelancer-calculator/'
+PROJECT_PATH = '/freelancer-calculator/'
 BLOG_DIR = Path('blog')
 BLOG_DIR.mkdir(exist_ok=True)
 
@@ -214,17 +217,17 @@ def page_head(title, description, canonical, url):
     <title>{title}</title>
     <meta name="description" content="{description}" />
     <link rel="canonical" href="{canonical}" />
-    <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="{PROJECT_PATH}favicon.svg" type="image/svg+xml" />
     <meta property="og:title" content="{title}" />
     <meta property="og:description" content="{description}" />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="{url}" />
     <meta property="og:site_name" content="Freelancer Calculator Hub" />
-    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:card" content="summary" />
     <meta name="twitter:title" content="{title}" />
     <meta name="twitter:description" content="{description}" />
     <meta name="twitter:site" content="@FreelancerCalcHub" />
-    <link rel="stylesheet" href="../styles.css" />
+    <link rel="stylesheet" href="{PROJECT_PATH}styles.css" />
 '''
 
 
@@ -283,11 +286,12 @@ def page_footer(root_link):
     return f'''    <footer class="site-footer">
       <div class="container footer-row">
         <div class="footer-nav">
-          <a href="{root_link}index.html">Home</a>
-          <a href="../about.html">About</a>
-          <a href="../contact.html">Contact</a>
-          <a href="../privacy.html">Privacy</a>
-          <a href="../terms.html">Terms</a>
+          <a href="{PROJECT_PATH}">Home</a>
+          <a href="{PROJECT_PATH}blog/">Blog</a>
+          <a href="{PROJECT_PATH}about.html">About</a>
+          <a href="{PROJECT_PATH}contact.html">Contact</a>
+          <a href="{PROJECT_PATH}privacy.html">Privacy</a>
+          <a href="{PROJECT_PATH}terms.html">Terms</a>
         </div>
         <p>© 2026 Freelancer Calculator Hub</p>
       </div>
@@ -298,7 +302,7 @@ def page_footer(root_link):
 
 
 def render_related_tools(links):
-    items = '\n'.join([f'            <li><a href="../{href}">{text}</a></li>' for text, href in links])
+    items = '\n'.join([f'            <li><a href="{PROJECT_PATH}{href}">{text}</a></li>' for text, href in links])
     return f'''      <section class="page-section">
         <div class="container content-card">
           <h2>Related Tools</h2>
@@ -369,14 +373,14 @@ def write_article(post):
   <body>
     <header class="site-header">
       <div class="container nav">
-        <a class="brand" href="../index.html">Freelancer Calculator Hub</a>
+        <a class="brand" href="{PROJECT_PATH}">Freelancer Calculator Hub</a>
         <nav class="site-nav" aria-label="Main navigation">
-          <a href="../index.html">Home</a>
-          <a href="../blog.html">Blog</a>
-          <a href="../about.html">About</a>
-          <a href="../contact.html">Contact</a>
-          <a href="../terms.html">Terms</a>
-          <a href="../privacy.html">Privacy</a>
+          <a href="{PROJECT_PATH}">Home</a>
+          <a href="{PROJECT_PATH}blog/">Blog</a>
+          <a href="{PROJECT_PATH}about.html">About</a>
+          <a href="{PROJECT_PATH}contact.html">Contact</a>
+          <a href="{PROJECT_PATH}terms.html">Terms</a>
+          <a href="{PROJECT_PATH}privacy.html">Privacy</a>
         </nav>
       </div>
     </header>
@@ -396,7 +400,7 @@ def write_blog_index():
     canonical = f'{BASE_URL}blog/'
     url = canonical
     blog_items = ''.join([
-        '            <li><a href="' + post[1] + '">' + post[0] + '</a></li>\n'
+        '            <li><a href="' + PROJECT_PATH + post[1] + '">' + post[0] + '</a></li>\n'
         for post in BLOG_LINKS
     ])
     head = (
@@ -408,17 +412,17 @@ def write_blog_index():
         '    <title>' + title + '</title>\n'
         '    <meta name="description" content="' + description + '" />\n'
         '    <link rel="canonical" href="' + canonical + '" />\n'
-        '    <link rel="icon" href="favicon.svg" type="image/svg+xml" />\n'
+        '    <link rel="icon" href="' + PROJECT_PATH + 'favicon.svg" type="image/svg+xml" />\n'
         '    <meta property="og:title" content="' + title + '" />\n'
         '    <meta property="og:description" content="' + description + '" />\n'
         '    <meta property="og:type" content="website" />\n'
         '    <meta property="og:url" content="' + url + '" />\n'
         '    <meta property="og:site_name" content="Freelancer Calculator Hub" />\n'
-        '    <meta name="twitter:card" content="summary_large_image" />\n'
+        '    <meta name="twitter:card" content="summary" />\n'
         '    <meta name="twitter:title" content="' + title + '" />\n'
         '    <meta name="twitter:description" content="' + description + '" />\n'
         '    <meta name="twitter:site" content="@FreelancerCalcHub" />\n'
-        '    <link rel="stylesheet" href="../styles.css" />\n'
+        '    <link rel="stylesheet" href="' + PROJECT_PATH + 'styles.css" />\n'
         '    <script type="application/ld+json">\n'
         + json.dumps({'@context':'https://schema.org','@type':'BreadcrumbList','itemListElement':[{'@type':'ListItem','position':1,'name':'Home','item':BASE_URL},{'@type':'ListItem','position':2,'name':'Blog','item':canonical}]}, indent=2, ensure_ascii=False) + '\n'
         '    </script>\n'
@@ -426,14 +430,14 @@ def write_blog_index():
         '  <body>\n'
         '    <header class="site-header">\n'
         '      <div class="container nav">\n'
-        '        <a class="brand" href="../index.html">Freelancer Calculator Hub</a>\n'
+        '        <a class="brand" href="' + PROJECT_PATH + '">Freelancer Calculator Hub</a>\n'
         '        <nav class="site-nav" aria-label="Main navigation">\n'
-        '          <a href="../index.html">Home</a>\n'
-        '          <a href="../blog.html">Blog</a>\n'
-        '          <a href="../about.html">About</a>\n'
-        '          <a href="../contact.html">Contact</a>\n'
-        '          <a href="../terms.html">Terms</a>\n'
-        '          <a href="../privacy.html">Privacy</a>\n'
+        '          <a href="' + PROJECT_PATH + '">Home</a>\n'
+        '          <a href="' + PROJECT_PATH + 'blog/">Blog</a>\n'
+        '          <a href="' + PROJECT_PATH + 'about.html">About</a>\n'
+        '          <a href="' + PROJECT_PATH + 'contact.html">Contact</a>\n'
+        '          <a href="' + PROJECT_PATH + 'terms.html">Terms</a>\n'
+        '          <a href="' + PROJECT_PATH + 'privacy.html">Privacy</a>\n'
         '        </nav>\n'
         '      </div>\n'
         '    </header>\n'
@@ -467,7 +471,7 @@ def write_root_blog_page():
     canonical = f'{BASE_URL}blog.html'
     url = canonical
     blog_items = ''.join([
-        '            <li><a href="' + item[1] + '">' + item[0] + '</a></li>\n'
+        '            <li><a href="' + PROJECT_PATH + item[1] + '">' + item[0] + '</a></li>\n'
         for item in BLOG_LINKS
     ])
     head = (
@@ -479,17 +483,17 @@ def write_root_blog_page():
         '    <title>' + title + '</title>\n'
         '    <meta name="description" content="' + description + '" />\n'
         '    <link rel="canonical" href="' + canonical + '" />\n'
-        '    <link rel="icon" href="favicon.svg" type="image/svg+xml" />\n'
+        '    <link rel="icon" href="' + PROJECT_PATH + 'favicon.svg" type="image/svg+xml" />\n'
         '    <meta property="og:title" content="' + title + '" />\n'
         '    <meta property="og:description" content="' + description + '" />\n'
         '    <meta property="og:type" content="website" />\n'
         '    <meta property="og:url" content="' + url + '" />\n'
         '    <meta property="og:site_name" content="Freelancer Calculator Hub" />\n'
-        '    <meta name="twitter:card" content="summary_large_image" />\n'
+        '    <meta name="twitter:card" content="summary" />\n'
         '    <meta name="twitter:title" content="' + title + '" />\n'
         '    <meta name="twitter:description" content="' + description + '" />\n'
         '    <meta name="twitter:site" content="@FreelancerCalcHub" />\n'
-        '    <link rel="stylesheet" href="styles.css" />\n'
+        '    <link rel="stylesheet" href="' + PROJECT_PATH + 'styles.css" />\n'
         '    <script type="application/ld+json">\n'
         + json.dumps({'@context':'https://schema.org','@type':'BreadcrumbList','itemListElement':[{'@type':'ListItem','position':1,'name':'Home','item':BASE_URL},{'@type':'ListItem','position':2,'name':'Blog','item':f'{BASE_URL}blog.html'}]}, indent=2, ensure_ascii=False) + '\n'
         '    </script>\n'
@@ -497,14 +501,14 @@ def write_root_blog_page():
         '  <body>\n'
         '    <header class="site-header">\n'
         '      <div class="container nav">\n'
-        '        <a class="brand" href="index.html">Freelancer Calculator Hub</a>\n'
+        '        <a class="brand" href="' + PROJECT_PATH + '">Freelancer Calculator Hub</a>\n'
         '        <nav class="site-nav" aria-label="Main navigation">\n'
-        '          <a href="index.html">Home</a>\n'
-        '          <a href="blog.html">Blog</a>\n'
-        '          <a href="about.html">About</a>\n'
-        '          <a href="contact.html">Contact</a>\n'
-        '          <a href="terms.html">Terms</a>\n'
-        '          <a href="privacy.html">Privacy</a>\n'
+        '          <a href="' + PROJECT_PATH + '">Home</a>\n'
+        '          <a href="' + PROJECT_PATH + 'blog/">Blog</a>\n'
+        '          <a href="' + PROJECT_PATH + 'about.html">About</a>\n'
+        '          <a href="' + PROJECT_PATH + 'contact.html">Contact</a>\n'
+        '          <a href="' + PROJECT_PATH + 'terms.html">Terms</a>\n'
+        '          <a href="' + PROJECT_PATH + 'privacy.html">Privacy</a>\n'
         '        </nav>\n'
         '      </div>\n'
         '    </header>\n'
@@ -538,48 +542,30 @@ def write_post_template():
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>[TITLE]</title>
-    <meta name="description" content="[META DESCRIPTION]" />
-    <link rel="canonical" href="[CANONICAL URL]" />
-    <link rel="icon" href="favicon.svg" type="image/svg+xml" />
-    <meta property="og:title" content="[TITLE]" />
-    <meta property="og:description" content="[META DESCRIPTION]" />
-    <meta property="og:type" content="article" />
-    <meta property="og:url" content="[CANONICAL URL]" />
-    <meta property="og:site_name" content="Freelancer Calculator Hub" />
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="[TITLE]" />
-    <meta name="twitter:description" content="[META DESCRIPTION]" />
-    <meta name="twitter:site" content="@FreelancerCalcHub" />
-    <link rel="stylesheet" href="../styles.css" />
-    <script type="application/ld+json">
-[ BREADCRUMB_SCHEMA ]
-    </script>
-    <script type="application/ld+json">
-[ ARTICLE_SCHEMA ]
-    </script>
-    <script type="application/ld+json">
-[ FAQ_SCHEMA ]
-    </script>
+    <title>Blog Post Template | Not for Indexing</title>
+    <meta name="description" content="Internal template used to prepare future Freelancer Calculator Hub blog posts." />
+    <meta name="robots" content="noindex,nofollow" />
+    <link rel="icon" href="{PROJECT_PATH}favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="{PROJECT_PATH}styles.css" />
   </head>
   <body>
     <header class="site-header">
       <div class="container nav">
-        <a class="brand" href="../index.html">Freelancer Calculator Hub</a>
+        <a class="brand" href="{PROJECT_PATH}">Freelancer Calculator Hub</a>
         <nav class="site-nav" aria-label="Main navigation">
-          <a href="../index.html">Home</a>
-          <a href="../blog.html">Blog</a>
-          <a href="../about.html">About</a>
-          <a href="../contact.html">Contact</a>
-          <a href="../terms.html">Terms</a>
-          <a href="../privacy.html">Privacy</a>
+          <a href="{PROJECT_PATH}">Home</a>
+          <a href="{PROJECT_PATH}blog/">Blog</a>
+          <a href="{PROJECT_PATH}about.html">About</a>
+          <a href="{PROJECT_PATH}contact.html">Contact</a>
+          <a href="{PROJECT_PATH}terms.html">Terms</a>
+          <a href="{PROJECT_PATH}privacy.html">Privacy</a>
         </nav>
       </div>
     </header>
     <main>
       <section class="page-section">
         <div class="container content-card">
-          <h1>[TITLE]</h1>
+          <h1>{{POST_TITLE}}</h1>
           <h2>Introduction</h2>
           <p>[INTRODUCTION]</p>
           <h2>Problem</h2>
@@ -600,11 +586,12 @@ def write_post_template():
     <footer class="site-footer">
       <div class="container footer-row">
         <div class="footer-nav">
-          <a href="../index.html">Home</a>
-          <a href="../about.html">About</a>
-          <a href="../contact.html">Contact</a>
-          <a href="../privacy.html">Privacy</a>
-          <a href="../terms.html">Terms</a>
+          <a href="{PROJECT_PATH}">Home</a>
+          <a href="{PROJECT_PATH}blog/">Blog</a>
+          <a href="{PROJECT_PATH}about.html">About</a>
+          <a href="{PROJECT_PATH}contact.html">Contact</a>
+          <a href="{PROJECT_PATH}privacy.html">Privacy</a>
+          <a href="{PROJECT_PATH}terms.html">Terms</a>
         </div>
         <p>© 2026 Freelancer Calculator Hub</p>
       </div>
@@ -668,6 +655,10 @@ def main():
     update_root_sitemap()
     update_robots()
     update_audit_script()
+    subprocess.run(
+        [sys.executable, str(Path(__file__).with_name('seo_repair.py')), '--apply'],
+        check=True,
+    )
     print('generated blog content and updated sitemap/robots/audit')
 
 

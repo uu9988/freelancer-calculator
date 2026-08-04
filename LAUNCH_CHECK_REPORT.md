@@ -26,7 +26,7 @@
 
 ## 4. Internal Link Status
 ### Issues found
-- `blog/index.html` renders article links as `href="blog/..."` from inside `blog/`, which resolves incorrectly to `blog/blog/...`.
+- `blog/index.html` previously rendered article links relative to its own directory, which duplicated the blog path segment in browsers.
 - `blog.html` footer links are incorrectly written as `../about.html`, `../contact.html`, `../privacy.html`, and `../terms.html` from the root page.
 - Blog pages in `blog/` reference `favicon.svg` relative to the blog folder, which resolves to `blog/favicon.svg` and may break the favicon link.
 

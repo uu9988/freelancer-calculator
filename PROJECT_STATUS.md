@@ -1,118 +1,90 @@
 # Project Status
 
-## 1. 项目介绍
+Last updated: 2026-08-03
 
-Freelancer Calculator Hub 是一个静态 HTML 网站，提供面向自由职业者的定价、收入、税务、发票和预算计算工具。目标是打造一个长期运营的 SEO 优化工具站点，帮助自由职业者做出更明智的定价与财务决策。
+## 1. 项目概况
 
-## 2. 网站目标
+Freelancer Calculator Hub 是部署于 GitHub Pages 的静态 HTML 工具站，正式地址为：
 
-- 为自由职业者提供实用的在线计算工具
-- 提升站点在搜索引擎中的可见度和关键词覆盖
-- 保持轻量、可维护、无后端的静态结构
-- 支持后续新增工具和内容形式化扩展
-- 提供统一的导航、页面结构和 SEO 基础信息
+`https://uu9988.github.io/freelancer-calculator/`
 
-## 3. 技术栈
+技术栈为 HTML5、CSS3 和原生 JavaScript，无后端、账户系统或数据库。首页包含实际可交互的 freelance hourly rate calculator；其余工具页用于解释不同的收入、成本、税务、报价、发票和业务规划场景，并引导用户使用相关工具和文章。
 
-- HTML5
-- CSS3
-- 原生 JavaScript
-- 静态页面部署（GitHub Pages 或类似静态站点托管）
+## 2. 当前页面规模
 
-## 4. 当前目录结构
+- HTML 文件总数：43
+- Sitemap 中可索引 URL：39
+- 基础页面：6（Home、About、Contact、Privacy、Terms、Changelog）
+- 工具/指南页面：22
+- 可索引博客页面：11（1 个博客目录页和 10 篇文章）
+- 不索引页面：`404.html`、`blog.html`、`blog/post-template.html`
+- 验证文件：`google60c46abce2c0ec23.html`、`BingSiteAuth.xml`
 
-- `index.html`
-- `about.html`
-- `privacy.html`
-- `terms.html`
-- `google60c46abce2c0ec23.html`
-- `sitemap.xml`
-- `pages-sitemap.xml`
-- `tools-sitemap.xml`
-- `robots.txt`
-- `rss.xml`
-- `SEARCH_CONSOLE_SETUP.md`
-- `styles.css`
-- `js/calculator.js`
-- `pages-list.md`
-- `PROJECT_STATUS.md`
-- `TODO.md`
-- `MAINTENANCE.md`
-- `CHANGELOG.md`
+`blog.html` 因兼容已有 URL 而保留，设置为 `noindex,follow` 并 canonical 到 `/blog/`。正式博客入口为 `blog/index.html`，对应 URL `/blog/`。
 
-工具页面：
-- `freelance-budget-calculator.html`
-- `freelance-business-calculator.html`
-- `freelance-cost-calculator.html`
-- `freelance-expense-calculator.html`
-- `freelance-hourly-income-calculator.html`
-- `freelance-hourly-rate-calculator.html`
-- `freelance-hourly-rate-guide.html`
-- `freelance-income-calculator.html`
-- `freelance-income-tax-calculator.html`
-- `freelance-invoice-calculator.html`
-- `freelance-invoice-generator.html`
-- `freelance-monthly-income-calculator.html`
-- `freelance-payment-calculator.html`
-- `freelance-pricing-calculator.html`
-- `freelance-profit-calculator.html`
-- `freelance-project-cost-calculator.html`
-- `freelance-quote-calculator.html`
-- `freelance-rate-calculator.html`
-- `freelance-revenue-calculator.html`
-- `freelance-salary-calculator.html`
-- `freelance-tax-calculator.html`
-- `freelance-yearly-income-calculator.html`
+## 3. SEO 当前状态
 
-## 5. 所有页面列表
+- 39 个可索引页面均有唯一 title 和 meta description
+- 所有可索引页面均有正确的正式 canonical
+- Open Graph 和 Twitter Card 基础字段完整
+- 没有不存在的 `og:image` 或 `twitter:image`
+- Twitter Card 在没有真实分享图时使用 `summary`
+- 所有可索引页面均只有一个 H1，标题层级无跳级
+- 首页包含 `WebSite`、`WebApplication` 和与可见内容完全一致的 `FAQPage` Schema
+- 工具落地页使用 `WebPage`，不再错误声明为可交互 `WebApplication`
+- 博客文章使用 `Article` 和匹配可见 FAQ 的 `FAQPage`
+- About、Contact、Privacy、Terms、Changelog 使用与页面类型匹配的 Schema
+- 未添加未经验证的评分、评论、Person 或 Organization 数据
+- 未添加 meta keywords
+- 所有内部链接和本地 CSS/JS 资源路径已验证存在
+- 工具页与相关文章之间已建立双向主题内链
+- 所有可索引页面均有站内入口，无孤立页
 
-- Home: `index.html`
-- About: `about.html`
-- Privacy: `privacy.html`
-- Terms: `terms.html`
-- Tool pages: see上方工具页面列表
-- Google verification: `google60c46abce2c0ec23.html`
+## 4. Sitemap 与 Robots
 
-## 6. 当前完成状态
+- `sitemap.xml`：合法 sitemap index
+- `pages-sitemap.xml`：6 个基础页面
+- `tools-sitemap.xml`：22 个工具/指南页面
+- `blog/sitemap.xml`：11 个博客 URL
+- `robots.txt`：允许正常抓取并声明主 sitemap 及分类 sitemap
+- `rss.xml`：保留为 10 篇文章的 RSS Feed，不再作为 Sitemap 指令
+- 404、验证文件、博客兼容入口和文章模板均未加入 sitemap
 
-- 核心页面已就位
-- 主要工具页面已经实现
-- 初步 SEO 元标签与 Open Graph 数据已存在
-- 部分页面已包含 schema 结构化数据
-- 站点已配置 `robots.txt` 并指向 sitemap 索引和分类 sitemap
-- 站点已生成 `pages-sitemap.xml`、`tools-sitemap.xml`、`blog/sitemap.xml` 和 `rss.xml`
-- 已创建 `SEARCH_CONSOLE_SETUP.md` 以支持 Google Search Console 与 Bing Webmaster 提交流程
-- 站点已添加 `404.html` 页面
-- 站点已添加 favicon 引用，并统一页面元标签
-- 已完成批量优化所有计算器页面的 SEO 内容结构、FAQ schema 和 Related Tools 内链
+## 5. 内容与导航状态
 
-## 7. SEO 优化记录
+- 首页 title、description、介绍文字和 Schema 已按实际工具能力优化
+- 首页保留原有计算器 UI、公式和 JavaScript 行为
+- 22 个工具页保留原正文，并将通用模板段落改为具体的计算方法、公式说明和示例
+- 10 篇博客文章的通用模板正文已改为各自主题相关内容
+- Blog、工具页、基础页之间的导航与 favicon/CSS 相对路径已统一
+- Changelog 已加入全站页脚入口
+- Privacy 与 Terms 中不相关的通用工具文案已改为对应政策内容
+- 无效的 GA/AdSense 占位脚本已移除；计算器仍加载用于图表展示的 Chart.js CDN 资源
 
-- 所有工具页面已有独立 title 和 description
-- 已添加 Open Graph 和 Twitter Card 基础标签
-- 部分页面包含 `WebApplication` 和 `FAQPage` schema
-- `robots.txt` 已允许所有爬虫并指向 sitemap 索引、分类 sitemap 以及 RSS
-- 已创建 `SEARCH_CONSOLE_SETUP.md`，说明 Google 和 Bing sitemap 提交流程
-- 站点结构仍有统一 header/footer 需要进一步完善
+## 6. 维护工具
 
-## 8. Git 提交记录说明
+- `python scripts/seo_repair.py`：只预览可能变化的文件
+- `python scripts/seo_repair.py --apply`：应用统一 SEO 修复
+- `python audit_site.py`：检查元数据、Schema、内链、资源、Sitemap、robots 和孤立页面
 
-建议每次改动后提交内容应包括：
-- `feat:` 新增页面或文档
-- `fix:` 修复 SEO、链接、结构问题
-- `docs:` 更新项目文档、维护说明
-- `refactor:` 优化网站结构、导航、内部链接
+`scripts/generate_blog_articles.py`、`scripts/batch_optimize_tools.py` 和 `update_site.py` 执行后会自动调用统一修复脚本，避免重新生成内容时恢复旧问题。
 
-示例提交信息：
-- `feat: add PROJECT_STATUS and TODO documentation`
-- `fix: normalize header/footer across HTML pages`
-- `docs: document SEO status and maintenance workflow`
+## 7. 最新验证结果
 
-## 9. 后续开发路线
+```text
+HTML files scanned: 42 (Google verification file excluded)
+Indexable sitemap URLs: 39
+Errors: 0
+Warnings: 0
+SEO AUDIT PASS
+```
 
-- 优化所有页面统一 header/footer 和相关工具推荐
-- 增加 `404.html` 并补齐 favicon 引用
-- 扩展热门工具与首页分类展示
-- 添加 Google Analytics 与 Search Console 预留位置
-- 按类目增加工具页面，例如税务、定价、收入、预算类别
-- 定期更新 `CHANGELOG.md` 与 `PROJECT_STATUS.md` 记录运营状态
+Google/Bing 验证文件和 `js/calculator.js` 均未修改。本轮未执行 git commit 或 git push。
+
+## 8. 仍需人工完成
+
+- 部署后检查正式 URL 的 HTTP 状态、重定向和 canonical 渲染结果
+- 在 Google Search Console 和 Bing Webmaster Tools 提交主 sitemap
+- 部署后抽查移动端布局和 Core Web Vitals
+- 如未来制作真实分享图片，再补充 `og:image` 和 `twitter:image`
+- 如未来启用真实 Analytics 或广告配置，先同步更新隐私政策

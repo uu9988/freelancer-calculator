@@ -1,8 +1,11 @@
 from pathlib import Path
 import re
 import json
+import subprocess
+import sys
 
 BASE_URL = 'https://uu9988.github.io/freelancer-calculator/'
+PROJECT_PATH = '/freelancer-calculator/'
 
 PAGE_LINKS = [
     ('Budget Calculator', 'freelance-budget-calculator.html'),
@@ -140,14 +143,14 @@ def normalize_page(filepath: Path, data: dict):
     # Favicon
     if not re.search(r'<link[^>]+rel=["\"]icon["\"]', txt, re.I):
         head_close = '</head>'
-        txt = txt.replace(head_close, '    <link rel="icon" href="favicon.svg" type="image/svg+xml" />\n' + head_close)
+        txt = txt.replace(head_close, f'    <link rel="icon" href="{PROJECT_PATH}favicon.svg" type="image/svg+xml" />\n' + head_close)
     # OG and Twitter
     og_tags = f'''    <meta property="og:title" content="{display_name} | Freelancer Calculator Hub" />
     <meta property="og:description" content="{description}" />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="{canonical_url}" />
     <meta property="og:site_name" content="Freelancer Calculator Hub" />
-    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:card" content="summary" />
     <meta name="twitter:title" content="{display_name} | Freelancer Calculator Hub" />
     <meta name="twitter:description" content="{description}" />
     <meta name="twitter:site" content="@FreelancerCalcHub" />'''
@@ -205,14 +208,14 @@ def normalize_page(filepath: Path, data: dict):
     if '<section class="related-tools">' not in txt:
         rel_html = '    <section class="related-tools">\n      <div class="container content-card">\n        <h2>Related tools</h2>\n        <p>Browse other freelance calculator pages that help with pricing, income planning, and business costs.</p>\n        <ul class="related-list">\n'
         for name, link in PAGE_LINKS:
-            rel_html += f'          <li><a href="{link}">{name}</a></li>\n'
+            rel_html += f'          <li><a href="{PROJECT_PATH}{link}">{name}</a></li>\n'
         rel_html += '        </ul>\n      </div>\n    </section>\n'
         if '</main>' in txt:
             txt = txt.replace('</main>', rel_html + '</main>')
     else:
         existing = re.findall(r'<li><a href="([^"]+)">([^<]+)</a></li>', txt)
         if len(existing) < 5:
-            new_list = '\n'.join([f'            <li><a href="{link}">{name}</a></li>' for name, link in PAGE_LINKS])
+            new_list = '\n'.join([f'            <li><a href="{PROJECT_PATH}{link}">{name}</a></li>' for name, link in PAGE_LINKS])
             txt = re.sub(r'(<section class="related-tools">.*?<ul class="related-list">)(.*?)(</ul>.*?</section>)', lambda m: m.group(1) + '\n' + new_list + '\n' + m.group(3), txt, flags=re.I|re.S)
 
     filepath.write_text(txt, encoding='utf-8')
@@ -231,4 +234,8 @@ if __name__ == '__main__':
         success = normalize_page(path, data)
         updates.append(name)
         print(f'updated {name}')
+    subprocess.run(
+        [sys.executable, str(Path(__file__).with_name('seo_repair.py')), '--apply'],
+        check=True,
+    )
     print(f'updated {len(updates)} pages')

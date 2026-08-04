@@ -1,91 +1,198 @@
-# SEO Report
+# SEO Audit and Repair Report
 
-## 1. 检查范围
+Audit date: 2026-08-03
+Production base URL: `https://uu9988.github.io/freelancer-calculator/`
 
-- 所有根目录下的 HTML 页面
-- `index.html`
-- `about.html`
-- `privacy.html`
-- `terms.html`
-- 所有工具页面（22 个）
-- `google60c46abce2c0ec23.html` 作为验证文件，不作为 SEO 目标页面处理
+## 1. Scope
 
-## 2. 关键 SEO 项目检查结果
+The audit covered:
 
-### 2.1 Title
+- All normal HTML pages in the repository
+- Homepage metadata, content structure and calculator-related Schema
+- Titles, descriptions, canonicals, robots, Open Graph and Twitter Card tags
+- H1/H2/H3 structure and visible FAQ content
+- JSON-LD syntax, duplicate types and page-type accuracy
+- Internal HTML links, fragments, CSS, JavaScript and favicon paths
+- Related Tools and calculator/blog cross-linking
+- Orphan-page discovery through the local link graph
+- `sitemap.xml`, all child sitemaps, `robots.txt` and `rss.xml`
+- Development URLs, empty links and image alt attributes
 
-- 所有公开页面均存在 `<title>` 标签。
-- 首页、工具页面、About、Privacy、Terms 均已设置页面标题。
+Excluded from normal on-page optimization:
 
-### 2.2 Description
+- `google60c46abce2c0ec23.html`
+- `BingSiteAuth.xml`
+- `404.html`
+- `blog/post-template.html`
+- `blog.html` as a retained compatibility URL
 
-- 存在描述的页面：大多数工具页面、首页。
-- 缺失描述的页面：
-  - `about.html`
-  - `privacy.html`
-  - `terms.html`
+The two verification files were not modified.
 
-### 2.3 Canonical
+## 2. Final audit summary
 
-- 公开页面中的 canonical 链接普遍存在。
-- `about.html`, `privacy.html`, `terms.html`, `index.html` 以及工具页面均包含 canonical 标签。
+| Check | Result |
+|---|---:|
+| HTML files in repository | 43 |
+| HTML pages scanned by audit | 42 |
+| Indexable sitemap URLs | 39 |
+| Unique public titles | 39/39 |
+| Unique public descriptions | 39/39 |
+| Correct public canonicals | 39/39 |
+| Pages with exactly one H1 | 39/39 |
+| Broken internal references | 0 |
+| GitHub Pages project-path errors | 0 |
+| Orphan indexable pages | 0 |
+| Invalid JSON-LD blocks | 0 |
+| XML parse failures | 0 |
+| Audit errors | 0 |
+| Audit warnings | 0 |
 
-### 2.4 Favicon
+Final command result:
 
-- 所有 HTML 页面均缺少 favicon 引用。
-- 目前没有 `favicon.ico` 或 `<link rel="icon" ...>` 在页面头部声明。
+```text
+HTML files scanned: 42 (Google verification file excluded)
+Indexable sitemap URLs: 39
+Errors: 0
+Warnings: 0
+Internal broken links: 0
+GitHub Pages path errors: 0
+Orphan indexable pages: 0
+JSON-LD parse errors: 0
+Sitemap/XML parse errors: 0
 
-### 2.5 404 页面
+SEO AUDIT PASS
+```
 
-- 站点当前缺少 `404.html` 页面。
-- 这会导致静态站点部署时没有自定义 404 体验，也不利于爬虫和用户体验。
+## 3. Homepage
 
-### 2.6 About 页面
+Homepage: `index.html`
 
-- `about.html` 已存在。
-- 它缺少完善说明性 SEO 元标签：`description`、Open Graph、Twitter Card、robots。
-- 该页面还未增加 schema 或结构化数据支持。
+- Title: `Freelance Hourly Rate Calculator | Freelancer Calculator Hub`
+- Description explains the hourly-rate calculator and related income, cost, tax, invoice and pricing resources
+- Canonical points to the production root URL
+- Required Open Graph and Twitter Card fields are present
+- No nonexistent share image is declared
+- One descriptive H1 is retained
+- Existing calculator inputs, result UI, formulas and core JavaScript were not changed
+- A short audience/tool-suite explanation was added without redesigning the page
+- Placeholder Analytics and AdSense code with nonfunctional IDs was removed
 
-### 2.7 Contact 页面
+Homepage JSON-LD now contains exactly:
 
-- 当前项目中没有 `contact.html` 页面。
-- About 页面有“contact the site owner”提示，但没有真实联系方式页面或链接。
+- `WebSite`
+- `WebApplication`
+- `FAQPage`
 
-## 3. Open Graph 和 Twitter Card 检查
+The FAQ questions and answers match all visible `<details>` FAQ entries. No Organization, rating, review or invented author data was added.
 
-### Open Graph
+## 4. Public-page metadata
 
-- 多数工具页面已经包含 `og:title`, `og:description`, `og:type`, `og:url`, `og:site_name`。
-- `about.html`, `privacy.html`, `terms.html` 缺少完整 Open Graph 标签。
+All 39 indexable URLs now have:
 
-### Twitter Card
+- One unique title
+- One unique meta description
+- One correct production canonical
+- `viewport`
+- `robots=index,follow`
+- `og:type`, `og:title`, `og:description`, `og:url`, `og:site_name`
+- `twitter:card=summary`, `twitter:title`, `twitter:description`
+- One H1 and valid heading progression
 
-- 绝大多数工具页面包含 `twitter:card`, `twitter:title`, `twitter:description`。
-- `about.html`, `privacy.html`, `terms.html` 缺少 Twitter Card 标签。
+No meta keywords were added. No `og:image` or `twitter:image` was added because no verified share image currently exists.
 
-## 4. Schema.org 结构化数据检查
+## 5. Structured data
 
-- 许多工具页面已经添加了 `FAQPage` 和 `WebApplication` schema。
-- 首页也包含 `WebApplication` schema。
-- 但是 About、Privacy、Terms 页面没有相关结构化数据。
-- 项目需进一步统一 schema 支持，确保核心页面有一致标记。
+- Homepage: `WebSite`, `WebApplication`, `FAQPage`
+- Tool and guide landing pages: `WebPage`, plus `FAQPage` where visible FAQs exist
+- Blog directory: `CollectionPage`
+- Blog articles: `Article`, plus matching `FAQPage`
+- About: `AboutPage`
+- Contact: `ContactPage`
+- Privacy, Terms and Changelog: `WebPage`
+- 404 and temporary blog template: no JSON-LD
 
-## 5. 其它发现
+The 22 tool/guide pages do not contain their own calculator form or script, so their previous `WebApplication` claims were removed. Unverified Person and Organization entities were also removed from blog Article markup.
 
-- `google60c46abce2c0ec23.html` 为 Google 验证文件，不属于常规 SEO 页面。
-- 页面中未发现图片，因此没有 `alt` 属性问题。
-- `robots.txt` 已存在，且应继续保持 `Allow: /` 与 sitemap 指向。
-- `sitemap.xml` 需要确认是否包含所有公开页面，但本检查未直接修改该文件。
+## 6. Content and internal linking
 
-## 6. 建议优化点
+Confirmed repairs include:
 
-1. 立即为 `about.html`, `privacy.html`, `terms.html` 补充 `description`、OG、Twitter、robots。
-2. 为所有页面添加统一 favicon 引用。
-3. 创建 `404.html` 页面，提供友好错误提示和导航回首页。
-4. 添加 `contact.html` 或页面底部明确联系方式/反馈渠道。
-5. 统一检查并补齐 schema：`WebApplication` 对工具页面，`FAQPage` 对常见问题页。
-6. 维护 `sitemap.xml` 以包含所有公开 HTML 页面，同时排除验证文件和非公开目标。
+- Replaced generic repeated planning sections on tool pages with topic-specific methods, formulas and examples
+- Added a concrete deposit/milestone example to the short payment-planning page
+- Reworked ten blog posts so their Introduction, Problem, Solution, Example and Next Steps content is specific to each article
+- Added relevant article links to every tool/guide page
+- Confirmed every blog article links to real related calculator pages
+- Replaced generic Privacy and Terms content with page-appropriate information
+- Added Blog navigation consistently and Changelog discovery through site footers
+- Fixed blog-directory links that previously duplicated the directory segment
+- Fixed root blog footer links that escaped the project path
+- Fixed blog favicon paths from `blog/favicon.svg` to `../favicon.svg`
 
-## 7. 结论
+There are no `<img>` elements in the current project, so there are no missing alt attributes.
 
-当前项目 SEO 基础较好，特别是工具页面已经实现了多数 SEO 元标签。但 About/Privacy/Terms 仍有明显缺口，且 favicon、404、Contact 页面缺失。下一阶段应先补完善这些基础项，再继续统一站点结构和内部链接。
+## 7. Duplicate blog entry
+
+Both `blog.html` and `blog/index.html` must remain because existing files and URLs cannot be deleted or renamed.
+
+The canonical blog URL is now:
+
+`https://uu9988.github.io/freelancer-calculator/blog/`
+
+- `blog/index.html`: `index,follow`, self-canonical, present in sitemap
+- `blog.html`: `noindex,follow`, canonical to `/blog/`, excluded from sitemap
+
+This retains compatibility without asking search engines to index two equivalent blog directories.
+
+## 8. Sitemap, RSS and robots
+
+- `sitemap.xml` is a valid sitemap index
+- `pages-sitemap.xml` contains 6 URLs
+- `tools-sitemap.xml` contains 22 URLs
+- `blog/sitemap.xml` contains 11 URLs
+- Total unique indexable URLs: 39
+- All sitemap URLs use the production GitHub Pages base path and map to real files
+- 404, verification files, `blog.html` and `blog/post-template.html` are excluded
+- `robots.txt` permits crawling and declares the main and child sitemaps
+- `rss.xml` contains 10 article items and is not declared as a Sitemap directive
+
+## 9. Non-indexable pages
+
+- `404.html`: `noindex,follow`; no inappropriate WebApplication Schema
+- `blog.html`: `noindex,follow`; canonical to `/blog/`
+- `blog/post-template.html`: `noindex,nofollow`; no placeholder canonical or JSON-LD
+
+## 10. Protection and regression controls
+
+Confirmed unchanged:
+
+- `js/calculator.js`
+- `google60c46abce2c0ec23.html`
+- `BingSiteAuth.xml`
+
+The following maintenance commands are available:
+
+```text
+python scripts/seo_repair.py
+python scripts/seo_repair.py --apply
+python audit_site.py
+```
+
+The repair script is idempotent: after the completed repair, a second preview reports `0 files`.
+
+## 11. Remaining manual checks
+
+Local repository checks cannot confirm post-deployment HTTP behavior or Search Console indexing. After deployment, manually verify:
+
+1. HTTP status codes and rendered canonicals on the production site
+2. `/blog/`, the `blog.html` compatibility page and custom 404 behavior
+3. Mobile layout and calculator interaction
+4. Lighthouse/PageSpeed and Core Web Vitals
+5. Google Search Console and Bing Webmaster sitemap processing
+
+## 12. Recommended representative pages
+
+1. `index.html` — interactive homepage and complete homepage Schema
+2. `freelance-income-calculator.html` — representative tool landing page
+3. `freelance-payment-calculator.html` — shorter page that received incremental content
+4. `blog/freelancer-tax-basics.html` — representative Article and FAQ Schema
+5. `privacy.html` — representative policy page and browser-storage disclosure
