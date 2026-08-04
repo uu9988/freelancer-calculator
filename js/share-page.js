@@ -5,7 +5,6 @@
   window.__freelancerSharePageInitialized = true;
 
   const copyLinkButton = document.getElementById('copyLinkButton');
-  const sharePageButton = document.getElementById('sharePageButton');
   const shareStatusMessage = document.getElementById('shareStatusMessage');
   const shareLinkText = document.getElementById('shareLinkText');
   const canonicalLink = document.querySelector('link[rel="canonical"]')?.href;
@@ -15,14 +14,6 @@
   currentUrl.hash = '';
 
   const canonicalUrl = canonicalLink || currentUrl.href;
-
-  function isRealMobileDevice() {
-    return navigator.userAgentData?.mobile === true || /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
-  }
-
-  function canSharePage() {
-    return isRealMobileDevice() && typeof navigator.share === 'function';
-  }
 
   function setShareStatus(message, success) {
     if (!shareStatusMessage) return;
@@ -101,31 +92,8 @@
     await copyLink();
   }
 
-  async function handleSharePage(event) {
-    event.preventDefault();
-    event.stopPropagation();
-    clearShareStatus();
-    setManualCopyLink(false);
-
-    try {
-      await navigator.share({ url: canonicalUrl });
-    } catch (error) {
-      if (error && error.name === 'AbortError') return;
-      await copyLink();
-    }
-  }
-
-  if (sharePageButton) {
-    sharePageButton.hidden = !canSharePage();
-  }
-
   if (copyLinkButton && copyLinkButton.dataset.shareBound !== 'true') {
     copyLinkButton.dataset.shareBound = 'true';
     copyLinkButton.addEventListener('click', handleCopyLink);
-  }
-
-  if (sharePageButton && sharePageButton.dataset.shareBound !== 'true') {
-    sharePageButton.dataset.shareBound = 'true';
-    sharePageButton.addEventListener('click', handleSharePage);
   }
 })();

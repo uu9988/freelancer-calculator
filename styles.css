@@ -244,13 +244,6 @@ input {
   padding: 0.7rem 0.9rem;
 }
 
-.share-actions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.75rem;
-  align-items: center;
-}
-
 .share-link-text {
   width: 100%;
   min-height: 10rem;
