@@ -233,6 +233,17 @@ input {
   color: #b91c1c;
 }
 
+.share-status-message {
+  min-height: 1.5rem;
+  margin: 0.65rem 0 0;
+  padding: 0;
+}
+
+.share-status-message.success,
+.share-status-message.error {
+  padding: 0.7rem 0.9rem;
+}
+
 .metric {
   background: var(--accent);
   border-radius: 0.9rem;

@@ -268,7 +268,19 @@
               Calculation completed successfully.
             </p>
             <div id="resultsGrid" class="metric-grid"></div>
-            <button type="button" class="button secondary" onclick="shareResults()">Share results</button>
+            <button
+              type="button"
+              id="shareResultsButton"
+              class="button secondary"
+            >
+              Share Results
+            </button>
+            <p
+              id="shareStatusMessage"
+              class="status-message share-status-message"
+              role="status"
+              aria-live="polite"
+            ></p>
             <div class="chart-box">
               <canvas id="incomeChart" aria-label="Income composition chart"></canvas>
             </div>
@@ -414,85 +426,6 @@
           }
         });
       }
-      async function copyShareText(text) {
-        if (navigator.clipboard && typeof navigator.clipboard.writeText === 'function') {
-          try {
-            await navigator.clipboard.writeText(text);
-            return true;
-          } catch {
-            // Fall through to the compatibility copy method.
-          }
-        }
-
-        const textarea = document.createElement('textarea');
-        textarea.value = text;
-        textarea.setAttribute('readonly', '');
-        textarea.style.position = 'fixed';
-        textarea.style.opacity = '0';
-        document.body.appendChild(textarea);
-        textarea.focus();
-        textarea.select();
-
-        try {
-          return document.execCommand('copy');
-        } catch {
-          return false;
-        } finally {
-          textarea.remove();
-        }
-      }
-
-      function showShareStatus(message, success) {
-        const messageElement = document.getElementById('statusMessage');
-        if (!messageElement) return;
-        messageElement.className = `status-message ${success ? 'success' : 'error'}`;
-        messageElement.textContent = message;
-      }
-
-      function shouldUseNativeShare() {
-        const mobileUserAgent = Boolean(navigator.userAgentData?.mobile) || /Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent);
-        const coarsePointer = typeof window.matchMedia === 'function' && window.matchMedia('(pointer: coarse)').matches;
-        const touchDevice = navigator.maxTouchPoints > 0 && coarsePointer;
-        const compactViewport = Math.min(window.innerWidth, window.innerHeight) <= 1024;
-        return mobileUserAgent || (touchDevice && compactViewport);
-      }
-
-      async function shareResults() {
-        const results = Array.from(document.querySelectorAll('#resultsGrid .metric strong')).map((node) => node.textContent).join(', ');
-        const shareText = `Freelance rate results: ${results}`;
-        const shareData = {
-          title: 'Freelance Rate Results',
-          text: shareText,
-          url: window.location.href
-        };
-        let canUseNativeShare = shouldUseNativeShare() && typeof navigator.share === 'function';
-
-        if (canUseNativeShare && typeof navigator.canShare === 'function') {
-          try {
-            canUseNativeShare = navigator.canShare(shareData);
-          } catch {
-            canUseNativeShare = false;
-          }
-        }
-
-        if (canUseNativeShare) {
-          try {
-            await navigator.share(shareData);
-            return;
-          } catch (error) {
-            if (error && error.name === 'AbortError') {
-              return;
-            }
-          }
-        }
-
-        const copied = await copyShareText(`${shareText}\n${window.location.href}`);
-        if (copied) {
-          showShareStatus('结果链接已复制，可以粘贴分享。', true);
-        } else {
-          showShareStatus('无法自动复制，请手动复制当前页面链接。', false);
-        }
-      }
       function initHistory() {
         const values = loadCalculatorState();
         if (values) {
@@ -521,5 +454,6 @@
     </script>
 
     <script src="/freelancer-calculator/js/calculator.js"></script>
+    <script src="/freelancer-calculator/js/share-results.js"></script>
   </body>
 </html>
