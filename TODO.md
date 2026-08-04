@@ -1,46 +1,28 @@
-# TODO
+# 待办事项
 
-Last reviewed: 2026-08-03
+本文件只记录尚未完成或尚未由外部平台确认的工作。当前基线：commit `b646e74`，2026-08-04。
 
-## Completed in the current SEO pass
+## P0 — 阻断发布
 
-- [x] Optimize the homepage title, description, canonical, Open Graph, Twitter Card, H1 and introductory copy
-- [x] Add valid homepage WebSite and WebApplication Schema
-- [x] Match all FAQPage Schema questions and answers to visible FAQ content
-- [x] Give all 39 indexable pages unique titles, descriptions and canonical URLs
-- [x] Correct Schema types for tools, articles, policy pages, About, Contact and Changelog
-- [x] Remove unverified Person, Organization, review and rating data
-- [x] Fix broken internal links, favicon paths and Blog navigation
-- [x] Use `/freelancer-calculator/` project-root paths for all internal HTML and local asset references
-- [x] Simulate nested GitHub Pages 404 URL resolution in the site audit
-- [x] Add topic-relevant links between calculator pages and blog articles
-- [x] Remove duplicate blog indexing signals while preserving the existing `blog.html` URL
-- [x] Exclude 404, verification files, the blog alias and the post template from sitemaps
-- [x] Remove the RSS Feed from robots Sitemap directives
-- [x] Validate sitemap XML, RSS XML and all JSON-LD blocks
-- [x] Repair and expand `audit_site.py`
-- [x] Add an idempotent SEO repair workflow in `scripts/seo_repair.py`
-- [x] Confirm `js/calculator.js` and Google/Bing verification files remain unchanged
+目前没有已确认的 P0 问题。
 
-## Deployment and search console
+## P1 — 优先处理
 
-- [ ] Deploy the current workspace changes to GitHub Pages
-- [ ] Verify live HTTP status codes for the homepage, representative pages, `/blog/`, `blog.html` and `404.html`
-- [ ] Submit `https://uu9988.github.io/freelancer-calculator/sitemap.xml` to Google Search Console
-- [ ] Submit the same sitemap to Bing Webmaster Tools
-- [ ] Monitor coverage, duplicate canonical and structured-data reports after recrawling
+- [ ] 由账号持有人确认 Google Search Console URL-prefix 属性、验证状态和 `sitemap.xml` 处理结果。
+- [ ] 由账号持有人确认 Bing Webmaster Tools 验证状态和主 sitemap 处理结果。
+- [ ] 在正式网站运行桌面与移动 Lighthouse/Core Web Vitals，记录基线和需要处理的真实问题。
 
-## Manual quality checks
+## P2 — 近期维护
 
-- [ ] Test the calculator with representative inputs in desktop and mobile browsers
-- [ ] Run Lighthouse or PageSpeed Insights after deployment and review Core Web Vitals
-- [ ] Visually inspect the five representative pages listed in `SEO_REPORT.md`
-- [ ] Confirm the contact email remains active and monitored
-- [ ] Recheck privacy disclosures before enabling any future analytics or advertising service
+- [ ] 在下一轮内容发布后检查索引覆盖、结构化数据报告和主要搜索查询。
+- [ ] 在 Windows 桌面浏览器与至少一台真实移动设备上复测分享、图表和嵌套 404 导航。
+- [ ] 只有取得可正常访问的真实分享图片后，才评估添加 `og:image` 与 `twitter:image`。
 
-## Optional future improvements
+## P3 — 可选改进
 
-- [ ] Create a real social sharing image before adding `og:image` or `twitter:image`
-- [ ] Group the long homepage tool list into clearer categories without changing existing URLs
-- [ ] Add additional calculators only when they provide real interactive behavior or clearly labeled planning guidance
-- [ ] Review keyword performance and refresh article content based on Search Console query data
+- [ ] 根据真实搜索数据评估是否需要调整首页工具分组或新增专题内容。
+- [ ] 只有能够提供真实计算行为和独特说明时，才新增计算器页面。
+
+## Completed（摘要）
+
+技术 SEO、39 个可索引 URL、GitHub Pages 子路径、404 链接、桌面/移动分享降级和响应式图表已完成并通过本地审计。正式历史见 [CHANGELOG.md](CHANGELOG.md)。
