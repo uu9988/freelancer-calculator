@@ -17,6 +17,108 @@
     <meta name="twitter:title" content="Freelance Income Calculator | Estimate Monthly Earnings" />
     <meta name="twitter:description" content="Estimate monthly and annual freelance income from client rates and billable capacity, then compare gross earnings with costs, taxes, and income goals." />
     <link rel="stylesheet" href="/freelancer-calculator/styles.css" />
+    <style>
+      .income-calculator-page {
+        padding: 3rem 0;
+      }
+
+      .income-calculator-page [hidden] {
+        display: none !important;
+      }
+
+      .example-note {
+        margin: 1rem 0 1.5rem;
+        padding: 0.8rem 1rem;
+        border-left: 4px solid var(--primary);
+        border-radius: 0.6rem;
+        background: var(--accent);
+      }
+
+      .field-help,
+      .form-note {
+        color: var(--muted);
+        font-weight: 400;
+        line-height: 1.4;
+      }
+
+      .field-help,
+      .field-error {
+        font-size: 0.82rem;
+      }
+
+      .field-error {
+        min-height: 1.2em;
+        color: #b91c1c;
+        font-weight: 600;
+      }
+
+      .form-note,
+      .form-actions {
+        grid-column: 1 / -1;
+      }
+
+      .form-note {
+        margin: 0;
+        font-size: 0.9rem;
+      }
+
+      .form-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.75rem;
+        margin-top: 0.25rem;
+      }
+
+      .income-calculator-page button {
+        min-height: 44px;
+        border: 0;
+        font: inherit;
+        cursor: pointer;
+      }
+
+      .income-calculator-page .button.secondary {
+        border: 1px solid var(--border);
+        background: var(--surface);
+        color: var(--primary-dark);
+      }
+
+      .income-calculator-page input[aria-invalid="true"] {
+        border-color: #b91c1c;
+        box-shadow: 0 0 0 2px rgba(185, 28, 28, 0.12);
+      }
+
+      .definition-list {
+        display: grid;
+        gap: 0.75rem;
+        margin-top: 1.25rem;
+      }
+
+      .definition-list dt {
+        font-weight: 700;
+      }
+
+      .definition-list dd {
+        margin: 0;
+        color: var(--muted);
+      }
+
+      .loss-message {
+        margin-top: 1rem;
+        background: #fef2f2;
+        color: #991b1b;
+      }
+
+      @media (max-width: 640px) {
+        .income-calculator-page {
+          padding: 2rem 0;
+        }
+
+        .form-actions .button {
+          flex: 1 1 100%;
+          text-align: center;
+        }
+      }
+    </style>
     <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -24,7 +126,20 @@
   "name": "Freelance Income Calculator | Estimate Monthly Earnings",
   "description": "Estimate monthly and annual freelance income from client rates and billable capacity, then compare gross earnings with costs, taxes, and income goals.",
   "url": "https://uu9988.github.io/freelancer-calculator/freelance-income-calculator.html",
-  "inLanguage": "en"
+  "inLanguage": "en",
+  "mainEntity": {
+    "@type": "WebApplication",
+    "name": "Freelance Income Calculator",
+    "description": "Estimate annual and monthly freelance gross revenue, expenses, a simplified tax reserve, and planning income.",
+    "url": "https://uu9988.github.io/freelancer-calculator/freelance-income-calculator.html",
+    "applicationCategory": "BusinessApplication",
+    "operatingSystem": "Any",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    }
+  }
 }
     </script>
     <script type="application/ld+json">
@@ -34,26 +149,58 @@
   "mainEntity": [
     {
       "@type": "Question",
-      "name": "What does a freelance income calculator measure?",
+      "name": "What is the difference between gross revenue and planning income?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "It estimates the income required to meet your goals while accounting for costs, taxes, and the amount of billable time available."
+        "text": "Gross revenue is the total amount clients pay before expenses and taxes. Planning income subtracts annual business expenses and the calculator's simplified tax reserve from gross revenue."
       }
     },
     {
       "@type": "Question",
-      "name": "Can this calculator help with rate setting?",
+      "name": "What counts as a billable hour?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Yes. Once you understand your income target, you can use it to estimate a more realistic hourly or project rate for your services."
+        "text": "A billable hour is time you can invoice to a client for agreed work. Administration, sales, general communication, bookkeeping, and learning are working time but usually are not billable."
       }
     },
     {
       "@type": "Question",
-      "name": "Is the calculator suitable for beginners?",
+      "name": "Which tax rate should I enter?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Absolutely. It is a simple way for new freelancers to understand the relationship between income goals, expenses, and pricing."
+        "text": "Enter a reasonable estimated effective rate for your location, income, and business situation. It is a simplified planning assumption, not a prediction of your final tax bill."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Should I include personal living expenses?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. Enter costs required to operate your freelance business, such as software, equipment, insurance, accounting, and marketing. Keep personal housing, food, and other living costs separate."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What if my expenses are higher than my revenue?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The taxable planning base and tax reserve become zero, while planning income becomes negative. The calculator displays an estimated loss so you can review pricing, billable capacity, or costs."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Does this calculator include tax deductions?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. It does not model tax brackets, deductions, VAT, sales tax, or jurisdiction-specific law. The tax reserve is a simplified planning estimate and is not tax advice."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I use monthly income instead of an hourly rate?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "This version starts with an hourly rate and billable capacity. If you plan from monthly income, convert the target into an hourly assumption or use the monthly gross result to compare scenarios."
       }
     }
   ]
@@ -61,7 +208,7 @@
     </script>
   </head>
   <body>
-            <header class="site-header">
+    <header class="site-header">
       <div class="container nav">
         <a class="brand" href="/freelancer-calculator/">Freelancer Calculator Hub</a>
         <nav class="site-nav" aria-label="Main navigation">
@@ -78,92 +225,207 @@
     </header>
 
     <main>
+      <section id="calculator" class="calculator-section income-calculator-page">
+        <div class="container">
+          <h1>Freelance Income Calculator</h1>
+          <p class="hero-copy">Estimate annual and monthly freelance revenue from your average hourly rate and realistic billable capacity, then account for business expenses and a simplified tax reserve.</p>
+          <p class="example-note"><strong>Use one currency for every monetary input.</strong> The calculator does not convert currencies, and the estimated tax rate is a planning assumption rather than tax advice.</p>
+
+          <div class="calc-grid">
+            <div class="card form-card">
+              <h2>Income assumptions</h2>
+              <p class="card-intro">Enter your own rate, billable workload, annual costs, and estimated effective tax rate. Results appear only after you submit the form.</p>
+
+              <form id="incomeCalculatorForm" class="input-grid" novalidate>
+                <label for="averageHourlyRate">
+                  Average hourly rate ($)
+                  <input id="averageHourlyRate" name="averageHourlyRate" type="number" min="0" step="0.01" inputmode="decimal" required aria-describedby="averageHourlyRateHelp averageHourlyRateError" />
+                  <span id="averageHourlyRateHelp" class="field-help">Use the average amount invoiced per billable hour.</span>
+                  <span id="averageHourlyRateError" class="field-error" aria-live="polite"></span>
+                </label>
+
+                <label for="billableHoursPerWeek">
+                  Billable hours per week
+                  <input id="billableHoursPerWeek" name="billableHoursPerWeek" type="number" min="0" max="168" step="0.1" inputmode="decimal" required aria-describedby="billableHoursPerWeekHelp billableHoursPerWeekError" />
+                  <span id="billableHoursPerWeekHelp" class="field-help">Enter hours you can invoice to clients, not administration, sales, general communication, bookkeeping, or learning time.</span>
+                  <span id="billableHoursPerWeekError" class="field-error" aria-live="polite"></span>
+                </label>
+
+                <label for="workingWeeksPerYear">
+                  Working weeks per year
+                  <input id="workingWeeksPerYear" name="workingWeeksPerYear" type="number" min="1" max="52" step="0.1" inputmode="decimal" required aria-describedby="workingWeeksPerYearHelp workingWeeksPerYearError" />
+                  <span id="workingWeeksPerYearHelp" class="field-help">Use 1 to 52 weeks after planned vacation, holidays, and time without client work.</span>
+                  <span id="workingWeeksPerYearError" class="field-error" aria-live="polite"></span>
+                </label>
+
+                <label for="annualBusinessExpenses">
+                  Annual business expenses ($)
+                  <input id="annualBusinessExpenses" name="annualBusinessExpenses" type="number" min="0" step="0.01" inputmode="decimal" required aria-describedby="annualBusinessExpensesHelp annualBusinessExpensesError" />
+                  <span id="annualBusinessExpensesHelp" class="field-help">Include business operating costs, not personal living expenses. Enter 0 if none.</span>
+                  <span id="annualBusinessExpensesError" class="field-error" aria-live="polite"></span>
+                </label>
+
+                <label for="estimatedEffectiveTaxRate">
+                  Estimated effective tax rate (%)
+                  <input id="estimatedEffectiveTaxRate" name="estimatedEffectiveTaxRate" type="number" min="0" max="100" step="0.1" inputmode="decimal" required aria-describedby="estimatedEffectiveTaxRateHelp estimatedEffectiveTaxRateError" />
+                  <span id="estimatedEffectiveTaxRateHelp" class="field-help">Use an estimate appropriate for your location and business situation. Enter 0 if no reserve is needed.</span>
+                  <span id="estimatedEffectiveTaxRateError" class="field-error" aria-live="polite"></span>
+                </label>
+
+                <p class="form-note">Use the same currency for the hourly rate and expenses. Monetary results follow that same assumption; no currency conversion is performed.</p>
+
+                <div class="form-actions">
+                  <button type="submit" class="button primary">Calculate Income</button>
+                  <button type="reset" class="button secondary">Reset</button>
+                </div>
+              </form>
+
+              <div id="incomeErrorSummary" class="status-message error" role="alert" aria-live="assertive" hidden></div>
+            </div>
+
+            <div class="card result-card income-result-card">
+              <h2>Your income estimate</h2>
+              <p id="incomeStatusMessage" class="status-message" role="status" aria-live="polite">Enter your assumptions and select Calculate Income.</p>
+              <div id="incomeResults" class="metric-grid" aria-live="polite" hidden></div>
+              <p id="incomeLossMessage" class="status-message loss-message" role="status" aria-live="polite" hidden></p>
+
+              <dl class="definition-list">
+                <div>
+                  <dt>Gross revenue</dt>
+                  <dd>The total amount clients pay before expenses and taxes.</dd>
+                </div>
+                <div>
+                  <dt>Business expenses</dt>
+                  <dd>Operating costs required to run the freelance business.</dd>
+                </div>
+                <div>
+                  <dt>Tax reserve</dt>
+                  <dd>A simplified planning reserve, not a final tax calculation.</dd>
+                </div>
+                <div>
+                  <dt>Planning income</dt>
+                  <dd>Gross revenue minus business expenses and the simplified tax reserve. It is an estimate, not guaranteed take-home income.</dd>
+                </div>
+              </dl>
+
+              <button type="button" id="copyLinkButton" class="button secondary">Copy Link</button>
+              <p id="shareStatusMessage" class="status-message share-status-message" role="status" aria-live="polite"></p>
+              <textarea id="shareLinkText" class="share-link-text" readonly hidden></textarea>
+            </div>
+          </div>
+        </div>
+      </section>
+
       <section class="page-section">
         <div class="container content-card">
-          <h1>Freelance Income Calculator</h1>
-          <p>
-            A freelance income calculator helps you estimate how much you need to earn
-            to support your lifestyle, cover business costs, and maintain a sustainable
-            freelance income plan.
-          </p>
+          <h2>How the income calculation works</h2>
+          <p>The calculator starts with the revenue your billable work could produce. It then subtracts business expenses and a simplified tax reserve to estimate planning income.</p>
 
-          <h2>Why use an income calculator?</h2>
-          <p>
-            Freelancers often focus on client work without fully considering the revenue needed
-            to cover taxes, expenses, and personal financial goals. A dedicated income calculator
-            makes it easier to turn daily work into a clear income target.
-          </p>
+          <h3>Calculation formulas</h3>
+          <p><strong>Annual gross revenue</strong><br />average hourly rate × billable hours per week × working weeks per year</p>
+          <p><strong>Average monthly gross revenue</strong><br />annual gross revenue ÷ 12</p>
+          <p><strong>Estimated taxable planning base</strong><br />max(annual gross revenue - annual business expenses, 0)</p>
+          <p><strong>Estimated tax reserve</strong><br />estimated taxable planning base × estimated effective tax rate</p>
+          <p><strong>Annual planning income</strong><br />annual gross revenue - annual business expenses - estimated tax reserve</p>
+          <p><strong>Average monthly planning income</strong><br />annual planning income ÷ 12</p>
+          <p><strong>Effective planning income percentage</strong><br />annual planning income ÷ annual gross revenue × 100</p>
+          <p>When expenses exceed gross revenue, the taxable planning base and tax reserve are zero. Planning income may be negative, which represents an estimated loss.</p>
+        </div>
+      </section>
 
-          <h2>How it helps your business</h2>
-          <p>
-            By combining your desired take-home income with realistic assumptions about work hours,
-            costs, and taxes, you can better understand how much revenue you need to generate.
-            This makes pricing decisions and monthly planning more reliable.
-          </p>
+      <section class="page-section">
+        <div class="container content-card">
+          <h2>Complete freelance income example</h2>
+          <p><strong>These are example assumptions, not recommended defaults.</strong></p>
 
-          <h2>What to estimate</h2>
+          <h3>Assumptions</h3>
           <ul>
-            <li><strong>Annual income target:</strong> The amount you want to earn after taxes.</li>
-            <li><strong>Business expenses:</strong> Tools, software, insurance, and other overhead.</li>
-            <li><strong>Tax assumptions:</strong> A realistic estimate of what you need to set aside.</li>
-            <li><strong>Billable hours:</strong> The time you can actually charge for each year.</li>
+            <li>Average hourly rate: $60</li>
+            <li>Billable hours per week: 25</li>
+            <li>Working weeks per year: 46</li>
+            <li>Annual business expenses: $5,000</li>
+            <li>Estimated effective tax rate: 20%</li>
           </ul>
 
-          <h2>FAQ</h2>
-          <details>
-            <summary>What does a freelance income calculator measure?</summary>
-            <p>
-              It estimates the income required to meet your goals while accounting for costs,
-              taxes, and the amount of billable time available.
-            </p>
-          </details>
-          <details>
-            <summary>Can this calculator help with rate setting?</summary>
-            <p>
-              Yes. Once you understand your income target, you can use it to estimate a more
-              realistic hourly or project rate for your services.
-            </p>
-          </details>
-          <details>
-            <summary>Is the calculator suitable for beginners?</summary>
-            <p>
-              Absolutely. It is a simple way for new freelancers to understand the relationship
-              between income goals, expenses, and pricing.
-            </p>
-          </details>
+          <h3>Calculated results</h3>
+          <ul>
+            <li>Annual gross revenue: $69,000</li>
+            <li>Average monthly gross revenue: $5,750</li>
+            <li>Estimated taxable planning base: $64,000</li>
+            <li>Estimated tax reserve: $12,800</li>
+            <li>Annual planning income: $51,200</li>
+            <li>Average monthly planning income: approximately $4,266.67</li>
+            <li>Effective planning income percentage: approximately 74.20%</li>
+          </ul>
+        </div>
+      </section>
 
-          <p>
-            Explore the <a href="/freelancer-calculator/#calculator">freelance hourly rate calculator</a> to turn your income target into a practical pricing strategy.
-          </p>
-        </div>
-      </section>
-      <section class="page-section planning-notes">
+      <section class="page-section">
         <div class="container content-card">
-          <h2>How freelance income planning works</h2>
-          <p>Estimate income from the work you expect to invoice, not every hour you spend working. Compare gross billings with operating costs, tax reserves, and the amount you want to take home.</p>
-          <h2>Freelance income formula</h2>
-          <p>Gross freelance income = average client rate x billable units completed. Planning income = gross income - business expenses - tax reserve.</p>
-          <h2>Income planning example</h2>
-          <p>A freelancer averaging $7,500 in monthly billings with $900 in expenses and a $1,800 tax reserve would plan around $4,800 before savings and other adjustments.</p>
+          <h2>How to use your income estimate</h2>
+          <ol>
+            <li>Keep the estimated tax reserve separate from money available for business or personal spending.</li>
+            <li>Update business expenses regularly using actual subscriptions, equipment, insurance, and professional costs.</li>
+            <li>Use real time records to adjust billable hours per week instead of assuming every working hour can be invoiced.</li>
+            <li>If planning income is below your target, compare raising your rate, increasing realistic billable hours, and reducing expenses.</li>
+            <li>Do not treat gross revenue as personal disposable income.</li>
+            <li>Recalculate when tax rules, rates, expenses, or workload change.</li>
+            <li>Consult a qualified local professional when you need an accurate tax calculation.</li>
+          </ol>
         </div>
       </section>
-    <section class="related-tools">
-      <div class="container content-card">
-        <h2>Related tools</h2>
-        <p>Compare this estimate with other planning tools that cover the same freelance decision from a different angle.</p>
-        <ul class="related-list">
-            <li><a href="/freelancer-calculator/freelance-hourly-income-calculator.html">Freelance Hourly Income Calculator</a></li>
-            <li><a href="/freelancer-calculator/freelance-monthly-income-calculator.html">Freelance Monthly Income Calculator</a></li>
-            <li><a href="/freelancer-calculator/freelance-yearly-income-calculator.html">Freelance Yearly Income Calculator</a></li>
-            <li><a href="/freelancer-calculator/freelance-salary-calculator.html">Freelance Salary Calculator</a></li>
-            <li><a href="/freelancer-calculator/freelance-revenue-calculator.html">Freelance Revenue Calculator</a></li>
-        </ul>
-        <p>Related reading: <a href="/freelancer-calculator/blog/freelance-income-planning.html">Freelance Income Planning</a>.</p>
-      </div>
-    </section>
+
+      <section id="faq" class="faq-section page-section">
+        <div class="container content-card">
+          <h2>Freelance income calculator FAQ</h2>
+          <div class="faq-list">
+            <details>
+              <summary>What is the difference between gross revenue and planning income?</summary>
+              <p>Gross revenue is the total amount clients pay before expenses and taxes. Planning income subtracts annual business expenses and the calculator's simplified tax reserve from gross revenue.</p>
+            </details>
+            <details>
+              <summary>What counts as a billable hour?</summary>
+              <p>A billable hour is time you can invoice to a client for agreed work. Administration, sales, general communication, bookkeeping, and learning are working time but usually are not billable.</p>
+            </details>
+            <details>
+              <summary>Which tax rate should I enter?</summary>
+              <p>Enter a reasonable estimated effective rate for your location, income, and business situation. It is a simplified planning assumption, not a prediction of your final tax bill.</p>
+            </details>
+            <details>
+              <summary>Should I include personal living expenses?</summary>
+              <p>No. Enter costs required to operate your freelance business, such as software, equipment, insurance, accounting, and marketing. Keep personal housing, food, and other living costs separate.</p>
+            </details>
+            <details>
+              <summary>What if my expenses are higher than my revenue?</summary>
+              <p>The taxable planning base and tax reserve become zero, while planning income becomes negative. The calculator displays an estimated loss so you can review pricing, billable capacity, or costs.</p>
+            </details>
+            <details>
+              <summary>Does this calculator include tax deductions?</summary>
+              <p>No. It does not model tax brackets, deductions, VAT, sales tax, or jurisdiction-specific law. The tax reserve is a simplified planning estimate and is not tax advice.</p>
+            </details>
+            <details>
+              <summary>Can I use monthly income instead of an hourly rate?</summary>
+              <p>This version starts with an hourly rate and billable capacity. If you plan from monthly income, convert the target into an hourly assumption or use the monthly gross result to compare scenarios.</p>
+            </details>
+          </div>
+        </div>
+      </section>
+
+      <section class="related-tools">
+        <div class="container content-card">
+          <h2>Related tools</h2>
+          <p>Use these tools to turn an income estimate into a sustainable rate, review profit, or prepare client billing.</p>
+          <ul class="related-list">
+            <li><a href="/freelancer-calculator/freelance-hourly-rate-calculator.html">Freelance Hourly Rate Calculator</a></li>
+            <li><a href="/freelancer-calculator/freelance-profit-calculator.html">Freelance Profit Calculator</a></li>
+            <li><a href="/freelancer-calculator/freelance-invoice-calculator.html">Freelance Invoice Calculator</a></li>
+          </ul>
+          <p>Related reading: <a href="/freelancer-calculator/blog/freelance-income-planning.html">Freelance Income Planning</a>.</p>
+        </div>
+      </section>
     </main>
 
-            <footer class="site-footer">
+    <footer class="site-footer">
       <div class="container footer-row">
         <div class="footer-nav">
           <a href="/freelancer-calculator/">Home</a>
@@ -177,5 +439,8 @@
         <p>© 2026 Freelancer Calculator Hub</p>
       </div>
     </footer>
+
+    <script src="/freelancer-calculator/js/income-calculator.js"></script>
+    <script src="/freelancer-calculator/js/share-page.js"></script>
   </body>
 </html>
