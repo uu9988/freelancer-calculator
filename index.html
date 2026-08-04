@@ -414,13 +414,75 @@
           }
         });
       }
-      function shareResults() {
+      async function copyShareText(text) {
+        if (navigator.clipboard && typeof navigator.clipboard.writeText === 'function') {
+          try {
+            await navigator.clipboard.writeText(text);
+            return true;
+          } catch {
+            // Fall through to the compatibility copy method.
+          }
+        }
+
+        const textarea = document.createElement('textarea');
+        textarea.value = text;
+        textarea.setAttribute('readonly', '');
+        textarea.style.position = 'fixed';
+        textarea.style.opacity = '0';
+        document.body.appendChild(textarea);
+        textarea.focus();
+        textarea.select();
+
+        try {
+          return document.execCommand('copy');
+        } catch {
+          return false;
+        } finally {
+          textarea.remove();
+        }
+      }
+
+      function showShareStatus(message, success) {
+        const messageElement = document.getElementById('statusMessage');
+        if (!messageElement) return;
+        messageElement.className = `status-message ${success ? 'success' : 'error'}`;
+        messageElement.textContent = message;
+      }
+
+      async function shareResults() {
         const results = Array.from(document.querySelectorAll('#resultsGrid .metric strong')).map((node) => node.textContent).join(', ');
         const shareText = `Freelance rate results: ${results}`;
-        if (navigator.share) {
-          navigator.share({ title: 'Freelance Rate Results', text: shareText, url: window.location.href });
+        const shareData = {
+          title: 'Freelance Rate Results',
+          text: shareText,
+          url: window.location.href
+        };
+        let canUseNativeShare = typeof navigator.share === 'function';
+
+        if (canUseNativeShare && typeof navigator.canShare === 'function') {
+          try {
+            canUseNativeShare = navigator.canShare(shareData);
+          } catch {
+            canUseNativeShare = false;
+          }
+        }
+
+        if (canUseNativeShare) {
+          try {
+            await navigator.share(shareData);
+            return;
+          } catch (error) {
+            if (error && error.name === 'AbortError') {
+              return;
+            }
+          }
+        }
+
+        const copied = await copyShareText(`${shareText}\n${window.location.href}`);
+        if (copied) {
+          showShareStatus('结果链接已复制，可以粘贴分享。', true);
         } else {
-          window.prompt('Copy your results:', shareText);
+          showShareStatus('无法自动复制，请从浏览器地址栏复制当前页面链接。', false);
         }
       }
       function initHistory() {

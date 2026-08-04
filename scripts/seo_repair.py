@@ -908,6 +908,11 @@ def repair_404_and_template(changes: dict[Path, str]) -> None:
         f'<meta property="og:url" content="{BASE_URL}404.html" />',
     )
     text = normalize_root_navigation(text)
+    text = re.sub(
+        r'(<li><a href=")[^"]+("[^>]*>Freelance Hourly Rate Calculator</a></li>)',
+        rf'\1{PROJECT_PATH}freelance-hourly-rate-calculator.html\2',
+        text,
+    )
     changes[path] = set_jsonld(text, [])
 
     path = ROOT / "blog" / "post-template.html"

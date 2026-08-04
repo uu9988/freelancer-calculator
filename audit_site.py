@@ -192,6 +192,30 @@ def audit_deployed_reference(audit: Audit, path: Path, tag_name: str, value: str
         audit.error(location, f"Reference resolves to a duplicated blog path: {value} -> {resolved.path}")
 
 
+def audit_404_href_targets(audit: Audit, path: Path, text: str) -> None:
+    """Require every 404 href to resolve to a real file in this project."""
+    if path.relative_to(ROOT).as_posix() != "404.html":
+        return
+
+    hrefs = [attr(tag, "href") for tag in tags(text, "a") if attr(tag, "href")]
+    hourly_rate_href = PROJECT_PATH + "freelance-hourly-rate-calculator.html"
+    if hrefs.count(hourly_rate_href) != 1:
+        audit.error("404.html", f"404 page must link once to {hourly_rate_href}")
+
+    for value in hrefs:
+        target, _ = resolve_reference(path, value)
+        if target is None:
+            audit.error("404.html", f"404 href does not map to a local project file: {value}")
+            continue
+        try:
+            relative_target = target.relative_to(ROOT)
+        except ValueError:
+            audit.error("404.html", f"404 href escapes the project root: {value}")
+            continue
+        if not target.is_file():
+            audit.error("404.html", f"404 href target does not exist: {value} -> {relative_target}")
+
+
 def jsonld_blocks(text: str, location: str, audit: Audit) -> list[dict]:
     blocks: list[dict] = []
     for index, match in enumerate(
@@ -361,6 +385,7 @@ def audit_page(
     if location in NOINDEX_RULES and location in {"404.html", "blog/post-template.html"} and blocks:
         audit.error(location, "404/template page must not contain JSON-LD")
 
+    audit_404_href_targets(audit, path, text)
     ids = set(re.findall(r'\bid=["\']([^"\']+)["\']', text, flags=re.I))
     for tag_name, attribute in [
         ("a", "href"),
