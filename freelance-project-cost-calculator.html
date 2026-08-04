@@ -17,6 +17,113 @@
     <meta name="twitter:title" content="Freelance Project Cost Calculator | Estimate Job Costs" />
     <meta name="twitter:description" content="Estimate freelance project costs from labor, subcontractors, software, travel, and contingency before setting a quote or approving a scope." />
     <link rel="stylesheet" href="/freelancer-calculator/styles.css" />
+    <style>
+      .project-cost-calculator-page {
+        padding: 3rem 0;
+      }
+
+      .project-cost-calculator-page [hidden] {
+        display: none !important;
+      }
+
+      .project-cost-note {
+        margin: 1rem 0 1.5rem;
+        padding: 0.8rem 1rem;
+        border-left: 4px solid var(--primary);
+        border-radius: 0.6rem;
+        background: var(--accent);
+      }
+
+      .project-cost-calculator-page .field-help,
+      .project-cost-calculator-page .form-note {
+        color: var(--muted);
+        font-weight: 400;
+        line-height: 1.4;
+      }
+
+      .project-cost-calculator-page .field-help,
+      .project-cost-calculator-page .field-error {
+        font-size: 0.82rem;
+      }
+
+      .project-cost-calculator-page .field-error {
+        min-height: 1.2em;
+        color: #b91c1c;
+        font-weight: 600;
+      }
+
+      .project-cost-calculator-page .form-note,
+      .project-cost-calculator-page .form-actions {
+        grid-column: 1 / -1;
+      }
+
+      .project-cost-calculator-page .form-note {
+        margin: 0;
+        font-size: 0.9rem;
+      }
+
+      .project-cost-calculator-page .form-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.75rem;
+        margin-top: 0.25rem;
+      }
+
+      .project-cost-calculator-page button {
+        min-height: 44px;
+        border: 0;
+        font: inherit;
+        cursor: pointer;
+      }
+
+      .project-cost-calculator-page .button.secondary {
+        border: 1px solid var(--border);
+        background: var(--surface);
+        color: var(--primary-dark);
+      }
+
+      .project-cost-calculator-page input[aria-invalid="true"] {
+        border-color: #b91c1c;
+        box-shadow: 0 0 0 2px rgba(185, 28, 28, 0.12);
+      }
+
+      .project-cost-calculator-page .total-cost-metric {
+        grid-column: 1 / -1;
+        border: 2px solid var(--primary);
+        background: #eff6ff;
+      }
+
+      .project-cost-calculator-page .total-cost-metric strong {
+        color: var(--primary-dark);
+        font-size: 1.45rem;
+      }
+
+      .project-cost-calculator-page .definition-list {
+        display: grid;
+        gap: 0.75rem;
+        margin: 1.25rem 0;
+      }
+
+      .project-cost-calculator-page .definition-list dt {
+        font-weight: 700;
+      }
+
+      .project-cost-calculator-page .definition-list dd {
+        margin: 0;
+        color: var(--muted);
+      }
+
+      @media (max-width: 640px) {
+        .project-cost-calculator-page {
+          padding: 2rem 0;
+        }
+
+        .project-cost-calculator-page .form-actions .button {
+          flex: 1 1 100%;
+          text-align: center;
+        }
+      }
+    </style>
     <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -24,7 +131,20 @@
   "name": "Freelance Project Cost Calculator | Estimate Job Costs",
   "description": "Estimate freelance project costs from labor, subcontractors, software, travel, and contingency before setting a quote or approving a scope.",
   "url": "https://uu9988.github.io/freelancer-calculator/freelance-project-cost-calculator.html",
-  "inLanguage": "en"
+  "inLanguage": "en",
+  "mainEntity": {
+    "@type": "WebApplication",
+    "name": "Freelance Project Cost Calculator",
+    "description": "Estimate the internal delivery cost of a freelance project from labor, direct expenses, overhead, and contingency.",
+    "url": "https://uu9988.github.io/freelancer-calculator/freelance-project-cost-calculator.html",
+    "applicationCategory": "BusinessApplication",
+    "operatingSystem": "Any",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    }
+  }
 }
     </script>
     <script type="application/ld+json">
@@ -34,18 +154,42 @@
   "mainEntity": [
     {
       "@type": "Question",
-      "name": "Why estimate project cost?",
+      "name": "What is an internal hourly cost?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "It helps reduce underpricing and sets a better foundation for quoting and delivery."
+        "text": "It is the internal cost assigned to each hour of delivery work. It may reflect compensation and employment or business costs, but it is not the client-facing billable rate."
       }
     },
     {
       "@type": "Question",
-      "name": "Can this support client conversations?",
+      "name": "What belongs in direct project expenses?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Yes. It gives you stronger rationale when discussing scope, timeline, and budget."
+        "text": "Include subcontractors and costs required specifically for this project, such as materials, stock assets, travel, printing, or special licenses. Do not count the same expense twice."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Why allocate overhead to a project?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "An overhead allocation assigns part of shared business costs, such as insurance, accounting, software, and administration, to the project so delivery cost is not understated."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is contingency the same as profit?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. Contingency is a cost-planning allowance for reasonable delivery uncertainty. Profit is considered separately when you turn internal cost into a client quote."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is total delivery cost the amount I should quote?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Not necessarily. Total delivery cost is an internal planning estimate. A client quote may also reflect profit, value, market conditions, scope terms, and applicable taxes."
       }
     }
   ]
@@ -53,7 +197,7 @@
     </script>
   </head>
   <body>
-            <header class="site-header">
+    <header class="site-header">
       <div class="container nav">
         <a class="brand" href="/freelancer-calculator/">Freelancer Calculator Hub</a>
         <nav class="site-nav" aria-label="Main navigation">
@@ -68,62 +212,185 @@
         </nav>
       </div>
     </header>
+
     <main>
+      <section id="calculator" class="calculator-section project-cost-calculator-page">
+        <div class="container">
+          <h1>Freelance Project Cost Calculator</h1>
+          <p class="hero-copy">Estimate the internal cost of delivering a freelance project from labor, subcontractors, other direct expenses, overhead, and a contingency allowance.</p>
+          <p class="project-cost-note"><strong>Use one currency for every monetary input.</strong> This is an internal delivery-cost estimate, not a client quote, invoice, profit calculation, or tax calculation.</p>
+
+          <div class="calc-grid">
+            <div class="card form-card">
+              <h2>Project delivery assumptions</h2>
+              <p class="card-intro">Enter your expected internal effort and the costs required to complete this project. Use 0 for expense or percentage fields that do not apply.</p>
+
+              <form id="projectCostCalculatorForm" class="input-grid" novalidate>
+                <label for="estimatedInternalProjectHours">
+                  Estimated internal project hours
+                  <input id="estimatedInternalProjectHours" name="estimatedInternalProjectHours" type="number" min="0.25" step="0.25" inputmode="decimal" required aria-describedby="estimatedInternalProjectHoursHelp estimatedInternalProjectHoursError" />
+                  <span id="estimatedInternalProjectHoursHelp" class="field-help">Include all internal time needed for planning, production, revisions, coordination, testing, and delivery.</span>
+                  <span id="estimatedInternalProjectHoursError" class="field-error" aria-live="polite"></span>
+                </label>
+
+                <label for="internalHourlyCost">
+                  Internal hourly cost ($)
+                  <input id="internalHourlyCost" name="internalHourlyCost" type="number" min="0.01" step="0.01" inputmode="decimal" required aria-describedby="internalHourlyCostHelp internalHourlyCostError" />
+                  <span id="internalHourlyCostHelp" class="field-help">Use your internal delivery cost per hour, not the rate charged to the client.</span>
+                  <span id="internalHourlyCostError" class="field-error" aria-live="polite"></span>
+                </label>
+
+                <label for="subcontractorCosts">
+                  Subcontractor costs ($)
+                  <input id="subcontractorCosts" name="subcontractorCosts" type="number" min="0" step="0.01" inputmode="decimal" required aria-describedby="subcontractorCostsHelp subcontractorCostsError" />
+                  <span id="subcontractorCostsHelp" class="field-help">Enter the amount expected to be paid to external specialists for this project. Use 0 if none.</span>
+                  <span id="subcontractorCostsError" class="field-error" aria-live="polite"></span>
+                </label>
+
+                <label for="otherDirectProjectExpenses">
+                  Other direct project expenses ($)
+                  <input id="otherDirectProjectExpenses" name="otherDirectProjectExpenses" type="number" min="0" step="0.01" inputmode="decimal" required aria-describedby="otherDirectProjectExpensesHelp otherDirectProjectExpensesError" />
+                  <span id="otherDirectProjectExpensesHelp" class="field-help">Include project-specific materials, travel, stock assets, printing, or licenses. Use 0 if none.</span>
+                  <span id="otherDirectProjectExpensesError" class="field-error" aria-live="polite"></span>
+                </label>
+
+                <label for="overheadAllocationPercentage">
+                  Overhead allocation (%)
+                  <input id="overheadAllocationPercentage" name="overheadAllocationPercentage" type="number" min="0" max="100" step="0.1" inputmode="decimal" required aria-describedby="overheadAllocationPercentageHelp overheadAllocationPercentageError" />
+                  <span id="overheadAllocationPercentageHelp" class="field-help">Allocate part of shared business costs such as insurance, accounting, administration, and general software. Use 0 if none.</span>
+                  <span id="overheadAllocationPercentageError" class="field-error" aria-live="polite"></span>
+                </label>
+
+                <label for="projectContingencyPercentage">
+                  Contingency (%)
+                  <input id="projectContingencyPercentage" name="projectContingencyPercentage" type="number" min="0" max="100" step="0.1" inputmode="decimal" required aria-describedby="projectContingencyPercentageHelp projectContingencyPercentageError" />
+                  <span id="projectContingencyPercentageHelp" class="field-help">Allow for reasonable uncertainty in delivery cost. Contingency is not an automatic profit margin. Use 0 if unnecessary.</span>
+                  <span id="projectContingencyPercentageError" class="field-error" aria-live="polite"></span>
+                </label>
+
+                <p class="form-note">All money inputs must use the same currency. The calculator performs no currency conversion and does not add profit or taxes.</p>
+
+                <div class="form-actions">
+                  <button type="submit" class="button primary">Calculate Project Cost</button>
+                  <button type="reset" class="button secondary">Reset</button>
+                </div>
+              </form>
+
+              <div id="projectCostErrorSummary" class="status-message error" role="alert" aria-live="assertive" hidden></div>
+            </div>
+
+            <div class="card result-card project-cost-result-card">
+              <h2>Your delivery cost estimate</h2>
+              <p id="projectCostStatusMessage" class="status-message" role="status" aria-live="polite">Enter your project assumptions and select Calculate Project Cost.</p>
+              <div id="projectCostResults" class="metric-grid" aria-live="polite" hidden></div>
+
+              <dl class="definition-list">
+                <div>
+                  <dt>Internal labor cost</dt>
+                  <dd>Internal project hours multiplied by the internal hourly cost.</dd>
+                </div>
+                <div>
+                  <dt>Direct project expenses</dt>
+                  <dd>Subcontractor costs plus other expenses that exist specifically because of this project.</dd>
+                </div>
+                <div>
+                  <dt>Overhead allocation</dt>
+                  <dd>A share of general business operating costs assigned to project delivery.</dd>
+                </div>
+                <div>
+                  <dt>Contingency</dt>
+                  <dd>A cost allowance for reasonable uncertainty, separate from profit.</dd>
+                </div>
+                <div>
+                  <dt>Total estimated delivery cost</dt>
+                  <dd>The internal amount estimated to complete the work before adding profit or creating a client quote.</dd>
+                </div>
+              </dl>
+
+              <button type="button" id="copyLinkButton" class="button secondary">Copy Link</button>
+              <p id="shareStatusMessage" class="status-message share-status-message" role="status" aria-live="polite"></p>
+              <textarea id="shareLinkText" class="share-link-text" readonly hidden></textarea>
+            </div>
+          </div>
+        </div>
+      </section>
+
       <section class="page-section">
         <div class="container content-card">
-          <h1>Freelance Project Cost Calculator</h1>
-          <p>A freelance project cost calculator helps you estimate the full cost of delivering a project before you quote or begin work.</p>
-          <h2>Introduction</h2>
-          <p>Understanding project cost before delivery helps freelancers avoid surprises and make better decisions about scope and pricing.</p>
-          <h2>How It Works</h2>
-          <p>You combine the expected effort, software needs, and general overhead to estimate the total cost of a project.</p>
-          <h2>Calculation Explanation</h2>
-          <p>Project cost planning often includes labor, direct expenses, and a margin for business sustainability.</p>
-          <h2>Examples</h2>
-          <ul>
-            <li>Estimate cost for a small website project</li>
-            <li>Compare cost assumptions across client scopes</li>
-            <li>Adjust cost planning for revisions and risk</li>
-          </ul>
-          <h2>FAQ</h2>
-          <details>
-            <summary>Why estimate project cost?</summary>
-            <p>It helps reduce underpricing and sets a better foundation for quoting and delivery.</p>
-          </details>
-          <details>
-            <summary>Can this support client conversations?</summary>
-            <p>Yes. It gives you stronger rationale when discussing scope, timeline, and budget.</p>
-          </details>
-          <h2>Related Tools</h2>
-          <p>Visit the <a href="/freelancer-calculator/freelance-quote-calculator.html">freelance quote calculator</a> and the <a href="/freelancer-calculator/#calculator">main calculator</a> for more support.</p>
+          <h2>How the project cost calculation works</h2>
+          <p>The calculator separates internal labor from direct purchases and subcontractor payments, then allocates overhead and applies contingency. This avoids treating a client-facing price as though it were the cost of delivery.</p>
+
+          <h3>Calculation formulas</h3>
+          <p><strong>Internal labor cost</strong><br />estimated internal project hours × internal hourly cost</p>
+          <p><strong>Direct project expenses</strong><br />subcontractor costs + other direct project expenses</p>
+          <p><strong>Base delivery cost</strong><br />internal labor cost + direct project expenses</p>
+          <p><strong>Overhead allocation amount</strong><br />base delivery cost × overhead allocation percentage</p>
+          <p><strong>Cost before contingency</strong><br />base delivery cost + overhead allocation amount</p>
+          <p><strong>Contingency amount</strong><br />cost before contingency × contingency percentage</p>
+          <p><strong>Total estimated delivery cost</strong><br />cost before contingency + contingency amount</p>
+          <p><strong>Average delivery cost per internal hour</strong><br />total estimated delivery cost ÷ estimated internal project hours</p>
         </div>
       </section>
-      <section class="page-section planning-notes">
+
+      <section class="page-section">
         <div class="container content-card">
-          <h2>How project costs are estimated</h2>
-          <p>Break the project into tasks, estimate labor for each task, add direct purchases and subcontractor fees, and include a contingency for clearly identified uncertainty.</p>
-          <h2>Project cost formula</h2>
-          <p>Estimated project cost = labor hours x internal cost rate + direct expenses + subcontractor costs + contingency. Profit is added later when setting the client price.</p>
-          <h2>Project cost example</h2>
-          <p>Forty hours at a $45 internal cost rate plus $300 in software and a $200 contingency produces an estimated project cost of $2,300.</p>
+          <h2>Complete project cost example</h2>
+          <p><strong>These are example assumptions, not recommended defaults.</strong></p>
+          <ul>
+            <li>Estimated internal project hours: 40</li>
+            <li>Internal hourly cost: $35</li>
+            <li>Subcontractor costs: $600</li>
+            <li>Other direct project expenses: $250</li>
+            <li>Overhead allocation: 10%</li>
+            <li>Contingency: 8%</li>
+          </ul>
+          <p>The resulting internal labor cost is $1,400.00 and direct project expenses are $850.00. After $225.00 of overhead and $198.00 of contingency, total estimated delivery cost is $2,673.00, or approximately $66.83 per internal hour.</p>
         </div>
       </section>
-    <section class="related-tools">
-      <div class="container content-card">
-        <h2>Related tools</h2>
-        <p>Compare this estimate with other planning tools that cover the same freelance decision from a different angle.</p>
-        <ul class="related-list">
+
+      <section id="faq" class="faq-section page-section">
+        <div class="container content-card">
+          <h2>Project cost calculator FAQ</h2>
+          <div class="faq-list">
+            <details>
+              <summary>What is an internal hourly cost?</summary>
+              <p>It is the internal cost assigned to each hour of delivery work. It may reflect compensation and employment or business costs, but it is not the client-facing billable rate.</p>
+            </details>
+            <details>
+              <summary>What belongs in direct project expenses?</summary>
+              <p>Include subcontractors and costs required specifically for this project, such as materials, stock assets, travel, printing, or special licenses. Do not count the same expense twice.</p>
+            </details>
+            <details>
+              <summary>Why allocate overhead to a project?</summary>
+              <p>An overhead allocation assigns part of shared business costs, such as insurance, accounting, software, and administration, to the project so delivery cost is not understated.</p>
+            </details>
+            <details>
+              <summary>Is contingency the same as profit?</summary>
+              <p>No. Contingency is a cost-planning allowance for reasonable delivery uncertainty. Profit is considered separately when you turn internal cost into a client quote.</p>
+            </details>
+            <details>
+              <summary>Is total delivery cost the amount I should quote?</summary>
+              <p>Not necessarily. Total delivery cost is an internal planning estimate. A client quote may also reflect profit, value, market conditions, scope terms, and applicable taxes.</p>
+            </details>
+          </div>
+        </div>
+      </section>
+
+      <section class="related-tools">
+        <div class="container content-card">
+          <h2>Related tools</h2>
+          <p>After estimating internal delivery cost, compare it with a sustainable hourly rate and build a separate client-facing quote.</p>
+          <ul class="related-list">
             <li><a href="/freelancer-calculator/freelance-hourly-rate-calculator.html">Freelance Hourly Rate Calculator</a></li>
-            <li><a href="/freelancer-calculator/freelance-rate-calculator.html">Freelance Rate Calculator</a></li>
-            <li><a href="/freelancer-calculator/freelance-pricing-calculator.html">Freelance Pricing Calculator</a></li>
             <li><a href="/freelancer-calculator/freelance-quote-calculator.html">Freelance Quote Calculator</a></li>
-            <li><a href="/freelancer-calculator/freelance-hourly-rate-guide.html">Freelance Hourly Rate Guide</a></li>
-        </ul>
-        <p>Related reading: <a href="/freelancer-calculator/blog/hourly-rate-calculation-methods.html">Hourly Rate Calculation Methods</a>.</p>
-      </div>
-    </section>
+            <li><a href="/freelancer-calculator/freelance-profit-calculator.html">Freelance Profit Calculator</a></li>
+          </ul>
+          <p>Related reading: <a href="/freelancer-calculator/blog/hourly-rate-calculation-methods.html">Hourly Rate Calculation Methods</a>.</p>
+        </div>
+      </section>
     </main>
-            <footer class="site-footer">
+
+    <footer class="site-footer">
       <div class="container footer-row">
         <div class="footer-nav">
           <a href="/freelancer-calculator/">Home</a>
@@ -137,5 +404,8 @@
         <p>© 2026 Freelancer Calculator Hub</p>
       </div>
     </footer>
+
+    <script src="/freelancer-calculator/js/project-cost-calculator.js"></script>
+    <script src="/freelancer-calculator/js/share-page.js"></script>
   </body>
 </html>
