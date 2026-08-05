@@ -235,7 +235,16 @@
       return;
     }
 
-    renderResults(calculateProfit(values));
+    const results = calculateProfit(values);
+
+    if (!Object.values(results).every(Number.isFinite)) {
+      errorSummary.textContent = 'The calculation produced a number too large to display. Reduce one or more inputs.';
+      errorSummary.hidden = false;
+      hideResults('Reduce one or more inputs before calculating project profit.');
+      return;
+    }
+
+    renderResults(results);
   }
 
   function handleInput(event) {

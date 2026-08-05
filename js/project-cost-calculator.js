@@ -185,7 +185,16 @@
       return;
     }
 
-    renderResults(calculateProjectCost(values));
+    const results = calculateProjectCost(values);
+
+    if (!Object.values(results).every(Number.isFinite)) {
+      errorSummary.textContent = 'The calculation produced a number too large to display. Reduce one or more inputs.';
+      errorSummary.hidden = false;
+      hideResults('Reduce one or more inputs before calculating project cost.');
+      return;
+    }
+
+    renderResults(results);
   }
 
   function handleInput(event) {

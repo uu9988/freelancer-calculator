@@ -189,7 +189,16 @@
       return;
     }
 
-    renderResults(calculateQuote(values), values.clientDiscountPercentage);
+    const results = calculateQuote(values);
+
+    if (!Object.values(results).every(Number.isFinite)) {
+      errorSummary.textContent = 'The calculation produced a number too large to display. Reduce one or more inputs.';
+      errorSummary.hidden = false;
+      hideResults('Reduce one or more inputs before calculating the quote.');
+      return;
+    }
+
+    renderResults(results, values.clientDiscountPercentage);
   }
 
   function handleInput(event) {

@@ -15,6 +15,10 @@
 
   const canonicalUrl = canonicalLink || currentUrl.href;
 
+  if (shareLinkText && !shareLinkText.hasAttribute('aria-label')) {
+    shareLinkText.setAttribute('aria-label', 'Page URL for manual copy');
+  }
+
   function setShareStatus(message, success) {
     if (!shareStatusMessage) return;
     shareStatusMessage.className = `status-message share-status-message ${success ? 'success' : 'error'}`;

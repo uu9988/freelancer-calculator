@@ -137,6 +137,10 @@ function validateInputs(values) {
     errors.push('Billable time percentage must be greater than 0.');
   }
 
+  if (values.billableTimePercentage > 100) {
+    errors.push('Billable time percentage cannot exceed 100%.');
+  }
+
   if (values.estimatedTaxRate >= 100) {
     errors.push('Estimated tax rate must be less than 100%.');
   }
