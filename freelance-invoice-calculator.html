@@ -17,6 +17,126 @@
     <meta name="twitter:title" content="Freelance Invoice Calculator | Estimate Client Billing" />
     <meta name="twitter:description" content="Estimate a freelance invoice total from work quantity, rates, expenses, discounts, and applicable taxes before preparing the final client invoice." />
     <link rel="stylesheet" href="/freelancer-calculator/styles.css" />
+    <style>
+      .invoice-calculator-page {
+        padding: 3rem 0;
+      }
+
+      .invoice-calculator-page [hidden] {
+        display: none !important;
+      }
+
+      .invoice-note {
+        margin: 1rem 0 1.5rem;
+        padding: 0.8rem 1rem;
+        border-left: 4px solid var(--primary);
+        border-radius: 0.6rem;
+        background: var(--accent);
+      }
+
+      .invoice-calculator-page .field-help,
+      .invoice-calculator-page .form-note {
+        color: var(--muted);
+        font-weight: 400;
+        line-height: 1.4;
+      }
+
+      .invoice-calculator-page .field-help,
+      .invoice-calculator-page .field-error {
+        font-size: 0.82rem;
+      }
+
+      .invoice-calculator-page .field-error {
+        min-height: 1.2em;
+        color: #b91c1c;
+        font-weight: 600;
+      }
+
+      .invoice-calculator-page .form-note,
+      .invoice-calculator-page .form-actions {
+        grid-column: 1 / -1;
+      }
+
+      .invoice-calculator-page .form-note {
+        margin: 0;
+        font-size: 0.9rem;
+      }
+
+      .invoice-calculator-page .form-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.75rem;
+        margin-top: 0.25rem;
+      }
+
+      .invoice-calculator-page button {
+        min-height: 44px;
+        border: 0;
+        font: inherit;
+        cursor: pointer;
+      }
+
+      .invoice-calculator-page .button.secondary {
+        border: 1px solid var(--border);
+        background: var(--surface);
+        color: var(--primary-dark);
+      }
+
+      .invoice-calculator-page input[aria-invalid="true"] {
+        border-color: #b91c1c;
+        box-shadow: 0 0 0 2px rgba(185, 28, 28, 0.12);
+      }
+
+      .invoice-calculator-page .invoice-total-metric,
+      .invoice-calculator-page .payment-status-metric {
+        grid-column: 1 / -1;
+        border: 2px solid var(--primary);
+        background: #eff6ff;
+      }
+
+      .invoice-calculator-page .invoice-total-metric strong,
+      .invoice-calculator-page .payment-status-metric strong {
+        color: var(--primary-dark);
+        font-size: 1.45rem;
+        overflow-wrap: anywhere;
+      }
+
+      .invoice-calculator-page .definition-list {
+        display: grid;
+        gap: 0.75rem;
+        margin: 1.25rem 0;
+      }
+
+      .invoice-calculator-page .definition-list dt {
+        font-weight: 700;
+      }
+
+      .invoice-calculator-page .definition-list dd {
+        margin: 0;
+        color: var(--muted);
+      }
+
+      .invoice-calculator-page .balance-due-message {
+        background: #eff6ff;
+        color: #1e40af;
+      }
+
+      .invoice-calculator-page .credit-message {
+        background: #fff7ed;
+        color: #9a3412;
+      }
+
+      @media (max-width: 640px) {
+        .invoice-calculator-page {
+          padding: 2rem 0;
+        }
+
+        .invoice-calculator-page .form-actions .button {
+          flex: 1 1 100%;
+          text-align: center;
+        }
+      }
+    </style>
     <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -34,26 +154,66 @@
   "mainEntity": [
     {
       "@type": "Question",
-      "name": "What is a freelance invoice calculator?",
+      "name": "What should be included on a freelance invoice?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "It is a simple planning tool that helps you estimate the amount to bill a client for services, expenses, or a fixed project scope."
+        "text": "A complete invoice normally identifies the freelancer and client, lists the completed services, shows quantities or hours and rates, includes approved expenses and applicable tax, states the total and amount already paid, and gives the due date and payment terms. Confirm local requirements for your business."
       }
     },
     {
       "@type": "Question",
-      "name": "Should I invoice hourly or by project?",
+      "name": "What is the difference between a quote and an invoice?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "The best option depends on the type of work, how predictable the scope is, and how you want to manage billing."
+        "text": "A quote presents a proposed price before work begins. An invoice requests payment for completed work or an agreed billing milestone under the accepted scope and payment terms."
       }
     },
     {
       "@type": "Question",
-      "name": "What should every invoice include?",
+      "name": "Should reimbursable expenses be added to an invoice?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Every invoice should include the services provided, amount due, due date, payment terms, and your business details so the client can pay without confusion."
+        "text": "Add expenses only when the client agreed that they are reimbursable. Keep receipts or other records and describe the charges clearly on the actual invoice."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Should a client discount be applied before tax?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "This calculator applies the discount before estimated sales tax or VAT. The legally required tax treatment of discounts varies by location and transaction, so confirm the applicable rule before issuing an invoice."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Does this calculator determine whether I must charge sales tax or VAT?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. It applies only the simplified percentage you enter and does not determine registration, exemptions, tax location, invoice wording, or legal obligations. It is not tax, legal, or accounting advice."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How should I record a client deposit?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Enter a deposit, retainer, milestone payment, or previous payment as the amount already paid. Keep the actual payment record and show the credit clearly on the formal invoice."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What happens if the client has already paid more than the invoice total?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The calculator shows the difference as a client credit or overpayment rather than a negative balance due. Review the payment record and decide how the credit should be handled."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Does this tool generate an official invoice?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. It only estimates invoice amounts and the remaining balance. It does not create a numbered invoice, PDF, legal document, accounting record, payment request, or tax filing."
       }
     }
   ]
@@ -61,7 +221,7 @@
     </script>
   </head>
   <body>
-            <header class="site-header">
+    <header class="site-header">
       <div class="container nav">
         <a class="brand" href="/freelancer-calculator/">Freelancer Calculator Hub</a>
         <nav class="site-nav" aria-label="Main navigation">
@@ -78,109 +238,224 @@
     </header>
 
     <main>
+      <section id="calculator" class="calculator-section invoice-calculator-page">
+        <div class="container">
+          <h1>Freelance Invoice Calculator</h1>
+          <p class="hero-copy">Estimate how much should appear on a freelance invoice and how much the client still owes after discounts, estimated sales tax or VAT, and payments already received.</p>
+          <p class="invoice-note"><strong>Use one currency for every monetary input.</strong> The calculator performs no currency conversion. Tax rules depend on location and business circumstances, and the percentage entered here is only an estimate. This tool is not legal, tax, or accounting advice and does not generate an official invoice.</p>
+
+          <div class="calc-grid">
+            <div class="card form-card">
+              <h2>Invoice assumptions</h2>
+              <p class="card-intro">Enter the completed work, agreed reimbursable expenses, discount, estimated tax, and payments already received. Use 0 for fields that do not apply.</p>
+
+              <form id="invoiceCalculatorForm" class="input-grid" novalidate>
+                <label for="billableHours">
+                  Billable hours
+                  <input id="billableHours" name="billableHours" type="number" min="0" max="10000" step="0.25" inputmode="decimal" required aria-describedby="billableHoursHelp billableHoursError" />
+                  <span id="billableHoursHelp" class="field-help">The number of hours being invoiced to the client.</span>
+                  <span id="billableHoursError" class="field-error" aria-live="polite"></span>
+                </label>
+
+                <label for="invoiceHourlyRate">
+                  Hourly rate ($)
+                  <input id="invoiceHourlyRate" name="invoiceHourlyRate" type="number" min="0" step="0.01" inputmode="decimal" required aria-describedby="invoiceHourlyRateHelp invoiceHourlyRateError" />
+                  <span id="invoiceHourlyRateHelp" class="field-help">The client-facing hourly billing rate.</span>
+                  <span id="invoiceHourlyRateError" class="field-error" aria-live="polite"></span>
+                </label>
+
+                <label for="fixedFeeServices">
+                  Fixed-fee services ($)
+                  <input id="fixedFeeServices" name="fixedFeeServices" type="number" min="0" step="0.01" inputmode="decimal" required aria-describedby="fixedFeeServicesHelp fixedFeeServicesError" />
+                  <span id="fixedFeeServicesHelp" class="field-help">Flat-fee services or deliverables that are not calculated by the hour.</span>
+                  <span id="fixedFeeServicesError" class="field-error" aria-live="polite"></span>
+                </label>
+
+                <label for="reimbursableExpenses">
+                  Reimbursable expenses ($)
+                  <input id="reimbursableExpenses" name="reimbursableExpenses" type="number" min="0" step="0.01" inputmode="decimal" required aria-describedby="reimbursableExpensesHelp reimbursableExpensesError" />
+                  <span id="reimbursableExpensesHelp" class="field-help">Approved project expenses that will be charged back to the client.</span>
+                  <span id="reimbursableExpensesError" class="field-error" aria-live="polite"></span>
+                </label>
+
+                <label for="invoiceDiscountPercentage">
+                  Client discount (%)
+                  <input id="invoiceDiscountPercentage" name="invoiceDiscountPercentage" type="number" min="0" max="100" step="0.1" inputmode="decimal" required aria-describedby="invoiceDiscountPercentageHelp invoiceDiscountPercentageError" />
+                  <span id="invoiceDiscountPercentageHelp" class="field-help">A percentage discount applied before estimated sales tax or VAT.</span>
+                  <span id="invoiceDiscountPercentageError" class="field-error" aria-live="polite"></span>
+                </label>
+
+                <label for="estimatedInvoiceTaxPercentage">
+                  Estimated sales tax or VAT (%)
+                  <input id="estimatedInvoiceTaxPercentage" name="estimatedInvoiceTaxPercentage" type="number" min="0" max="100" step="0.1" inputmode="decimal" required aria-describedby="estimatedInvoiceTaxPercentageHelp estimatedInvoiceTaxPercentageError" />
+                  <span id="estimatedInvoiceTaxPercentageHelp" class="field-help">An optional planning rate applied to the subtotal after discount.</span>
+                  <span id="estimatedInvoiceTaxPercentageError" class="field-error" aria-live="polite"></span>
+                </label>
+
+                <label for="amountAlreadyPaid">
+                  Amount already paid ($)
+                  <input id="amountAlreadyPaid" name="amountAlreadyPaid" type="number" min="0" step="0.01" inputmode="decimal" required aria-describedby="amountAlreadyPaidHelp amountAlreadyPaidError" />
+                  <span id="amountAlreadyPaidHelp" class="field-help">Deposits, retainers, milestone payments, or previous payments already received.</span>
+                  <span id="amountAlreadyPaidError" class="field-error" aria-live="polite"></span>
+                </label>
+
+                <p class="form-note">All monetary inputs must use the same currency. No payment fee, late fee, tip, income tax, hidden markup, or automatic profit margin is added.</p>
+
+                <div class="form-actions">
+                  <button type="submit" class="button primary">Calculate Invoice</button>
+                  <button type="reset" class="button secondary">Reset</button>
+                </div>
+              </form>
+
+              <div id="invoiceErrorSummary" class="status-message error" role="alert" aria-live="assertive" tabindex="-1" hidden></div>
+            </div>
+
+            <div class="card result-card invoice-result-card">
+              <h2>Your invoice estimate</h2>
+              <p id="invoiceStatusMessage" class="status-message" role="status" aria-live="polite">Enter the completed work and payment details, then select Calculate Invoice.</p>
+              <div id="invoiceResults" class="metric-grid" aria-live="polite" hidden></div>
+              <p id="invoiceOutcomeMessage" class="status-message" role="status" aria-live="polite" hidden></p>
+
+              <dl class="definition-list">
+                <div>
+                  <dt>Invoice total</dt>
+                  <dd>The subtotal after discount plus the estimated sales tax or VAT entered above.</dd>
+                </div>
+                <div>
+                  <dt>Balance due</dt>
+                  <dd>The invoice total minus deposits, retainers, milestone payments, or previous payments already received.</dd>
+                </div>
+                <div>
+                  <dt>Client credit or overpayment</dt>
+                  <dd>The absolute amount by which recorded payments exceed the calculated invoice total.</dd>
+                </div>
+              </dl>
+
+              <button type="button" id="copyLinkButton" class="button secondary">Copy Link</button>
+              <p id="shareStatusMessage" class="status-message share-status-message" role="status" aria-live="polite"></p>
+              <textarea id="shareLinkText" class="share-link-text" aria-label="Page URL for manual copy" readonly hidden></textarea>
+            </div>
+          </div>
+        </div>
+      </section>
+
       <section class="page-section">
         <div class="container content-card">
-          <h1>Freelance Invoice Calculator</h1>
-          <p>
-            A freelance invoice calculator helps you estimate the total amount you should bill a client
-            for your work, whether you charge by the hour or by project scope.
-          </p>
+          <h2>How the invoice calculation works</h2>
+          <p>This calculator estimates an amount to place on an invoice after work is completed or reaches an agreed billing milestone. It is separate from the Quote Calculator, which helps set a proposed price before work begins.</p>
 
-          <h2>Introduction</h2>
-          <p>
-            Clear invoicing is a core part of freelancing. A simple calculator can help you turn your
-            time, pricing assumptions, and project details into a clean invoice amount before you send it.
-          </p>
-
-          <h2>What Is a Freelance Invoice</h2>
-          <p>
-            A freelance invoice is a document that outlines the services provided, the amount owed,
-            the due date, and the payment terms for a client. It is a professional way to get paid on time.
-          </p>
-
-          <h2>How to Calculate Invoice Amount</h2>
-          <p>
-            Invoice amounts are usually based on billable hours, fixed project fees, or a combination of both.
-            You can add expenses, taxes, and any agreed-upon extras before finalizing the total.
-          </p>
-
-          <h2>Hourly Rate vs Project Invoice</h2>
-          <p>
-            Hourly invoicing is useful when work varies over time, while project invoicing works better when
-            the deliverable is clearly defined. Both approaches can be planned more confidently with a simple calculator.
-          </p>
-
-          <h2>Invoice Components</h2>
-          <ul>
-            <li>Client name and contact details</li>
-            <li>Invoice number and issue date</li>
-            <li>Description of services</li>
-            <li>Hourly rate or project fee</li>
-            <li>Taxes, expenses, and total due</li>
-          </ul>
-
-          <h2>Common Invoice Mistakes</h2>
-          <ul>
-            <li>Forgetting to include due dates</li>
-            <li>Using unclear service descriptions</li>
-            <li>Mismatching rates or totals</li>
-            <li>Ignoring taxes or additional charges</li>
-            <li>Failing to keep a clear payment record</li>
-          </ul>
-
-          <h2>Frequently Asked Questions</h2>
-          <details>
-            <summary>What is a freelance invoice calculator?</summary>
-            <p>
-              It is a simple planning tool that helps you estimate the amount to bill a client for services,
-              expenses, or a fixed project scope.
-            </p>
-          </details>
-          <details>
-            <summary>Should I invoice hourly or by project?</summary>
-            <p>
-              The best option depends on the type of work, how predictable the scope is, and how you want to manage billing.
-            </p>
-          </details>
-          <details>
-            <summary>What should every invoice include?</summary>
-            <p>
-              Every invoice should include the services provided, amount due, due date, payment terms,
-              and your business details so the client can pay without confusion.
-            </p>
-          </details>
-
-          <p>
-            Explore the <a href="/freelancer-calculator/#calculator">freelance hourly rate calculator</a> to connect your invoice planning with a practical pricing strategy.
-          </p>
+          <h3>Calculation formulas</h3>
+          <p><strong>Hourly labor amount</strong><br />billable hours × hourly rate</p>
+          <p><strong>Subtotal before discount</strong><br />hourly labor amount + fixed-fee services + reimbursable expenses</p>
+          <p><strong>Discount amount</strong><br />subtotal before discount × client discount percentage</p>
+          <p><strong>Subtotal after discount</strong><br />subtotal before discount - discount amount</p>
+          <p><strong>Estimated sales tax or VAT</strong><br />subtotal after discount × estimated tax percentage</p>
+          <p><strong>Invoice total</strong><br />subtotal after discount + estimated sales tax or VAT</p>
+          <p><strong>Remaining amount</strong><br />invoice total - amount already paid</p>
+          <p>A positive remaining amount is shown as a balance due. A zero amount is shown as paid in full. If payments exceed the invoice total, the calculator shows the absolute difference as a client credit or overpayment.</p>
         </div>
       </section>
-      <section class="page-section planning-notes">
+
+      <section class="page-section">
         <div class="container content-card">
-          <h2>How an invoice estimate works</h2>
-          <p>Add each billable service or product, include approved reimbursable expenses, apply any agreed discount, and calculate tax only when it is legally required.</p>
-          <h2>Invoice total formula</h2>
-          <p>Invoice subtotal = sum of quantity x unit rate for all line items. Final total = subtotal + approved expenses - discounts + applicable tax.</p>
-          <h2>Invoice calculation example</h2>
-          <p>Ten hours at $80 produces an $800 service subtotal. Adding $50 in approved expenses gives $850 before any discount or applicable tax.</p>
+          <h2>Complete freelance invoice example</h2>
+          <p><strong>These are example assumptions, not recommended defaults.</strong></p>
+          <h3>Assumptions</h3>
+          <ul>
+            <li>Billable hours: 30</li>
+            <li>Hourly rate: $80</li>
+            <li>Fixed-fee services: $500</li>
+            <li>Reimbursable expenses: $150</li>
+            <li>Client discount: 10%</li>
+            <li>Estimated sales tax or VAT: 8%</li>
+            <li>Amount already paid: $500</li>
+          </ul>
+          <h3>Calculated results</h3>
+          <ul>
+            <li>Hourly labor amount: $2,400.00</li>
+            <li>Subtotal before discount: $3,050.00</li>
+            <li>Discount amount: $305.00</li>
+            <li>Subtotal after discount: $2,745.00</li>
+            <li>Estimated sales tax or VAT: $219.60</li>
+            <li>Invoice total: $2,964.60</li>
+            <li>Amount already paid: $500.00</li>
+            <li>Balance due: $2,464.60</li>
+          </ul>
         </div>
       </section>
-    <section class="related-tools">
-      <div class="container content-card">
-        <h2>Related tools</h2>
-        <p>Compare this estimate with other planning tools that cover the same freelance decision from a different angle.</p>
-        <ul class="related-list">
-            <li><a href="/freelancer-calculator/freelance-invoice-generator.html">Freelance Invoice Generator</a></li>
-            <li><a href="/freelancer-calculator/freelance-payment-calculator.html">Freelance Payment Calculator</a></li>
-            <li><a href="/freelancer-calculator/freelance-quote-calculator.html">Freelance Quote Calculator</a></li>
-            <li><a href="/freelancer-calculator/freelance-project-cost-calculator.html">Freelance Project Cost Calculator</a></li>
-        </ul>
-        <p>Related reading: <a href="/freelancer-calculator/blog/invoice-best-practices.html">Invoice Best Practices</a>.</p>
-      </div>
-    </section>
+
+      <section class="page-section">
+        <div class="container content-card">
+          <h2>How to use your invoice estimate</h2>
+          <ol>
+            <li>Enter hours for work that has actually been completed or reached an agreed billing milestone.</li>
+            <li>Keep fixed-fee services separate from services billed by the hour.</li>
+            <li>Add only project expenses the client has agreed to reimburse.</li>
+            <li>Confirm any client discount before issuing the invoice.</li>
+            <li>Determine whether sales tax or VAT applies under the rules relevant to the transaction.</li>
+            <li>Subtract deposits, retainers, milestone payments, or other payments already received.</li>
+            <li>Check the contract, completed scope, payment terms, and payment record before sending the invoice.</li>
+            <li>Keep the actual invoice and supporting payment records in your normal business system.</li>
+          </ol>
+          <p>This estimate does not replace an accounting system or determine the legal wording, numbering, dates, tax identifiers, or recordkeeping rules required for an official invoice.</p>
+        </div>
+      </section>
+
+      <section id="faq" class="faq-section page-section">
+        <div class="container content-card">
+          <h2>Freelance invoice calculator FAQ</h2>
+          <div class="faq-list">
+            <details>
+              <summary>What should be included on a freelance invoice?</summary>
+              <p>A complete invoice normally identifies the freelancer and client, lists the completed services, shows quantities or hours and rates, includes approved expenses and applicable tax, states the total and amount already paid, and gives the due date and payment terms. Confirm local requirements for your business.</p>
+            </details>
+            <details>
+              <summary>What is the difference between a quote and an invoice?</summary>
+              <p>A quote presents a proposed price before work begins. An invoice requests payment for completed work or an agreed billing milestone under the accepted scope and payment terms.</p>
+            </details>
+            <details>
+              <summary>Should reimbursable expenses be added to an invoice?</summary>
+              <p>Add expenses only when the client agreed that they are reimbursable. Keep receipts or other records and describe the charges clearly on the actual invoice.</p>
+            </details>
+            <details>
+              <summary>Should a client discount be applied before tax?</summary>
+              <p>This calculator applies the discount before estimated sales tax or VAT. The legally required tax treatment of discounts varies by location and transaction, so confirm the applicable rule before issuing an invoice.</p>
+            </details>
+            <details>
+              <summary>Does this calculator determine whether I must charge sales tax or VAT?</summary>
+              <p>No. It applies only the simplified percentage you enter and does not determine registration, exemptions, tax location, invoice wording, or legal obligations. It is not tax, legal, or accounting advice.</p>
+            </details>
+            <details>
+              <summary>How should I record a client deposit?</summary>
+              <p>Enter a deposit, retainer, milestone payment, or previous payment as the amount already paid. Keep the actual payment record and show the credit clearly on the formal invoice.</p>
+            </details>
+            <details>
+              <summary>What happens if the client has already paid more than the invoice total?</summary>
+              <p>The calculator shows the difference as a client credit or overpayment rather than a negative balance due. Review the payment record and decide how the credit should be handled.</p>
+            </details>
+            <details>
+              <summary>Does this tool generate an official invoice?</summary>
+              <p>No. It only estimates invoice amounts and the remaining balance. It does not create a numbered invoice, PDF, legal document, accounting record, payment request, or tax filing.</p>
+            </details>
+          </div>
+        </div>
+      </section>
+
+      <section class="related-tools">
+        <div class="container content-card">
+          <h2>Related tools</h2>
+          <p>Use the Quote Calculator before work begins, the Profit Calculator to compare client revenue with project cost, and the Hourly Rate Calculator to estimate a sustainable billing standard.</p>
+          <ul class="related-list">
+            <li><a href="/freelancer-calculator/freelance-quote-calculator.html">Freelance Quote Calculator</a> — prepare a client-facing price before work begins.</li>
+            <li><a href="/freelancer-calculator/freelance-profit-calculator.html">Freelance Profit Calculator</a> — compare project revenue with internal delivery costs.</li>
+            <li><a href="/freelancer-calculator/freelance-hourly-rate-calculator.html">Freelance Hourly Rate Calculator</a> — estimate a sustainable hourly billing standard.</li>
+          </ul>
+          <p>Related reading: <a href="/freelancer-calculator/blog/invoice-best-practices.html">Invoice Best Practices</a>.</p>
+        </div>
+      </section>
     </main>
 
-            <footer class="site-footer">
+    <footer class="site-footer">
       <div class="container footer-row">
         <div class="footer-nav">
           <a href="/freelancer-calculator/">Home</a>
@@ -194,5 +469,8 @@
         <p>© 2026 Freelancer Calculator Hub</p>
       </div>
     </footer>
+
+    <script src="/freelancer-calculator/js/invoice-calculator.js"></script>
+    <script src="/freelancer-calculator/js/share-page.js"></script>
   </body>
 </html>
