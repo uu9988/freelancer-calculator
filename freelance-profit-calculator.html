@@ -17,6 +17,130 @@
     <meta name="twitter:title" content="Freelance Profit Calculator | Estimate Net Profit" />
     <meta name="twitter:description" content="Estimate freelance profit by subtracting business expenses from client revenue, then compare profit margin across services, projects, or time periods." />
     <link rel="stylesheet" href="/freelancer-calculator/styles.css" />
+    <style>
+      .profit-calculator-page {
+        padding: 3rem 0;
+      }
+
+      .profit-calculator-page [hidden] {
+        display: none !important;
+      }
+
+      .profit-note {
+        margin: 1rem 0 1.5rem;
+        padding: 0.8rem 1rem;
+        border-left: 4px solid var(--primary);
+        border-radius: 0.6rem;
+        background: var(--accent);
+      }
+
+      .profit-calculator-page .field-help,
+      .profit-calculator-page .form-note {
+        color: var(--muted);
+        font-weight: 400;
+        line-height: 1.4;
+      }
+
+      .profit-calculator-page .field-help,
+      .profit-calculator-page .field-error {
+        font-size: 0.82rem;
+      }
+
+      .profit-calculator-page .field-error {
+        min-height: 1.2em;
+        color: #b91c1c;
+        font-weight: 600;
+      }
+
+      .profit-calculator-page .form-note,
+      .profit-calculator-page .form-actions {
+        grid-column: 1 / -1;
+      }
+
+      .profit-calculator-page .form-note {
+        margin: 0;
+        font-size: 0.9rem;
+      }
+
+      .profit-calculator-page .form-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.75rem;
+        margin-top: 0.25rem;
+      }
+
+      .profit-calculator-page button {
+        min-height: 44px;
+        border: 0;
+        font: inherit;
+        cursor: pointer;
+      }
+
+      .profit-calculator-page .button.secondary {
+        border: 1px solid var(--border);
+        background: var(--surface);
+        color: var(--primary-dark);
+      }
+
+      .profit-calculator-page input[aria-invalid="true"] {
+        border-color: #b91c1c;
+        box-shadow: 0 0 0 2px rgba(185, 28, 28, 0.12);
+      }
+
+      .profit-calculator-page .profit-metric,
+      .profit-calculator-page .margin-metric {
+        border: 2px solid var(--primary);
+        background: #eff6ff;
+      }
+
+      .profit-calculator-page .profit-metric strong,
+      .profit-calculator-page .margin-metric strong {
+        color: var(--primary-dark);
+        font-size: 1.35rem;
+      }
+
+      .profit-calculator-page .profit-outcome.positive {
+        background: #ecfdf3;
+        color: #166534;
+      }
+
+      .profit-calculator-page .profit-outcome.break-even {
+        background: #fff7ed;
+        color: #9a3412;
+      }
+
+      .profit-calculator-page .profit-outcome.loss {
+        background: #fef2f2;
+        color: #991b1b;
+        font-weight: 700;
+      }
+
+      .profit-calculator-page .definition-list {
+        display: grid;
+        gap: 0.75rem;
+        margin: 1.25rem 0;
+      }
+
+      .profit-calculator-page .definition-list dt {
+        font-weight: 700;
+      }
+
+      .profit-calculator-page .definition-list dd {
+        margin: 0;
+        color: var(--muted);
+      }
+
+      @media (max-width: 640px) {
+        .profit-calculator-page {
+          padding: 2rem 0;
+        }
+
+        .profit-calculator-page .form-actions .button {
+          flex: 1 1 100%;
+          text-align: center;
+        }
+      }
+    </style>
     <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -24,7 +148,15 @@
   "name": "Freelance Profit Calculator | Estimate Net Profit",
   "description": "Estimate freelance profit by subtracting business expenses from client revenue, then compare profit margin across services, projects, or time periods.",
   "url": "https://uu9988.github.io/freelancer-calculator/freelance-profit-calculator.html",
-  "inLanguage": "en"
+  "inLanguage": "en",
+  "mainEntity": {
+    "@type": "WebApplication",
+    "name": "Freelance Profit Calculator",
+    "description": "Compare client revenue with internal labor, direct expenses, allocated overhead, and payment fees to estimate project profit and margin.",
+    "url": "https://uu9988.github.io/freelancer-calculator/freelance-profit-calculator.html",
+    "applicationCategory": "BusinessApplication",
+    "operatingSystem": "Any"
+  }
 }
     </script>
     <script type="application/ld+json">
@@ -34,26 +166,66 @@
   "mainEntity": [
     {
       "@type": "Question",
-      "name": "What is a freelance profit calculator?",
+      "name": "What is project profit?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "It is a planning tool that helps you estimate how much profit you can expect after costs and taxes are accounted for."
+        "text": "Project profit is client revenue minus the internal labor cost, direct project expenses, allocated overhead, and estimated payment processing fee for that project."
       }
     },
     {
       "@type": "Question",
-      "name": "Why is profit different from revenue?",
+      "name": "What is a good freelance project profit margin?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Revenue is the total money earned, while profit is the amount left after expenses and obligations have been paid."
+        "text": "There is no single margin that is appropriate for every freelancer or project. A useful target depends on service type, risk, demand, operating model, workload, and business goals. Compare your estimate with your own historical results."
       }
     },
     {
       "@type": "Question",
-      "name": "How can I improve my freelance profit?",
+      "name": "What is the difference between profit and revenue?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "You can improve profit by raising rates, reducing unnecessary expenses, and making sure your work is priced to reflect your true value."
+        "text": "Revenue is the amount expected from the client before project costs are deducted. Profit is what remains after the project costs included by this calculator are subtracted."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Should my working time count as a project cost?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. Assigning an internal hourly cost to your production, research, meetings, revisions, testing, administration, and delivery time prevents unpaid effort from disappearing from the profitability estimate."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What expenses should be included in project profit?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Include subcontractors, project-specific software or assets, licenses, travel, materials, hosting, printing, equipment rental, allocated overhead, and expected payment processing fees. Avoid counting the same expense twice."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Does this calculator include income tax?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. It does not calculate income tax, tax brackets, deductions, VAT, sales tax, or location-specific requirements. It is a project planning tool and not legal, accounting, or tax advice."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What does a negative profit margin mean?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "A negative margin means the estimated project costs are greater than client revenue. Review the scope, time estimate, internal cost, direct expenses, overhead, payment fees, and client price before accepting the work."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How can I improve project profitability?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Improve the accuracy of time estimates, control avoidable costs, clarify scope and revisions, reduce unpaid work, and set a client price that reflects the project's full delivery cost and value."
       }
     }
   ]
@@ -61,7 +233,7 @@
     </script>
   </head>
   <body>
-            <header class="site-header">
+    <header class="site-header">
       <div class="container nav">
         <a class="brand" href="/freelancer-calculator/">Freelancer Calculator Hub</a>
         <nav class="site-nav" aria-label="Main navigation">
@@ -78,106 +250,229 @@
     </header>
 
     <main>
+      <section id="calculator" class="calculator-section profit-calculator-page">
+        <div class="container">
+          <h1>Freelance Profit Calculator</h1>
+          <p class="hero-copy">Estimate how much profit a freelance project may produce after internal labor, direct expenses, allocated overhead, and payment processing fees.</p>
+          <p class="profit-note"><strong>Use one currency for every monetary input.</strong> The calculator performs no currency conversion. Internal hourly cost is not necessarily your client rate, and this tool does not calculate income tax. Example figures are not recommended defaults.</p>
+
+          <div class="calc-grid">
+            <div class="card form-card">
+              <h2>Project profit assumptions</h2>
+              <p class="card-intro">Enter the expected client revenue and the complete internal costs of delivering this project. Use 0 for expense or percentage fields that do not apply.</p>
+
+              <form id="profitCalculatorForm" class="input-grid" novalidate>
+                <label for="clientRevenue">
+                  Client revenue ($)
+                  <input id="clientRevenue" name="clientRevenue" type="number" min="0.01" step="0.01" inputmode="decimal" required aria-describedby="clientRevenueHelp clientRevenueError" />
+                  <span id="clientRevenueHelp" class="field-help">The total amount expected from the client before project costs are deducted.</span>
+                  <span id="clientRevenueError" class="field-error" aria-live="polite"></span>
+                </label>
+
+                <label for="profitInternalProjectHours">
+                  Internal project hours
+                  <input id="profitInternalProjectHours" name="profitInternalProjectHours" type="number" min="0.25" max="10000" step="0.25" inputmode="decimal" required aria-describedby="profitInternalProjectHoursHelp profitInternalProjectHoursError" />
+                  <span id="profitInternalProjectHoursHelp" class="field-help">Include production, research, meetings, revisions, testing, administration, and delivery time.</span>
+                  <span id="profitInternalProjectHoursError" class="field-error" aria-live="polite"></span>
+                </label>
+
+                <label for="profitInternalHourlyCost">
+                  Internal hourly cost ($)
+                  <input id="profitInternalHourlyCost" name="profitInternalHourlyCost" type="number" min="0.01" step="0.01" inputmode="decimal" required aria-describedby="profitInternalHourlyCostHelp profitInternalHourlyCostError" />
+                  <span id="profitInternalHourlyCostHelp" class="field-help">The internal value or cost of your working time, not necessarily the rate charged to the client.</span>
+                  <span id="profitInternalHourlyCostError" class="field-error" aria-live="polite"></span>
+                </label>
+
+                <label for="profitSubcontractorCosts">
+                  Subcontractor costs ($)
+                  <input id="profitSubcontractorCosts" name="profitSubcontractorCosts" type="number" min="0" step="0.01" inputmode="decimal" required aria-describedby="profitSubcontractorCostsHelp profitSubcontractorCostsError" />
+                  <span id="profitSubcontractorCostsHelp" class="field-help">Amounts paid to external designers, developers, editors, assistants, consultants, or specialists. Use 0 if none.</span>
+                  <span id="profitSubcontractorCostsError" class="field-error" aria-live="polite"></span>
+                </label>
+
+                <label for="profitOtherDirectExpenses">
+                  Other direct project expenses ($)
+                  <input id="profitOtherDirectExpenses" name="profitOtherDirectExpenses" type="number" min="0" step="0.01" inputmode="decimal" required aria-describedby="profitOtherDirectExpensesHelp profitOtherDirectExpensesError" />
+                  <span id="profitOtherDirectExpensesHelp" class="field-help">Include project-specific software, assets, licenses, travel, materials, hosting, printing, or equipment rental. Use 0 if none.</span>
+                  <span id="profitOtherDirectExpensesError" class="field-error" aria-live="polite"></span>
+                </label>
+
+                <label for="profitOverheadPercentage">
+                  Overhead allocation (%)
+                  <input id="profitOverheadPercentage" name="profitOverheadPercentage" type="number" min="0" max="100" step="0.1" inputmode="decimal" required aria-describedby="profitOverheadPercentageHelp profitOverheadPercentageError" />
+                  <span id="profitOverheadPercentageHelp" class="field-help">Allocate general operating costs such as subscriptions, insurance, accounting, workspace, and administration. Use 0 if none.</span>
+                  <span id="profitOverheadPercentageError" class="field-error" aria-live="polite"></span>
+                </label>
+
+                <label for="paymentProcessingFeePercentage">
+                  Payment processing fee (%)
+                  <input id="paymentProcessingFeePercentage" name="paymentProcessingFeePercentage" type="number" min="0" max="100" step="0.1" inputmode="decimal" required aria-describedby="paymentProcessingFeePercentageHelp paymentProcessingFeePercentageError" />
+                  <span id="paymentProcessingFeePercentageHelp" class="field-help">The estimated percentage deducted by a payment processor or payment platform. Use 0 if none.</span>
+                  <span id="paymentProcessingFeePercentageError" class="field-error" aria-live="polite"></span>
+                </label>
+
+                <p class="form-note">All money inputs must use the same currency. No client discount, automatic quote, hidden markup, currency conversion, or income tax is included.</p>
+
+                <div class="form-actions">
+                  <button type="submit" class="button primary">Calculate Profit</button>
+                  <button type="reset" class="button secondary">Reset</button>
+                </div>
+              </form>
+
+              <div id="profitErrorSummary" class="status-message error" role="alert" aria-live="assertive" hidden></div>
+            </div>
+
+            <div class="card result-card profit-result-card">
+              <h2>Your project profit estimate</h2>
+              <p id="profitStatusMessage" class="status-message" role="status" aria-live="polite">Enter your project assumptions and select Calculate Profit.</p>
+              <div id="profitResults" class="metric-grid" aria-live="polite" hidden></div>
+              <p id="profitOutcomeMessage" class="status-message profit-outcome" role="status" aria-live="polite" hidden></p>
+
+              <dl class="definition-list">
+                <div>
+                  <dt>Internal labor cost</dt>
+                  <dd>The internal cost assigned to the time required to deliver the project.</dd>
+                </div>
+                <div>
+                  <dt>Direct project expenses</dt>
+                  <dd>Subcontractor payments and other costs that belong specifically to this project.</dd>
+                </div>
+                <div>
+                  <dt>Overhead allocation</dt>
+                  <dd>A share of ongoing business operating costs assigned to the project.</dd>
+                </div>
+                <div>
+                  <dt>Payment processing fee</dt>
+                  <dd>An estimated deduction made by a payment processor or platform.</dd>
+                </div>
+                <div>
+                  <dt>Total project cost</dt>
+                  <dd>The full internal cost estimate included by this calculator.</dd>
+                </div>
+                <div>
+                  <dt>Project profit and margin</dt>
+                  <dd>Profit is client revenue minus total project cost. Margin is the percentage of revenue retained as project profit. Neither amount includes income tax.</dd>
+                </div>
+              </dl>
+
+              <button type="button" id="copyLinkButton" class="button secondary">Copy Link</button>
+              <p id="shareStatusMessage" class="status-message share-status-message" role="status" aria-live="polite"></p>
+              <textarea id="shareLinkText" class="share-link-text" readonly hidden></textarea>
+            </div>
+          </div>
+        </div>
+      </section>
+
       <section class="page-section">
         <div class="container content-card">
-          <h1>Freelance Profit Calculator</h1>
-          <p>
-            A freelance profit calculator helps you estimate the money left after business expenses,
-            taxes, and operating costs are subtracted from your freelance revenue.
-          </p>
+          <h2>How the profit calculation works</h2>
+          <p>This calculator compares project revenue with the internal cost of performing the work. It does not create a client quote, estimate long-term income, generate an invoice, or calculate income tax.</p>
 
-          <h2>Introduction</h2>
-          <p>
-            Understanding profit is essential for freelancers who want to grow their business with confidence.
-            Profit shows whether your pricing is strong enough to support your workload, lifestyle, and future goals.
-          </p>
-
-          <h2>What Is Freelance Profit</h2>
-          <p>
-            Freelance profit is the amount you keep after paying for business-related costs. It is different
-            from revenue because revenue is the total amount you earn before expenses are deducted.
-          </p>
-
-          <h2>Revenue vs Profit</h2>
-          <p>
-            Revenue reflects the total income you bring in from clients, while profit reflects what remains
-            after expenses, taxes, and overhead are taken into account. A high revenue number does not always
-            mean a healthy business.
-          </p>
-
-          <h2>Freelance Expenses</h2>
-          <ul>
-            <li>Software and subscription tools</li>
-            <li>Hardware and equipment</li>
-            <li>Internet and phone costs</li>
-            <li>Marketing and client acquisition</li>
-            <li>Professional services and training</li>
-          </ul>
-
-          <h2>How To Calculate Profit</h2>
-          <p>
-            A basic formula is to subtract total expenses from total revenue. If you want a more complete view,
-            you can also subtract estimated taxes and other business obligations before evaluating your real profit.
-          </p>
-
-          <h2>Profit Margin Explanation</h2>
-          <p>
-            Profit margin measures how much of your revenue is left as profit. A stronger margin usually indicates
-            that your pricing and expense control are working well, while a weak margin may signal that you need to adjust rates.
-          </p>
-
-          <h2>Frequently Asked Questions</h2>
-          <details>
-            <summary>What is a freelance profit calculator?</summary>
-            <p>
-              It is a planning tool that helps you estimate how much profit you can expect after costs and taxes are accounted for.
-            </p>
-          </details>
-          <details>
-            <summary>Why is profit different from revenue?</summary>
-            <p>
-              Revenue is the total money earned, while profit is the amount left after expenses and obligations have been paid.
-            </p>
-          </details>
-          <details>
-            <summary>How can I improve my freelance profit?</summary>
-            <p>
-              You can improve profit by raising rates, reducing unnecessary expenses, and making sure your work is priced to reflect your true value.
-            </p>
-          </details>
-
-          <p>
-            Visit the <a href="/freelancer-calculator/#calculator">freelance hourly rate calculator</a> to connect your profit planning with a sustainable pricing strategy.
-          </p>
+          <h3>Calculation formulas</h3>
+          <p><strong>Internal labor cost</strong><br />internal project hours × internal hourly cost</p>
+          <p><strong>Direct project expenses</strong><br />subcontractor costs + other direct project expenses</p>
+          <p><strong>Base project cost</strong><br />internal labor cost + direct project expenses</p>
+          <p><strong>Overhead allocation amount</strong><br />base project cost × overhead allocation percentage</p>
+          <p><strong>Payment processing fee amount</strong><br />client revenue × payment processing fee percentage</p>
+          <p><strong>Total project cost</strong><br />base project cost + overhead allocation amount + payment processing fee amount</p>
+          <p><strong>Project profit</strong><br />client revenue - total project cost</p>
+          <p><strong>Profit margin</strong><br />project profit ÷ client revenue × 100</p>
+          <p><strong>Cost percentage</strong><br />total project cost ÷ client revenue × 100</p>
+          <p><strong>Revenue per internal hour</strong><br />client revenue ÷ internal project hours</p>
+          <p><strong>Profit per internal hour</strong><br />project profit ÷ internal project hours</p>
+          <p>Negative profit and margin remain visible when estimated cost exceeds revenue. No hidden markup, client discount, or automatic quote logic is added.</p>
         </div>
       </section>
-      <section class="page-section planning-notes">
+
+      <section class="page-section">
         <div class="container content-card">
-          <h2>How freelance profit is measured</h2>
-          <p>Track revenue and the costs required to earn it within the same period. Separate business profit from personal withdrawals so the calculation reflects business performance.</p>
-          <h2>Freelance profit formula</h2>
-          <p>Freelance profit = client revenue - business expenses. Profit margin = profit / revenue x 100. Tax is normally planned separately from operating profit.</p>
-          <h2>Profit margin example</h2>
-          <p>A project earning $5,000 with $1,250 in direct and allocated costs produces $3,750 in profit and a 75% pre-tax profit margin.</p>
+          <h2>Complete freelance profit example</h2>
+          <p><strong>These are example assumptions, not recommended defaults.</strong></p>
+          <ul>
+            <li>Client revenue: $5,000</li>
+            <li>Internal project hours: 40</li>
+            <li>Internal hourly cost: $35</li>
+            <li>Subcontractor costs: $600</li>
+            <li>Other direct project expenses: $250</li>
+            <li>Overhead allocation: 10%</li>
+            <li>Payment processing fee: 3%</li>
+          </ul>
+          <p>Internal labor cost is $1,400.00, direct project expenses are $850.00, overhead is $225.00, and the payment fee is $150.00. Total project cost is $2,625.00, leaving $2,375.00 of project profit and a 47.50% profit margin.</p>
         </div>
       </section>
-    <section class="related-tools">
-      <div class="container content-card">
-        <h2>Related tools</h2>
-        <p>Compare this estimate with other planning tools that cover the same freelance decision from a different angle.</p>
-        <ul class="related-list">
-            <li><a href="/freelancer-calculator/freelance-business-calculator.html">Freelance Business Calculator</a></li>
-            <li><a href="/freelancer-calculator/freelance-budget-calculator.html">Freelance Budget Calculator</a></li>
-            <li><a href="/freelancer-calculator/freelance-cost-calculator.html">Freelance Cost Calculator</a></li>
-            <li><a href="/freelancer-calculator/freelance-expense-calculator.html">Freelance Expense Calculator</a></li>
-            <li><a href="/freelancer-calculator/freelance-revenue-calculator.html">Freelance Revenue Calculator</a></li>
-        </ul>
-        <p>Related reading: <a href="/freelancer-calculator/blog/freelance-billing-growth.html">Freelance Billing Growth</a>.</p>
-      </div>
-    </section>
+
+      <section class="page-section">
+        <div class="container content-card">
+          <h2>How to use your profit estimate</h2>
+          <ol>
+            <li>Compare client revenue with the complete project cost before accepting the work.</li>
+            <li>Include meetings, communication, revisions, testing, administration, and delivery time.</li>
+            <li>Track subcontractor payments and project-specific expenses separately.</li>
+            <li>Adjust overhead allocation using actual business operating data.</li>
+            <li>Account for fees that a payment platform may deduct.</li>
+            <li>When margin is too low, review the scope, client price, time estimate, and costs.</li>
+            <li>Recalculate whenever the project scope changes.</li>
+            <li>After delivery, compare actual profit with the original estimate.</li>
+            <li>Do not treat project profit as personal after-tax income.</li>
+          </ol>
+        </div>
+      </section>
+
+      <section id="faq" class="faq-section page-section">
+        <div class="container content-card">
+          <h2>Freelance profit calculator FAQ</h2>
+          <div class="faq-list">
+            <details>
+              <summary>What is project profit?</summary>
+              <p>Project profit is client revenue minus the internal labor cost, direct project expenses, allocated overhead, and estimated payment processing fee for that project.</p>
+            </details>
+            <details>
+              <summary>What is a good freelance project profit margin?</summary>
+              <p>There is no single margin that is appropriate for every freelancer or project. A useful target depends on service type, risk, demand, operating model, workload, and business goals. Compare your estimate with your own historical results.</p>
+            </details>
+            <details>
+              <summary>What is the difference between profit and revenue?</summary>
+              <p>Revenue is the amount expected from the client before project costs are deducted. Profit is what remains after the project costs included by this calculator are subtracted.</p>
+            </details>
+            <details>
+              <summary>Should my working time count as a project cost?</summary>
+              <p>Yes. Assigning an internal hourly cost to your production, research, meetings, revisions, testing, administration, and delivery time prevents unpaid effort from disappearing from the profitability estimate.</p>
+            </details>
+            <details>
+              <summary>What expenses should be included in project profit?</summary>
+              <p>Include subcontractors, project-specific software or assets, licenses, travel, materials, hosting, printing, equipment rental, allocated overhead, and expected payment processing fees. Avoid counting the same expense twice.</p>
+            </details>
+            <details>
+              <summary>Does this calculator include income tax?</summary>
+              <p>No. It does not calculate income tax, tax brackets, deductions, VAT, sales tax, or location-specific requirements. It is a project planning tool and not legal, accounting, or tax advice.</p>
+            </details>
+            <details>
+              <summary>What does a negative profit margin mean?</summary>
+              <p>A negative margin means the estimated project costs are greater than client revenue. Review the scope, time estimate, internal cost, direct expenses, overhead, payment fees, and client price before accepting the work.</p>
+            </details>
+            <details>
+              <summary>How can I improve project profitability?</summary>
+              <p>Improve the accuracy of time estimates, control avoidable costs, clarify scope and revisions, reduce unpaid work, and set a client price that reflects the project's full delivery cost and value.</p>
+            </details>
+          </div>
+        </div>
+      </section>
+
+      <section class="related-tools">
+        <div class="container content-card">
+          <h2>Related tools</h2>
+          <p>Estimate internal delivery cost, turn that cost into a client-facing quote, or review longer-term freelance income with the related tools below.</p>
+          <ul class="related-list">
+            <li><a href="/freelancer-calculator/freelance-project-cost-calculator.html">Freelance Project Cost Calculator</a></li>
+            <li><a href="/freelancer-calculator/freelance-quote-calculator.html">Freelance Quote Calculator</a></li>
+            <li><a href="/freelancer-calculator/freelance-income-calculator.html">Freelance Income Calculator</a></li>
+          </ul>
+          <p>Related reading: <a href="/freelancer-calculator/blog/freelance-billing-growth.html">Freelance Billing Growth</a>.</p>
+        </div>
+      </section>
     </main>
 
-            <footer class="site-footer">
+    <footer class="site-footer">
       <div class="container footer-row">
         <div class="footer-nav">
           <a href="/freelancer-calculator/">Home</a>
@@ -191,5 +486,8 @@
         <p>© 2026 Freelancer Calculator Hub</p>
       </div>
     </footer>
+
+    <script src="/freelancer-calculator/js/profit-calculator.js"></script>
+    <script src="/freelancer-calculator/js/share-page.js"></script>
   </body>
 </html>
