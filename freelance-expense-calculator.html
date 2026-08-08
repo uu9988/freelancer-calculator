@@ -17,6 +17,134 @@
     <meta name="twitter:title" content="Freelance Expense Calculator | Plan Business Spending" />
     <meta name="twitter:description" content="Organize freelance expenses by category, estimate monthly and annual spending, and understand how business costs affect cash flow and pricing decisions." />
     <link rel="stylesheet" href="/freelancer-calculator/styles.css" />
+    <style>
+      .expense-calculator-page {
+        padding: 3rem 0;
+      }
+
+      .expense-calculator-page [hidden] {
+        display: none !important;
+      }
+
+      .expense-note {
+        margin: 1rem 0 1.5rem;
+        padding: 0.8rem 1rem;
+        border-left: 4px solid var(--primary);
+        border-radius: 0.6rem;
+        background: var(--accent);
+      }
+
+      .expense-calculator-page .expense-fieldset {
+        min-width: 0;
+        margin: 0 0 1.25rem;
+        padding: 0;
+        border: 0;
+      }
+
+      .expense-calculator-page .expense-fieldset legend {
+        margin-bottom: 0.8rem;
+        font-size: 1.05rem;
+        font-weight: 700;
+      }
+
+      .expense-calculator-page .field-help,
+      .expense-calculator-page .form-note {
+        color: var(--muted);
+        font-weight: 400;
+        line-height: 1.4;
+      }
+
+      .expense-calculator-page .field-help,
+      .expense-calculator-page .field-error {
+        font-size: 0.82rem;
+      }
+
+      .expense-calculator-page .field-error {
+        min-height: 1.2em;
+        color: #b91c1c;
+        font-weight: 600;
+      }
+
+      .expense-calculator-page .form-note {
+        margin: 0 0 1rem;
+        font-size: 0.9rem;
+      }
+
+      .expense-calculator-page .form-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.75rem;
+      }
+
+      .expense-calculator-page button {
+        min-height: 44px;
+        border: 0;
+        font: inherit;
+        cursor: pointer;
+      }
+
+      .expense-calculator-page .button.secondary {
+        border: 1px solid var(--border);
+        background: var(--surface);
+        color: var(--primary-dark);
+      }
+
+      .expense-calculator-page input[aria-invalid="true"] {
+        border-color: #b91c1c;
+        box-shadow: 0 0 0 2px rgba(185, 28, 28, 0.12);
+      }
+
+      .expense-calculator-page .metric {
+        min-width: 0;
+      }
+
+      .expense-calculator-page .metric strong {
+        max-width: 100%;
+        overflow-wrap: anywhere;
+        word-break: break-all;
+      }
+
+      .expense-calculator-page .expense-total-metric {
+        grid-column: 1 / -1;
+        border: 2px solid var(--primary);
+        background: #eff6ff;
+      }
+
+      .expense-calculator-page .expense-total-metric strong {
+        color: var(--primary-dark);
+        font-size: 1.45rem;
+      }
+
+      .expense-calculator-page .expense-highlight-metric {
+        border: 1px solid #93c5fd;
+      }
+
+      .expense-calculator-page .definition-list {
+        display: grid;
+        gap: 0.75rem;
+        margin: 1.25rem 0;
+      }
+
+      .expense-calculator-page .definition-list dt {
+        font-weight: 700;
+      }
+
+      .expense-calculator-page .definition-list dd {
+        margin: 0;
+        color: var(--muted);
+      }
+
+      @media (max-width: 640px) {
+        .expense-calculator-page {
+          padding: 2rem 0;
+        }
+
+        .expense-calculator-page .form-actions .button {
+          flex: 1 1 100%;
+          text-align: center;
+        }
+      }
+    </style>
     <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -24,7 +152,20 @@
   "name": "Freelance Expense Calculator | Plan Business Spending",
   "description": "Organize freelance expenses by category, estimate monthly and annual spending, and understand how business costs affect cash flow and pricing decisions.",
   "url": "https://uu9988.github.io/freelancer-calculator/freelance-expense-calculator.html",
-  "inLanguage": "en"
+  "inLanguage": "en",
+  "mainEntity": {
+    "@type": "WebApplication",
+    "name": "Freelance Expense Calculator",
+    "description": "Estimate recurring and annual freelance business expenses, operating expense ratio, and expense cost per billable hour.",
+    "url": "https://uu9988.github.io/freelancer-calculator/freelance-expense-calculator.html",
+    "applicationCategory": "BusinessApplication",
+    "operatingSystem": "Any",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    }
+  }
 }
     </script>
     <script type="application/ld+json">
@@ -34,18 +175,66 @@
   "mainEntity": [
     {
       "@type": "Question",
-      "name": "Why are expenses important?",
+      "name": "What counts as a freelance business expense?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Expenses affect your real profit, so tracking them can help you avoid underpricing and financial surprises."
+        "text": "A freelance business expense is a cost incurred to operate the business, such as software, workspace, insurance, marketing, equipment, education, or business travel. Whether a cost is deductible depends on local rules and your circumstances."
       }
     },
     {
       "@type": "Question",
-      "name": "Can this help with taxes?",
+      "name": "What is the difference between monthly and annual expenses?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Yes. A clear view of business expenses can make tax planning easier and more accurate."
+        "text": "Monthly expenses usually recur throughout the year, such as subscriptions or workspace costs. Annual expenses happen less often or vary by year, such as equipment purchases, training, and business travel."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Should equipment purchases be included?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Include equipment you expect to buy, repair, or replace for the business during the year. This calculator treats the amount as an annual operating estimate and does not determine accounting or tax treatment."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Should personal expenses be included?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. Keep personal housing, food, transportation, and other living expenses separate unless you have identified a legitimate business portion under the rules that apply to you."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is an operating expense ratio?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The operating expense ratio is total annual business expenses divided by expected annual revenue. It estimates what percentage of revenue is needed to cover the operating costs entered here."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do expenses affect my hourly rate?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Business expenses must be covered by client revenue. The expense cost per billable hour shows how much of each invoiced hour is needed for the annual operating costs entered in the calculator."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Does this calculator determine tax deductions?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. It does not determine deductibility, depreciation, tax categories, or jurisdiction-specific treatment. It is a planning tool and does not provide tax, legal, or accounting advice."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How often should I review my business expenses?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Review expenses regularly and whenever subscriptions, workspace costs, equipment plans, revenue expectations, or billable capacity change. Comparing estimates with actual records keeps the plan useful."
       }
     }
   ]
@@ -53,7 +242,7 @@
     </script>
   </head>
   <body>
-            <header class="site-header">
+    <header class="site-header">
       <div class="container nav">
         <a class="brand" href="/freelancer-calculator/">Freelancer Calculator Hub</a>
         <nav class="site-nav" aria-label="Main navigation">
@@ -68,62 +257,267 @@
         </nav>
       </div>
     </header>
+
     <main>
+      <section id="calculator" class="calculator-section expense-calculator-page">
+        <div class="container">
+          <h1>Freelance Expense Calculator</h1>
+          <p class="hero-copy">Estimate how much your freelance business costs to operate each month and year, then compare those costs with expected revenue and billable hours.</p>
+          <p class="expense-note"><strong>Use one currency for every monetary input.</strong> This calculator does not convert currencies, determine tax deductions, or replace tax, legal, or accounting advice. Example values are not recommended defaults.</p>
+
+          <div class="calc-grid">
+            <div class="card form-card">
+              <h2>Business expense assumptions</h2>
+              <p class="card-intro">Enter your recurring monthly costs, annual or one-time costs, expected annual revenue, and billable capacity. Use 0 for an expense category that does not apply.</p>
+
+              <form id="expenseCalculatorForm" novalidate>
+                <fieldset class="expense-fieldset">
+                  <legend>Monthly recurring expenses</legend>
+                  <div class="input-grid">
+                    <label for="softwareSubscriptions">
+                      Software and subscriptions ($)
+                      <input id="softwareSubscriptions" name="softwareSubscriptions" data-field-label="Software and subscriptions" type="number" min="0" step="0.01" inputmode="decimal" required aria-describedby="softwareSubscriptionsHelp softwareSubscriptionsError" />
+                      <span id="softwareSubscriptionsHelp" class="field-help">Monthly software, cloud services, hosting, productivity tools, and professional subscriptions.</span>
+                      <span id="softwareSubscriptionsError" class="field-error" aria-live="polite"></span>
+                    </label>
+
+                    <label for="workspaceUtilities">
+                      Workspace and utilities ($)
+                      <input id="workspaceUtilities" name="workspaceUtilities" data-field-label="Workspace and utilities" type="number" min="0" step="0.01" inputmode="decimal" required aria-describedby="workspaceUtilitiesHelp workspaceUtilitiesError" />
+                      <span id="workspaceUtilitiesHelp" class="field-help">Monthly coworking fees, office rent, electricity, and workspace-related costs.</span>
+                      <span id="workspaceUtilitiesError" class="field-error" aria-live="polite"></span>
+                    </label>
+
+                    <label for="insuranceAdministration">
+                      Insurance and administration ($)
+                      <input id="insuranceAdministration" name="insuranceAdministration" data-field-label="Insurance and administration" type="number" min="0" step="0.01" inputmode="decimal" required aria-describedby="insuranceAdministrationHelp insuranceAdministrationError" />
+                      <span id="insuranceAdministrationHelp" class="field-help">Monthly insurance, accounting, bookkeeping, banking, and administration expenses.</span>
+                      <span id="insuranceAdministrationError" class="field-error" aria-live="polite"></span>
+                    </label>
+
+                    <label for="marketingAdvertising">
+                      Marketing and advertising ($)
+                      <input id="marketingAdvertising" name="marketingAdvertising" data-field-label="Marketing and advertising" type="number" min="0" step="0.01" inputmode="decimal" required aria-describedby="marketingAdvertisingHelp marketingAdvertisingError" />
+                      <span id="marketingAdvertisingHelp" class="field-help">Monthly advertising, website, email marketing, design, and promotional costs.</span>
+                      <span id="marketingAdvertisingError" class="field-error" aria-live="polite"></span>
+                    </label>
+
+                    <label for="internetPhone">
+                      Internet and phone ($)
+                      <input id="internetPhone" name="internetPhone" data-field-label="Internet and phone" type="number" min="0" step="0.01" inputmode="decimal" required aria-describedby="internetPhoneHelp internetPhoneError" />
+                      <span id="internetPhoneHelp" class="field-help">Monthly business-related internet and communication costs.</span>
+                      <span id="internetPhoneError" class="field-error" aria-live="polite"></span>
+                    </label>
+                  </div>
+                </fieldset>
+
+                <fieldset class="expense-fieldset">
+                  <legend>Annual or one-time expenses</legend>
+                  <div class="input-grid">
+                    <label for="equipmentHardware">
+                      Equipment and hardware ($)
+                      <input id="equipmentHardware" name="equipmentHardware" data-field-label="Equipment and hardware" type="number" min="0" step="0.01" inputmode="decimal" required aria-describedby="equipmentHardwareHelp equipmentHardwareError" />
+                      <span id="equipmentHardwareHelp" class="field-help">Annual computers, monitors, accessories, repairs, or equipment purchases.</span>
+                      <span id="equipmentHardwareError" class="field-error" aria-live="polite"></span>
+                    </label>
+
+                    <label for="educationTraining">
+                      Education and training ($)
+                      <input id="educationTraining" name="educationTraining" data-field-label="Education and training" type="number" min="0" step="0.01" inputmode="decimal" required aria-describedby="educationTrainingHelp educationTrainingError" />
+                      <span id="educationTrainingHelp" class="field-help">Annual courses, books, certifications, events, and professional development.</span>
+                      <span id="educationTrainingError" class="field-error" aria-live="polite"></span>
+                    </label>
+
+                    <label for="travelTransportation">
+                      Travel and transportation ($)
+                      <input id="travelTransportation" name="travelTransportation" data-field-label="Travel and transportation" type="number" min="0" step="0.01" inputmode="decimal" required aria-describedby="travelTransportationHelp travelTransportationError" />
+                      <span id="travelTransportationHelp" class="field-help">Annual business-related transport, accommodation, and travel expenses.</span>
+                      <span id="travelTransportationError" class="field-error" aria-live="polite"></span>
+                    </label>
+
+                    <label for="otherAnnualExpenses">
+                      Other annual expenses ($)
+                      <input id="otherAnnualExpenses" name="otherAnnualExpenses" data-field-label="Other annual expenses" type="number" min="0" step="0.01" inputmode="decimal" required aria-describedby="otherAnnualExpensesHelp otherAnnualExpensesError" />
+                      <span id="otherAnnualExpensesHelp" class="field-help">Other legitimate business operating costs not included above.</span>
+                      <span id="otherAnnualExpensesError" class="field-error" aria-live="polite"></span>
+                    </label>
+                  </div>
+                </fieldset>
+
+                <fieldset class="expense-fieldset">
+                  <legend>Planning data</legend>
+                  <div class="input-grid">
+                    <label for="expectedAnnualRevenue">
+                      Expected annual revenue ($)
+                      <input id="expectedAnnualRevenue" name="expectedAnnualRevenue" type="number" min="0.01" step="0.01" inputmode="decimal" required aria-describedby="expectedAnnualRevenueHelp expectedAnnualRevenueError" />
+                      <span id="expectedAnnualRevenueHelp" class="field-help">Used to calculate the operating expense ratio.</span>
+                      <span id="expectedAnnualRevenueError" class="field-error" aria-live="polite"></span>
+                    </label>
+
+                    <label for="expectedAnnualBillableHours">
+                      Expected annual billable hours
+                      <input id="expectedAnnualBillableHours" name="expectedAnnualBillableHours" type="number" min="0.25" max="10000" step="0.25" inputmode="decimal" required aria-describedby="expectedAnnualBillableHoursHelp expectedAnnualBillableHoursError" />
+                      <span id="expectedAnnualBillableHoursHelp" class="field-help">Used to estimate how much operating expense must be covered by each billable hour.</span>
+                      <span id="expectedAnnualBillableHoursError" class="field-error" aria-live="polite"></span>
+                    </label>
+                  </div>
+                </fieldset>
+
+                <p class="form-note">Do not include personal living expenses, income tax, or project-specific subcontractor costs. Enter every monetary amount in the same currency.</p>
+
+                <div class="form-actions">
+                  <button type="submit" class="button primary">Calculate Expenses</button>
+                  <button type="reset" class="button secondary">Reset</button>
+                </div>
+              </form>
+
+              <div id="expenseErrorSummary" class="status-message error" role="alert" aria-live="assertive" tabindex="-1" hidden></div>
+            </div>
+
+            <div class="card result-card expense-result-card">
+              <h2>Your business expense estimate</h2>
+              <p id="expenseStatusMessage" class="status-message" role="status" aria-live="polite">Enter your business expenses and planning assumptions, then select Calculate Expenses.</p>
+              <div id="expenseResults" class="metric-grid" aria-live="polite" hidden></div>
+
+              <dl class="definition-list">
+                <div>
+                  <dt>Monthly recurring expenses</dt>
+                  <dd>Costs that usually continue each month, such as software, workspace, insurance, marketing, and communications.</dd>
+                </div>
+                <div>
+                  <dt>Annual variable expenses</dt>
+                  <dd>Annual or one-time spending on equipment, education, travel, and other business operations.</dd>
+                </div>
+                <div>
+                  <dt>Total annual business expenses</dt>
+                  <dd>The estimated cost of operating the freelance business for one full year.</dd>
+                </div>
+                <div>
+                  <dt>Operating expense ratio</dt>
+                  <dd>The percentage of expected annual revenue used to cover the expenses entered here.</dd>
+                </div>
+                <div>
+                  <dt>Expense cost per billable hour</dt>
+                  <dd>The amount of annual operating expense that must be covered by each expected billable hour.</dd>
+                </div>
+              </dl>
+
+              <button type="button" id="copyLinkButton" class="button secondary">Copy Link</button>
+              <p id="shareStatusMessage" class="status-message share-status-message" role="status" aria-live="polite"></p>
+              <textarea id="shareLinkText" class="share-link-text" aria-label="Page URL for manual copy" readonly hidden></textarea>
+            </div>
+          </div>
+        </div>
+      </section>
+
       <section class="page-section">
         <div class="container content-card">
-          <h1>Freelance Expense Calculator</h1>
-          <p>A freelance expense calculator helps you estimate the recurring and occasional costs that affect your freelance business profitability.</p>
-          <h2>Introduction</h2>
-          <p>Tracking expenses is essential for freelancers who want to run a sustainable business and make better pricing decisions.</p>
-          <h2>How It Works</h2>
-          <p>You estimate your main operating costs and compare them with the income you need to earn to stay financially healthy.</p>
-          <h2>Calculation Explanation</h2>
-          <p>Expense planning often includes monthly subscriptions, equipment, software, marketing, and administrative costs.</p>
-          <h2>Examples</h2>
-          <ul>
-            <li>Estimate monthly business overhead</li>
-            <li>Track tool and software costs</li>
-            <li>Compare expenses across different pricing models</li>
-          </ul>
-          <h2>FAQ</h2>
-          <details>
-            <summary>Why are expenses important?</summary>
-            <p>Expenses affect your real profit, so tracking them can help you avoid underpricing and financial surprises.</p>
-          </details>
-          <details>
-            <summary>Can this help with taxes?</summary>
-            <p>Yes. A clear view of business expenses can make tax planning easier and more accurate.</p>
-          </details>
-          <h2>Related Tools</h2>
-          <p>Visit the <a href="/freelancer-calculator/freelance-budget-calculator.html">freelance budget calculator</a> and the <a href="/freelancer-calculator/#calculator">main calculator</a> for more guidance.</p>
+          <h2>How the expense calculation works</h2>
+          <p>The calculator separates costs that normally recur every month from annual or occasional purchases. It then compares the combined annual total with expected revenue and billable capacity. It excludes personal living expenses, income tax, and project-specific subcontractor costs.</p>
+
+          <h3>Calculation formulas</h3>
+          <p><strong>Monthly recurring expenses</strong><br />software + workspace + insurance and administration + marketing + internet and phone</p>
+          <p><strong>Annual recurring expenses</strong><br />monthly recurring expenses × 12</p>
+          <p><strong>Annual variable expenses</strong><br />equipment + education + travel + other annual expenses</p>
+          <p><strong>Total annual business expenses</strong><br />annual recurring expenses + annual variable expenses</p>
+          <p><strong>Average monthly business expenses</strong><br />total annual business expenses ÷ 12</p>
+          <p><strong>Operating expense ratio</strong><br />total annual business expenses ÷ expected annual revenue × 100</p>
+          <p><strong>Expense cost per billable hour</strong><br />total annual business expenses ÷ expected annual billable hours</p>
         </div>
       </section>
-      <section class="page-section planning-notes">
+
+      <section class="page-section">
         <div class="container content-card">
-          <h2>How expense planning works</h2>
-          <p>Record recurring subscriptions, equipment, professional services, marketing, travel, and transaction fees separately. Categorizing expenses helps distinguish predictable overhead from occasional purchases.</p>
-          <h2>Expense total formula</h2>
-          <p>Annual freelance expenses = recurring monthly expenses x 12 + expected one-time expenses. Keep tax deductibility separate because local rules determine which costs qualify.</p>
-          <h2>Expense planning example</h2>
-          <p>Monthly software and insurance of $350 plus $2,400 in planned annual equipment and marketing produces an estimated annual expense total of $6,600.</p>
+          <h2>Complete freelance expense example</h2>
+          <p><strong>These are example assumptions, not recommended defaults.</strong></p>
+          <ul>
+            <li>Monthly software and subscriptions: $120</li>
+            <li>Monthly workspace and utilities: $300</li>
+            <li>Monthly insurance and administration: $100</li>
+            <li>Monthly marketing and advertising: $80</li>
+            <li>Monthly internet and phone: $70</li>
+            <li>Annual equipment and hardware: $1,200</li>
+            <li>Annual education and training: $600</li>
+            <li>Annual travel and transportation: $1,000</li>
+            <li>Other annual expenses: $500</li>
+            <li>Expected annual revenue: $60,000</li>
+            <li>Expected annual billable hours: 1,200</li>
+          </ul>
+          <p>Monthly recurring expenses are $670.00, or $8,040.00 per year. Adding $3,300.00 of annual variable expenses produces total annual business expenses of $11,340.00 and average monthly expenses of $945.00. That equals an 18.90% operating expense ratio and $9.45 of expense per billable hour.</p>
         </div>
       </section>
-    <section class="related-tools">
-      <div class="container content-card">
-        <h2>Related tools</h2>
-        <p>Compare this estimate with other planning tools that cover the same freelance decision from a different angle.</p>
-        <ul class="related-list">
-            <li><a href="/freelancer-calculator/freelance-business-calculator.html">Freelance Business Calculator</a></li>
-            <li><a href="/freelancer-calculator/freelance-budget-calculator.html">Freelance Budget Calculator</a></li>
-            <li><a href="/freelancer-calculator/freelance-cost-calculator.html">Freelance Cost Calculator</a></li>
-            <li><a href="/freelancer-calculator/freelance-profit-calculator.html">Freelance Profit Calculator</a></li>
-            <li><a href="/freelancer-calculator/freelance-revenue-calculator.html">Freelance Revenue Calculator</a></li>
-        </ul>
-        <p>Related reading: <a href="/freelancer-calculator/blog/tax-deduction-checklist.html">Freelancer Tax Deduction Checklist</a>.</p>
-      </div>
-    </section>
+
+      <section class="page-section">
+        <div class="container content-card">
+          <h2>How to use your expense estimate</h2>
+          <ol>
+            <li>Separate monthly recurring costs from annual or occasional purchases.</li>
+            <li>Use actual bills, bank records, and payment records wherever possible.</li>
+            <li>Include small subscriptions that continue every month, because they add up over a year.</li>
+            <li>Record planned equipment and professional development as annual expenses.</li>
+            <li>Keep personal living expenses separate from business operating costs.</li>
+            <li>Compare total annual expenses with expected annual revenue.</li>
+            <li>Use the cost per billable hour to check whether your hourly rate can cover business overhead.</li>
+            <li>Recalculate regularly as actual spending, revenue, or billable capacity changes.</li>
+          </ol>
+        </div>
+      </section>
+
+      <section id="faq" class="faq-section page-section">
+        <div class="container content-card">
+          <h2>Freelance expense calculator FAQ</h2>
+          <div class="faq-list">
+            <details>
+              <summary>What counts as a freelance business expense?</summary>
+              <p>A freelance business expense is a cost incurred to operate the business, such as software, workspace, insurance, marketing, equipment, education, or business travel. Whether a cost is deductible depends on local rules and your circumstances.</p>
+            </details>
+            <details>
+              <summary>What is the difference between monthly and annual expenses?</summary>
+              <p>Monthly expenses usually recur throughout the year, such as subscriptions or workspace costs. Annual expenses happen less often or vary by year, such as equipment purchases, training, and business travel.</p>
+            </details>
+            <details>
+              <summary>Should equipment purchases be included?</summary>
+              <p>Include equipment you expect to buy, repair, or replace for the business during the year. This calculator treats the amount as an annual operating estimate and does not determine accounting or tax treatment.</p>
+            </details>
+            <details>
+              <summary>Should personal expenses be included?</summary>
+              <p>No. Keep personal housing, food, transportation, and other living expenses separate unless you have identified a legitimate business portion under the rules that apply to you.</p>
+            </details>
+            <details>
+              <summary>What is an operating expense ratio?</summary>
+              <p>The operating expense ratio is total annual business expenses divided by expected annual revenue. It estimates what percentage of revenue is needed to cover the operating costs entered here.</p>
+            </details>
+            <details>
+              <summary>How do expenses affect my hourly rate?</summary>
+              <p>Business expenses must be covered by client revenue. The expense cost per billable hour shows how much of each invoiced hour is needed for the annual operating costs entered in the calculator.</p>
+            </details>
+            <details>
+              <summary>Does this calculator determine tax deductions?</summary>
+              <p>No. It does not determine deductibility, depreciation, tax categories, or jurisdiction-specific treatment. It is a planning tool and does not provide tax, legal, or accounting advice.</p>
+            </details>
+            <details>
+              <summary>How often should I review my business expenses?</summary>
+              <p>Review expenses regularly and whenever subscriptions, workspace costs, equipment plans, revenue expectations, or billable capacity change. Comparing estimates with actual records keeps the plan useful.</p>
+            </details>
+          </div>
+        </div>
+      </section>
+
+      <section class="related-tools">
+        <div class="container content-card">
+          <h2>Related tools</h2>
+          <p>Use project cost planning for one engagement, profit analysis to compare revenue with delivery cost, and hourly rate planning to make sure ongoing business expenses are covered.</p>
+          <ul class="related-list">
+            <li><a href="/freelancer-calculator/freelance-project-cost-calculator.html">Freelance Project Cost Calculator</a> — estimate the internal cost of delivering one project.</li>
+            <li><a href="/freelancer-calculator/freelance-profit-calculator.html">Freelance Profit Calculator</a> — compare project revenue with direct delivery costs.</li>
+            <li><a href="/freelancer-calculator/freelance-hourly-rate-calculator.html">Freelance Hourly Rate Calculator</a> — estimate a sustainable client-facing rate.</li>
+          </ul>
+          <p>Related reading: <a href="/freelancer-calculator/blog/tax-deduction-checklist.html">Freelancer Tax Deduction Checklist</a>.</p>
+        </div>
+      </section>
     </main>
-            <footer class="site-footer">
+
+    <footer class="site-footer">
       <div class="container footer-row">
         <div class="footer-nav">
           <a href="/freelancer-calculator/">Home</a>
@@ -137,5 +531,8 @@
         <p>© 2026 Freelancer Calculator Hub</p>
       </div>
     </footer>
+
+    <script src="/freelancer-calculator/js/expense-calculator.js"></script>
+    <script src="/freelancer-calculator/js/share-page.js"></script>
   </body>
 </html>
