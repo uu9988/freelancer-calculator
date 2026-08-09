@@ -40,18 +40,18 @@
   "mainEntity": [
     {
       "@type": "Question",
-      "name": "What is the difference between salary and freelance revenue?",
+      "name": "How much freelance revenue replaces a salary?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Salary is employee compensation under an employment arrangement. Freelance revenue is the amount clients pay a business before business expenses, unpaid time, taxes, and other obligations are accounted for."
+        "text": "There is no fixed conversion ratio. Estimate the employee's full compensation, then account for the freelancer's business expenses, taxes, non-billable time, unpaid leave, benefits replacement, and income risk. Use your own figures rather than a universal multiplier."
       }
     },
     {
       "@type": "Question",
-      "name": "Why can freelance revenue be higher than employee salary?",
+      "name": "Why is freelance revenue higher than salary?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "A freelancer normally pays business costs and funds time that cannot be billed, while an employer may separately provide paid leave, benefits, equipment, insurance, or payroll contributions. Higher revenue does not automatically mean higher personal income."
+        "text": "Freelance revenue may need to cover business costs, taxes, unpaid leave, non-billable work, self-funded benefits, and gaps between projects. Revenue is the business's client income before these items, not the freelancer's take-home pay."
       }
     },
     {
@@ -64,18 +64,10 @@
     },
     {
       "@type": "Question",
-      "name": "How should I compare a freelance opportunity with a salary?",
+      "name": "Should business expenses be included?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Compare the full employment package with realistic freelance revenue after business costs, non-billable time, unpaid leave, income gaps, and self-funded benefits. Also compare stability, workload, flexibility, and risk rather than using gross amounts alone."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Do freelancers get paid for vacation time?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Freelancers generally do not invoice ordinary vacation time unless a contract specifically provides otherwise. Planned time away therefore reduces available billable capacity and should be included in rate and income planning."
+        "text": "Yes. Software, equipment, insurance, accounting, marketing, workspace, payment fees, and other genuine business expenses reduce the freelance revenue available for personal compensation or retained profit."
       }
     },
     {
@@ -83,23 +75,31 @@
       "name": "Why are billable hours important?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Only part of a freelancer's working time can usually be invoiced. Sales, proposals, administration, bookkeeping, general communication, and learning still use time, so rates and revenue plans should be based on realistic billable capacity."
+        "text": "Only part of a freelancer's working time can usually be invoiced. Sales, proposals, administration, bookkeeping, general communication, and learning still use time, so rates and revenue plans should use realistic billable capacity."
       }
     },
     {
       "@type": "Question",
-      "name": "Should business expenses be included in the comparison?",
+      "name": "Can freelancers compare hourly rates with salaries?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Yes. Software, equipment, insurance, accounting, marketing, workspace, payment fees, and other genuine business expenses reduce the amount of freelance revenue available for personal compensation or retained profit."
+        "text": "Not by multiplying the client rate by every working hour. Convert the rate using realistic billable hours and working weeks, then subtract business costs and consider unpaid time, benefits, and taxes before comparing it with employee compensation."
       }
     },
     {
       "@type": "Question",
-      "name": "Can freelance income be unstable?",
+      "name": "Why is freelance income less predictable?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Yes. Project gaps, late payments, client concentration, seasonal demand, and changing workloads can make freelance cash flow less predictable. A comparison should consider timing and risk as well as the annual total."
+        "text": "Project gaps, late payments, client concentration, seasonal demand, scope changes, and contracts ending can change both the amount and timing of freelance income. Annual totals alone do not show this cash-flow risk."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Which calculator should freelancers use?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Use the Freelance Hourly Rate Calculator to estimate a rate from a take-home target, costs, and billable capacity. Use the Freelance Income Calculator to estimate annual and monthly income from a current rate and realistic workload."
       }
     }
   ]
@@ -128,6 +128,22 @@
         <article class="container content-card">
           <h1>Freelance Income vs Salary Guide</h1>
           <p class="hero-copy">Compare freelance business revenue with employee salary by accounting for business costs, unpaid time, benefits, billable capacity, and income stability. This guide explains the comparison; the linked calculators handle income and rate estimates.</p>
+
+          <aside class="card" aria-labelledby="quick-answer-heading">
+            <h2 id="quick-answer-heading">Quick answer: how much freelance income equals a salary?</h2>
+            <p><strong>There is no fixed salary-to-freelance conversion ratio.</strong> Employee salary represents compensation. Freelance revenue is client income received by a business before the following items are covered:</p>
+            <ul>
+              <li>Business expenses and project costs</li>
+              <li>Taxes and payment obligations</li>
+              <li>Unpaid vacation and time between projects</li>
+              <li>Sales, administration, and other non-billable work</li>
+              <li>Insurance, retirement, equipment, and other benefits replacement</li>
+            </ul>
+            <p>Compare the employee's full compensation with the freelance income remaining after your own costs and assumptions. Revenue is not take-home income.</p>
+            <div class="hero-actions">
+              <a class="button primary" href="/freelancer-calculator/freelance-hourly-rate-calculator.html">Calculate Your Hourly Rate</a>
+            </div>
+          </aside>
 
           <h2>Why freelance income and salary are different</h2>
           <p>Employee salary is compensation paid under an employment arrangement. Freelance revenue is money paid by clients to an independent business before its costs and obligations are deducted.</p>
@@ -165,26 +181,58 @@
           <p>Salary is commonly paid on a predictable schedule. Freelance income may vary because of project gaps, late payments, seasonal demand, client concentration, revisions, or contracts ending unexpectedly.</p>
           <p>A useful comparison considers when cash arrives as well as the annual total. A freelancer may also choose to maintain a business reserve for committed costs and periods without client work, based on their own circumstances and risk tolerance.</p>
 
-          <h2>How to estimate a salary-equivalent freelance income</h2>
-          <p>There is no universal multiplier that converts employee salary into required freelance revenue. Build a comparison from your own situation:</p>
-          <ol>
-            <li>Record the employee salary and benefits you would actually receive.</li>
-            <li>Identify the business expenses and project costs the freelance operation must pay.</li>
-            <li>Estimate realistic billable capacity after non-billable work and unpaid time away.</li>
-            <li>Consider which benefits must be funded independently.</li>
-            <li>Allow for payment timing, downtime, and client concentration risk.</li>
-            <li>Compare the resulting freelance planning income with the full employment package.</li>
-          </ol>
+          <h2>How to compare freelance income with salary</h2>
+          <p>Use a consistent framework instead of applying a universal multiplier.</p>
+          <h3>Step 1: Estimate employee compensation</h3>
+          <p>Start with annual salary, then list the paid leave, insurance, retirement contributions, equipment, training, and other benefits actually included in the employment package.</p>
+          <h3>Step 2: Add business costs</h3>
+          <p>Record the operating expenses and project costs the freelance business must pay before revenue is available for personal compensation or retained profit.</p>
+          <h3>Step 3: Account for non-billable time</h3>
+          <p>Estimate realistic billable hours after sales, proposals, administration, bookkeeping, learning, vacation, illness, and gaps between projects.</p>
+          <h3>Step 4: Consider benefits replacement</h3>
+          <p>Identify which employment benefits would end and which ones you would actually fund independently. Keep these assumptions separate so they can be reviewed later.</p>
+          <h3>Step 5: Estimate required freelance revenue</h3>
+          <p>Use your costs, take-home target, tax assumption, working schedule, and billable capacity to estimate a sustainable rate. Then test what annual and monthly income that rate and workload could produce.</p>
           <p>Tax treatment, payroll contributions, deductions, and legal classification vary by location. This framework is not financial, tax, accounting, or legal advice.</p>
+          <div class="hero-actions">
+            <a class="button primary" href="/freelancer-calculator/freelance-hourly-rate-calculator.html">Calculate Your Hourly Rate</a>
+            <a class="button" href="/freelancer-calculator/freelance-income-calculator.html">Estimate Freelance Income</a>
+          </div>
 
           <h2>A practical comparison example</h2>
-          <p>Consider two illustrative annual figures:</p>
-          <ul>
-            <li>Employee salary: $70,000</li>
-            <li>Freelance business revenue: $100,000</li>
-          </ul>
+          <p>Consider a $70,000 employee salary and $100,000 in freelance business revenue. The figures illustrate different categories; they are not a conversion rule.</p>
+          <table>
+            <thead>
+              <tr>
+                <th scope="col">Employee salary</th>
+                <th scope="col">Freelance revenue</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>$70,000 annual compensation</td>
+                <td>$100,000 in client payments before costs</td>
+              </tr>
+              <tr>
+                <td>Paid vacation may be included</td>
+                <td>Ordinary vacation is usually not billable</td>
+              </tr>
+              <tr>
+                <td>Employer benefits may be included</td>
+                <td>Benefits may need independent funding</td>
+              </tr>
+              <tr>
+                <td>Employer may provide tools and workspace</td>
+                <td>Business expenses reduce available income</td>
+              </tr>
+              <tr>
+                <td>Paycheck is commonly predictable</td>
+                <td>Payment timing and project gaps add risk</td>
+              </tr>
+            </tbody>
+          </table>
           <p>The freelancer does not automatically have $30,000 more personal income. The $100,000 of business revenue may need to cover operating expenses, project costs, self-funded benefits, non-billable work, unpaid vacation, administrative time, income gaps, and taxes.</p>
-          <p>The employee comparison should also include the actual value of paid leave, employer benefits, contributions, equipment, and income predictability. The example does not say how much anyone must earn, and the figures are not recommended salaries, revenue targets, or industry benchmarks.</p>
+          <p><strong>Revenue is not take-home income.</strong> The employee comparison should include the actual value of paid leave, employer benefits, contributions, equipment, and income predictability. The example does not say how much anyone must earn, and the figures are not recommended salaries, revenue targets, or industry benchmarks.</p>
 
           <h2>Questions to ask before switching from employment</h2>
           <ul>
@@ -221,36 +269,36 @@
           <h2>Freelance income vs salary FAQ</h2>
           <div class="faq-list">
             <details>
-              <summary>What is the difference between salary and freelance revenue?</summary>
-              <p>Salary is employee compensation under an employment arrangement. Freelance revenue is the amount clients pay a business before business expenses, unpaid time, taxes, and other obligations are accounted for.</p>
+              <summary>How much freelance revenue replaces a salary?</summary>
+              <p>There is no fixed conversion ratio. Estimate the employee's full compensation, then account for the freelancer's business expenses, taxes, non-billable time, unpaid leave, benefits replacement, and income risk. Use your own figures rather than a universal multiplier.</p>
             </details>
             <details>
-              <summary>Why can freelance revenue be higher than employee salary?</summary>
-              <p>A freelancer normally pays business costs and funds time that cannot be billed, while an employer may separately provide paid leave, benefits, equipment, insurance, or payroll contributions. Higher revenue does not automatically mean higher personal income.</p>
+              <summary>Why is freelance revenue higher than salary?</summary>
+              <p>Freelance revenue may need to cover business costs, taxes, unpaid leave, non-billable work, self-funded benefits, and gaps between projects. Revenue is the business's client income before these items, not the freelancer's take-home pay.</p>
             </details>
             <details>
               <summary>Do freelancers need to replace employee benefits?</summary>
               <p>Freelancers should identify which benefits matter in their situation and whether they must fund them independently. Examples may include insurance, retirement contributions, paid time away, equipment, training, or other employment benefits.</p>
             </details>
             <details>
-              <summary>How should I compare a freelance opportunity with a salary?</summary>
-              <p>Compare the full employment package with realistic freelance revenue after business costs, non-billable time, unpaid leave, income gaps, and self-funded benefits. Also compare stability, workload, flexibility, and risk rather than using gross amounts alone.</p>
-            </details>
-            <details>
-              <summary>Do freelancers get paid for vacation time?</summary>
-              <p>Freelancers generally do not invoice ordinary vacation time unless a contract specifically provides otherwise. Planned time away therefore reduces available billable capacity and should be included in rate and income planning.</p>
+              <summary>Should business expenses be included?</summary>
+              <p>Yes. Software, equipment, insurance, accounting, marketing, workspace, payment fees, and other genuine business expenses reduce the freelance revenue available for personal compensation or retained profit.</p>
             </details>
             <details>
               <summary>Why are billable hours important?</summary>
-              <p>Only part of a freelancer's working time can usually be invoiced. Sales, proposals, administration, bookkeeping, general communication, and learning still use time, so rates and revenue plans should be based on realistic billable capacity.</p>
+              <p>Only part of a freelancer's working time can usually be invoiced. Sales, proposals, administration, bookkeeping, general communication, and learning still use time, so rates and revenue plans should use realistic billable capacity.</p>
             </details>
             <details>
-              <summary>Should business expenses be included in the comparison?</summary>
-              <p>Yes. Software, equipment, insurance, accounting, marketing, workspace, payment fees, and other genuine business expenses reduce the amount of freelance revenue available for personal compensation or retained profit.</p>
+              <summary>Can freelancers compare hourly rates with salaries?</summary>
+              <p>Not by multiplying the client rate by every working hour. Convert the rate using realistic billable hours and working weeks, then subtract business costs and consider unpaid time, benefits, and taxes before comparing it with employee compensation.</p>
             </details>
             <details>
-              <summary>Can freelance income be unstable?</summary>
-              <p>Yes. Project gaps, late payments, client concentration, seasonal demand, and changing workloads can make freelance cash flow less predictable. A comparison should consider timing and risk as well as the annual total.</p>
+              <summary>Why is freelance income less predictable?</summary>
+              <p>Project gaps, late payments, client concentration, seasonal demand, scope changes, and contracts ending can change both the amount and timing of freelance income. Annual totals alone do not show this cash-flow risk.</p>
+            </details>
+            <details>
+              <summary>Which calculator should freelancers use?</summary>
+              <p>Use the Freelance Hourly Rate Calculator to estimate a rate from a take-home target, costs, and billable capacity. Use the Freelance Income Calculator to estimate annual and monthly income from a current rate and realistic workload.</p>
             </details>
           </div>
         </div>
